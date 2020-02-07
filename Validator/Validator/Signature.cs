@@ -11,17 +11,11 @@ namespace Validator
         public List<(string, int)> Predicates;
 
 
-        public Signature(List<string> consts, List<(string, int)> functions, List<(string, int)> predicates)
+        public Signature(List<string> consts, List<(string, int)> predicates, List<(string, int)> functions)
         {
             Consts = consts;
             Functions = functions;
             Predicates = predicates;
-        }
-
-
-        public static Signature CreateTarskiWorld()
-        {
-            return new Signature();
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Validator
+﻿namespace Validator
 {
     interface IWorldSignature
     {
         Signature GetSignature();
+        WorldResult<bool> Check(WorldParameter parameter);
     }
 }

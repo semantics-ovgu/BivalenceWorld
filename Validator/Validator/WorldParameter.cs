@@ -4,11 +4,20 @@ using System.Text;
 
 namespace Validator
 {
-    public class WorldParameter
+    public struct WorldParameter
     {
-        public WorldParameter(List<(List<string>, List<string>, List<object>)> data, List<string> sentences)
-        {
+        private List<WorldObject> _data;
+        private List<string> _sentences;
 
+
+        public WorldParameter(List<WorldObject> data, List<string> sentences)
+        {
+            _data = data;
+            _sentences = sentences;
         }
+
+
+        public List<string> Sentences => _sentences;
+        public List<WorldObject> Data => _data;
     }
 }
