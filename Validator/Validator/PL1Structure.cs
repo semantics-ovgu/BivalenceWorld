@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Validator
@@ -16,6 +17,26 @@ namespace Validator
             _pL1DataStructure = new PL1DataStructure(new ConstDictionary(), new PredicateDictionary(), new FunctionDictionary());
         }
 
+
+        private bool CheckPredicateList(List<string> identifier, List<string> checkList)
+        {
+            if (identifier.Count != checkList.Count)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < identifier.Count; i++)
+                {
+                    if (identifier[i] != checkList[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
 
         private List<string> CreateUniverseConsts(params string[] arguments)
         {
@@ -77,7 +98,6 @@ namespace Validator
             }
         }
 
-
         public void AddPredicate(string predicate, List<string> arguments)
         {
             PredicateDictionary predicates = _pL1DataStructure.Predicates;
@@ -87,7 +107,7 @@ namespace Validator
             if (predicates.ContainsKey(predicate))
             {
                 //--Refactorn--//
-                if (!predicates[predicate].Contains(universeIdentifier))
+                if (!(predicates[predicate].Any(p => CheckPredicateList(universeIdentifier, p))))
                 {
                     predicates[predicate].Add(universeIdentifier);
                 }
