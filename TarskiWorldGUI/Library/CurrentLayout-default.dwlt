@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 839, y: 471}
   m_MaxSize: {x: 28004, y: 14042}
   vertical: 1
-  controlID: 34520
+  controlID: 12559
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 839, y: 471}
   m_MaxSize: {x: 28004, y: 14042}
   vertical: 0
-  controlID: 34521
+  controlID: 12560
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_MinSize: {x: 564, y: 471}
   m_MaxSize: {x: 24004, y: 14042}
   vertical: 1
-  controlID: 34522
+  controlID: 12561
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_MinSize: {x: 301, y: 200}
   m_MaxSize: {x: 8001, y: 4021}
   vertical: 0
-  controlID: 34523
+  controlID: 12562
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_MinSize: {x: 564, y: 271}
   m_MaxSize: {x: 24004, y: 10021}
   vertical: 0
-  controlID: 34464
+  controlID: 12593
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -432,7 +432,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -499,9 +499,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 18.912283, y: 3.8411674, z: -32.817596}
+    m_Target: {x: 13.349842, y: -1.355484, z: -25.870996}
     speed: 2
-    m_Value: {x: 18.912283, y: 3.8411674, z: -32.817596}
+    m_Value: {x: 13.349842, y: -1.355484, z: -25.870996}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -549,11 +549,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.2819114, y: -0.64959145, z: 0.28310612, w: -0.64685476}
     speed: 2
-    m_Value: {x: -0.2823339, y: -0.6486162, z: 0.28268108, w: -0.64782417}
+    m_Value: {x: -0.28190956, y: -0.6495872, z: 0.28310427, w: -0.6468505}
   m_Size:
-    m_Target: 51.238934
+    m_Target: 44.628284
     speed: 2
-    m_Value: 49.03247
+    m_Value: 44.628284
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -607,9 +607,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: c69afbff78a0fbff82a0fbff96a0fbffc8a1fbffd2a1fbffe6a1fbff92dffdff9cdffdffb0dffdff14f3fdff1ef3fdff32f3fdff0806feff2606feff7c18feff8618feff9a18feffe828fefff228feff0629feffc83cfeffdc3cfeffec5bfefff65bfeff0a5cfeffaa77feffae86feff22c0feff2ec0feff84d1feff98d1feff082ffffffa5cfffff06cffffe27bffff66a1ffff92a2ffff74c9ffffaecbfffff2ceffff02cfffff92d0ffffa6d0fffff6d0ffffbed5ffff72fbffff44360000
+      m_SelectedIDs: 603b0000
+      m_LastClickedID: 15200
+      m_ExpandedIDs: 34ddffff3eddffff5addffff72fbffff603b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -698,20 +698,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Assets/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity\TarskiWorld\TarskiWorld\TarskiWorldGUI
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 66390000
-    m_LastClickedID: 14694
-    m_ExpandedIDs: ffffffff0000000066390000683900006a3900006c3900006e39000000ca9a3b
+    m_SelectedIDs: f63f0000
+    m_LastClickedID: 16374
+    m_ExpandedIDs: ffffffff00000000ee3f0000f03f0000f23f0000f43f0000f63f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -739,7 +739,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000066390000683900006a3900006c3900006e39000000ca9a3b
+    m_ExpandedIDs: ffffffff00000000ee3f0000f03f0000f23f0000f43f0000f63f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -833,7 +833,8 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders: []
+    m_Folders:
+    - Assets/Prefabs
   m_ViewMode: 0
   m_StartGridSize: 16
   m_LastFolders: []
@@ -845,7 +846,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 542d0000
     m_LastClickedID: 11604
-    m_ExpandedIDs: ffffffff0000000066390000683900006a3900006c3900006e39000000ca9a3b
+    m_ExpandedIDs: ffffffff00000000ee3f0000f03f0000f23f0000f43f0000f63f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -870,10 +871,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 103}
+    scrollPos: {x: 0, y: 100}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff0000000066390000683900006a3900006c3900006e39000000ca9a3b
+    m_ExpandedIDs: ffffffff00000000ee3f0000f03f0000f23f0000f43f0000f63f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
