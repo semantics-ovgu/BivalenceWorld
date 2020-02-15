@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Validator
@@ -16,6 +17,26 @@ namespace Validator
             _pL1DataStructure = new PL1DataStructure(new ConstDictionary(), new PredicateDictionary(), new FunctionDictionary());
         }
 
+
+        private bool CheckPredicateList(List<string> identifier, List<string> checkList)
+        {
+            if (identifier.Count != checkList.Count)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < identifier.Count; i++)
+                {
+                    if (identifier[i] != checkList[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
 
         private List<string> CreateUniverseConsts(params string[] arguments)
         {
@@ -36,15 +57,11 @@ namespace Validator
             return universeIdentifier;
         }
 
-        private void AddFunctionKeyToDictionary(Dictionary<List<string>, List<string>> dictionary, string function, List<string> arguments, List<string> resultArguments)
+        private void AddFunctionKeyToDictionary(ListDictionary dictionary, string function, List<string> arguments, string resultArgument)
         {
-            if (dictionary.ContainsKey(arguments))
+            if (!dictionary.ContainsKey(arguments))
             {
-                dictionary[arguments].AddRange(resultArguments);
-            }
-            else
-            {
-                dictionary.Add(arguments, resultArguments);
+                dictionary[arguments] = resultArgument;
             }
         }
 
@@ -68,15 +85,14 @@ namespace Validator
 
             if (functions.ContainsKey(function))
             {
-                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult);
+                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult.First());
             }
             else
             {
-                functions.Add(function, new Dictionary<List<string>, List<string>>());
-                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult);
+                functions.Add(function, new ListDictionary());
+                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult.First());
             }
         }
-
 
         public void AddPredicate(string predicate, List<string> arguments)
         {
@@ -87,7 +103,7 @@ namespace Validator
             if (predicates.ContainsKey(predicate))
             {
                 //--Refactorn--//
-                if (!predicates[predicate].Contains(universeIdentifier))
+                if (!(predicates[predicate].Any(p => CheckPredicateList(universeIdentifier, p))))
                 {
                     predicates[predicate].Add(universeIdentifier);
                 }
@@ -116,8 +132,34 @@ namespace Validator
 
     }
 
-    public class FunctionDictionary : Dictionary<string, Dictionary<List<string>, List<string>>>
+    public class FunctionDictionary : Dictionary<string, ListDictionary>
     {
 
+    }
+
+    public class ListDictionary : Dictionary<List<string>, string>
+    {
+        public ListDictionary() : base(new ListComparer())
+        {
+
+        }
+
+        private class ListComparer : IEqualityComparer<List<string>>
+        {
+            public bool Equals(List<string> x, List<string> y)
+            {
+                return x.SequenceEqual(y);
+            }
+
+            public int GetHashCode(List<string> obj)
+            {
+                int hashcode = 0;
+                foreach (string t in obj)
+                {
+                    hashcode ^= t.GetHashCode();
+                }
+                return hashcode;
+            }
+        }
     }
 }
