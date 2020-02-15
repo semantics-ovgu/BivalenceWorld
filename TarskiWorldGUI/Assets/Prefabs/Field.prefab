@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 91862246294764854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 5835479648002455914}
   m_Father: {fileID: 0}
@@ -140,6 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchor: {fileID: 5835479648002455914}
+  _debugInformationCanvas: {fileID: 3966326919527576481, guid: 551a5b46703924e459f31bbbdb474dc3,
+    type: 3}
+  _debugStuff: {fileID: 0}
   _obj: {fileID: 8196542216851857006, guid: c7b2ea97272b1784a80e8b85cc01679d, type: 3}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}

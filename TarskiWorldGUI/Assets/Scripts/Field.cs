@@ -11,7 +11,8 @@ public class Field : MonoBehaviour
 
     [SerializeField]
     private Transform _anchor = default;
-
+    [SerializeField]
+    private GameObject _debugInformationCanvas = default;
     [SerializeField]
     private GameObject _obj = default;
 
@@ -20,7 +21,16 @@ public class Field : MonoBehaviour
 
     private List<GameObject> _constant = new List<GameObject>();
     private List<GameObject> _predicate = new List<GameObject>();
-    
+    private int _x;
+    private int _z;
+
+    public void Init(int x, int z)
+    {
+        _x = x;
+        _z = z;
+        SpawnTextIntern("X: " + x + "\nZ: " + z);
+    }
+
     public void SpawnDefaultElement()
     {
         var instance = Instantiate(_obj, _anchor);
@@ -33,6 +43,19 @@ public class Field : MonoBehaviour
         {
             DestroyImmediate(_constant[i]);
         }
+    }
+
+    private void SpawnTextIntern(string txt)
+    {
+
+        GameObject canvas = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
+
+        canvas.transform.SetParent(this.transform);
+        canvas.transform.localRotation = Quaternion.Euler(90, 90, 0);
+        canvas.transform.localPosition = new Vector3(0f, 0.15f, 0f);
+        canvas.transform.localScale = new Vector3(1,1,1);
+        //canvas.transform.localRotation.SetFromToRotation(canvas.transform.localRotation.ToEuler(), new Vector3(90, 90, 0));
+        canvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = txt;
     }
 
     public void SpawnText(string constant)

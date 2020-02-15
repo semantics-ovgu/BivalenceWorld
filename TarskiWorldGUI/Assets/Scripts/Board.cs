@@ -5,7 +5,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _prefab = default;
+    private Field _prefab = default;
 
     [SerializeField]
     private int _width = 8;
@@ -16,8 +16,8 @@ public class Board : MonoBehaviour
     private Material _blackMaterial = default;
     [SerializeField]
     private Transform _anchor = default;
-    [SerializeField, HideInInspector]
-    private List<GameObject> _obj = new List<GameObject>();
+    [SerializeField]
+    private List<Field> _obj = new List<Field>();
 
 
     public void CreateMap()
@@ -30,9 +30,9 @@ public class Board : MonoBehaviour
     {
         for (int i = _obj.Count - 1; i >= 0; i--)
         {
-            DestroyImmediate(_obj[i]);
+            DestroyImmediate(_obj[i].gameObject);
         }
-        _obj = new List<GameObject>();
+        _obj = new List<Field>();
     }
 
     private void InternCreateMap()
@@ -41,8 +41,9 @@ public class Board : MonoBehaviour
         {
             for (int z = 0; z < _width; z++)
             {
-               var instance =  Instantiate(_prefab, new Vector3(x * 10, 0, z * 10), Quaternion.identity, _anchor);
+                Field instance =  Instantiate(_prefab, new Vector3(x * 5, 0, z * -5), Quaternion.identity, _anchor);
                 _obj.Add(instance);
+                instance.Init(x, z);
 
                 if(x % 2 == 0 && z % 2 != 0)
                 {
