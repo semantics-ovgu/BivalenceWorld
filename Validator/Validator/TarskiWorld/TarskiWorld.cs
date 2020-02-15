@@ -7,6 +7,11 @@ namespace Validator
 {
     public class TarskiWorld : IWorldPL1Structure, IWorldSignature
     {
+        private Dictionary<string, IFunctionValidation> _funcValidation = new Dictionary<string, IFunctionValidation>
+        {
+            { TarskiWorldDataFields.FRONTOF, new FrontOf() }
+        };
+
         private PL1Structure _pl1Structure = new PL1Structure();
         private Signature _signature = new Signature();
 
@@ -22,9 +27,24 @@ namespace Validator
             _signature = CreateTarskiWorld();
         }
 
-        private IEnumerable<List<string>> AllConstCombinations(List<WorldObject> worldObjects)
+        internal IEnumerable<List<string>> AllConstCombinations(List<string> worldObjects, int length)
         {
+            if (length > 1)
+                foreach (var objList in AllConstCombinations(worldObjects, length - 1))
+                    foreach (var obj in worldObjects)
+                    {
+                        List<string> result = new List<string>() { obj };
+                        result.AddRange(objList);
 
+                        yield return result;
+                    }
+            else
+                foreach (var obj in worldObjects)
+                    yield return new List<string> { obj };
+        }
+
+        internal IEnumerable<List<string>> AllConstCombinations(List<WorldObject> worldObjects)
+        {
             foreach (var con in worldObjects.First().Consts)
             {
                 if (worldObjects.Count > 1)
@@ -42,7 +62,7 @@ namespace Validator
             }
         }
 
-        private IEnumerable<List<WorldObject>> AllWorldObjectsCombinations(List<WorldObject> worldObjects, int length)
+        internal IEnumerable<List<WorldObject>> AllWorldObjectsCombinations(List<WorldObject> worldObjects, int length)
         {
             if (length > 1)
                 foreach (var objList in AllWorldObjectsCombinations(worldObjects, length - 1))
@@ -84,13 +104,11 @@ namespace Validator
 
             List<(string, int)> functions = new List<(string, int)>
             {
-                ("isFront", 1),
-                ("leftFarAway", 1)
+                (TarskiWorldDataFields.FRONTOF, 1)
             };
 
             return new Signature(consts, predicates, functions);
         }
-
 
 
         public PL1Structure GetPl1Structure()
@@ -105,6 +123,7 @@ namespace Validator
 
         public WorldResult<bool> Check(WorldParameter parameter)
         {
+            //--Initialize consts and static predicates--//
             foreach (var data in parameter.Data)
             {
                 foreach (var pred in data.Predicates)
@@ -123,6 +142,7 @@ namespace Validator
                 }
             }
 
+            //--Calc <dynamic> predicates--//
             foreach (var pred in _signature.Predicates)
             {
                 if (_predValidation.ContainsKey(pred.Item1))
@@ -140,6 +160,25 @@ namespace Validator
                                 _pl1Structure.AddPredicate(pred.Item1, constList);
                             }
                         }
+                    }
+                }
+            }
+
+            //--Calc functions--//
+            foreach (var func in _signature.Functions)
+            {
+                if (_funcValidation.ContainsKey(func.Item1))
+                {
+                    IFunctionValidation funcValidation = _funcValidation[func.Item1];
+                    IEnumerable<IEnumerable<string>> allConsts = AllConstCombinations(parameter.Data.Where(s => s.Consts.Count > 0).Select(s => s.Consts.First()).ToList(), func.Item2);
+                    foreach (var objects in allConsts)
+                    {
+                        List<WorldObject> inputObjects = new List<WorldObject>();
+                        foreach (var con in objects)
+                            inputObjects.Add(parameter.Data.Find(x => x.Consts.Contains(con)));
+
+                        WorldObject result = funcValidation.Check(inputObjects.ToList(), parameter.Data);
+                        _pl1Structure.AddFunctions(func.Item1, objects.ToList(), result.Consts.First());
                     }
                 }
             }

@@ -57,15 +57,11 @@ namespace Validator
             return universeIdentifier;
         }
 
-        private void AddFunctionKeyToDictionary(Dictionary<List<string>, List<string>> dictionary, string function, List<string> arguments, List<string> resultArguments)
+        private void AddFunctionKeyToDictionary(ListDictionary dictionary, string function, List<string> arguments, string resultArgument)
         {
-            if (dictionary.ContainsKey(arguments))
+            if (!dictionary.ContainsKey(arguments))
             {
-                dictionary[arguments].AddRange(resultArguments);
-            }
-            else
-            {
-                dictionary.Add(arguments, resultArguments);
+                dictionary[arguments] = resultArgument;
             }
         }
 
@@ -89,12 +85,12 @@ namespace Validator
 
             if (functions.ContainsKey(function))
             {
-                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult);
+                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult.First());
             }
             else
             {
-                functions.Add(function, new Dictionary<List<string>, List<string>>());
-                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult);
+                functions.Add(function, new ListDictionary());
+                AddFunctionKeyToDictionary(functions[function], function, unviverseIdentifier, unviverseIdentifierResult.First());
             }
         }
 
@@ -136,8 +132,34 @@ namespace Validator
 
     }
 
-    public class FunctionDictionary : Dictionary<string, Dictionary<List<string>, List<string>>>
+    public class FunctionDictionary : Dictionary<string, ListDictionary>
     {
 
+    }
+
+    public class ListDictionary : Dictionary<List<string>, string>
+    {
+        public ListDictionary() : base(new ListComparer())
+        {
+
+        }
+
+        private class ListComparer : IEqualityComparer<List<string>>
+        {
+            public bool Equals(List<string> x, List<string> y)
+            {
+                return x.SequenceEqual(y);
+            }
+
+            public int GetHashCode(List<string> obj)
+            {
+                int hashcode = 0;
+                foreach (string t in obj)
+                {
+                    hashcode ^= t.GetHashCode();
+                }
+                return hashcode;
+            }
+        }
     }
 }
