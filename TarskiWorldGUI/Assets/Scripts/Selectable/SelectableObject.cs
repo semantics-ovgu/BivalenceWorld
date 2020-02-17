@@ -49,6 +49,11 @@ public class SelectableObject : MonoBehaviour, ISelectable
             Debug.Log(txt);
     }
 
+    public GameObject GetRootObj()
+    {
+        return this.gameObject;
+    }
+
     public class SelectableArgs : EventArgs
     {
 

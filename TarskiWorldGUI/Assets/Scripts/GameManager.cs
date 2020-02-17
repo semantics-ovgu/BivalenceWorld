@@ -11,7 +11,9 @@ public class GameManager : ASingleton<GameManager>
         _debugFloatVar.ForceChangedEvent();
     }
 
-    
+    [SerializeField]
+    private SelectionManager _selectionManager = default;
+    public SelectionManager GetSelectionManager() => _selectionManager;
     List<IDebug> _debugList = new List<IDebug>();
     [SerializeField]
     private FloatVar _debugFloatVar = default;

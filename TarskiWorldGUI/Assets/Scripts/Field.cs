@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Field : MonoBehaviour
+public class Field : MonoBehaviour, IPredicate, IConstant
 {
     // X Y
-    // Konstanten (Unendlich A - Z)
+    // Constants (Unendlich A - Z)
     // Predicate (Tet und BIG -> Liste)
 
     [SerializeField]
@@ -14,16 +14,16 @@ public class Field : MonoBehaviour
     [SerializeField]
     private GameObject _debugInformationCanvas = default;
     private GameObject _debugInformationInstance = default;
-    [SerializeField]
-    private GameObject _obj = default;
 
     [SerializeField]
     private GameObject _worldCanvasPrefab = default;
+    private GameObject _worldCanvasInstance = default;
     [SerializeField]
     private MeshRenderer _meshRenderer = default;
 
-    private List<GameObject> _constant = new List<GameObject>();
-    private List<GameObject> _predicate = new List<GameObject>();
+    private List<string> _constant = new List<string>();
+    private List<Predicate> _predicate = new List<Predicate>();
+    private GameObject _predicateInstance = default;
 
 
     private int _x;
@@ -43,16 +43,16 @@ public class Field : MonoBehaviour
 
     public void SpawnDefaultElement()
     {
-        var instance = Instantiate(_obj, _anchor);
-        _predicate.Add(instance);
+        //var instance = Instantiate(_obj, _anchor);
+        //_predicate.Add(instance.);
     }
 
     public void DeleteObjs()
     {
-        for (int i = _constant.Count -1 ; i >= 0; i--)
-        {
-            DestroyImmediate(_constant[i]);
-        }
+        //for (int i = _constant.Count -1 ; i >= 0; i--)
+        //{
+        //    DestroyImmediate(_constant[i]);
+        //}
     }
 
     private void SpawnTextIntern(string txt)
@@ -70,13 +70,18 @@ public class Field : MonoBehaviour
 
     public void SpawnText(string constant)
     {
-        if(_predicate.Count > 0)
+        if(_predicate.Count > 0 && _predicateInstance != null && _worldCanvasInstance == null)
         {
-            GameObject obj = _predicate[0];
-           
-            GameObject canvas = Instantiate(_worldCanvasPrefab, obj.transform.position, Quaternion.identity, obj.transform);
-            canvas.transform.localPosition = new Vector3(0, 1, 0);
-            canvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = constant;
+            GameObject obj = _predicateInstance;
+
+            _worldCanvasInstance = Instantiate(_worldCanvasPrefab, obj.transform.position, Quaternion.identity, obj.transform);
+            _worldCanvasInstance.transform.localPosition = new Vector3(0, 1, 0);
+            _worldCanvasInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = constant;
+        }
+        else if(_worldCanvasInstance != null)
+        {
+            var textElement = _worldCanvasInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            textElement.text = textElement.text + ", " + constant;
         }
     }
 
@@ -84,13 +89,35 @@ public class Field : MonoBehaviour
     {
         _debugInformationInstance.SetActive(value);
     }
+
+    public List<Predicate> GetPredicatesList()
+    {
+        return _predicate;
+    }
+
+    public void AddPredicate(Predicate predicate)
+    {
+        _predicateInstance = Instantiate(predicate.Prefab, _anchor);
+        _predicate.Add(predicate);
+    }
+
+    public List<string> GetConstantsList()
+    {
+        return _constant;
+    }
+
+    public void AddConstant(string constant)
+    {
+        Debug.Log("try");
+        Debug.Log("_predicateInstance" + _predicateInstance.name);
+        if (!_constant.Contains(constant) && _predicateInstance != null)
+        {
+            Debug.Log("do");
+            _constant.Add(constant);
+            SpawnText(constant);
+        }
+    }
 }
 
-public interface ISelectable
-{
-    string GetDebugInformation();
-    void StartHover();
-    void EndHover();
-    void Selectable();
-    void Deselectable();
-}
+
+

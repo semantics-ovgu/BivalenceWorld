@@ -13,6 +13,9 @@ public class SelectionManager : MonoBehaviour, IDebug
     private ISelectable _clickedElemente = default;
     private bool _isDebugModeActive = false;
 
+    public GenericEvent<EventArgs> SelectionClickedEvent = new GenericEvent<EventArgs>();
+    public GenericEvent<EventArgs> SelectionUnclickedEvent = new GenericEvent<EventArgs>();
+
     private void Awake()
     {
         if(_targetCamera == null)
@@ -35,10 +38,13 @@ public class SelectionManager : MonoBehaviour, IDebug
             TryDeselectLastClickedObj();
 
             if (_clickedElemente != null && _clickedElemente == _targetSelectable)
+            {
                 return;
+            }
 
             _targetSelectable.Selectable();
             _clickedElemente = _targetSelectable;
+            SelectionClickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
         }
     }
 
@@ -46,6 +52,7 @@ public class SelectionManager : MonoBehaviour, IDebug
     {
         if (_clickedElemente != null && _clickedElemente != _targetSelectable)
         {
+            SelectionUnclickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
             _clickedElemente.Deselectable();
         }
     }
@@ -137,10 +144,16 @@ public class SelectionManager : MonoBehaviour, IDebug
     {
         _isDebugModeActive = isDebug;
     }
+
+    public struct EventArgs
+    {
+        public ISelectable CurrentSelectedElement;
+
+        public EventArgs(ISelectable currentSelectedElement)
+        {
+            CurrentSelectedElement = currentSelectedElement;
+        }
+    }
 }
 
-public interface IDebug
-{
-    int GetDebugID();
-    void DebugModeChanged(bool isDebug);
-}
+
