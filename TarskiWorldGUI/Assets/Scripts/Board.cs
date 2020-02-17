@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour, IDebug
 {
     [SerializeField]
     private Field _prefab = default;
@@ -19,6 +20,11 @@ public class Board : MonoBehaviour
     [SerializeField]
     private List<Field> _obj = new List<Field>();
 
+    private void Awake()
+    {
+        GameManager.Instance?.AddObjToDebugList(this);
+        CreateMap();
+    }
 
     public void CreateMap()
     {
@@ -35,6 +41,14 @@ public class Board : MonoBehaviour
         _obj = new List<Field>();
     }
 
+    private void SetDebugModeForField(bool value)
+    {
+        foreach (var field in _obj)
+        {
+            field.SetDebugMode(value);
+        }
+    }
+
     private void InternCreateMap()
     {
         for (int x = 0; x < _heigh; x++)
@@ -45,16 +59,31 @@ public class Board : MonoBehaviour
                 _obj.Add(instance);
                 instance.Init(x, z);
 
+                if(GameManager.Instance != null)
+                {
+                    instance.SetDebugMode(GameManager.Instance.IsDebugMode(GetDebugID()));
+                }
+   
+
                 if(x % 2 == 0 && z % 2 != 0)
                 {
-                    instance.GetComponent<MeshRenderer>().material = _blackMaterial;
+                    instance.SetMaterial(_blackMaterial);
                 }
                 if (x % 2 != 0 && z % 2 == 0)
                 {
-                    instance.GetComponent<MeshRenderer>().material = _blackMaterial;
+                    instance.SetMaterial(_blackMaterial);
                 }
             }
         }
     }
 
+    public int GetDebugID()
+    {
+        return 1;
+    }
+
+    public void DebugModeChanged(bool isDebug)
+    {
+        SetDebugModeForField(isDebug);
+    }
 }

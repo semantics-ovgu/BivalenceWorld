@@ -13,14 +13,19 @@ public class Field : MonoBehaviour
     private Transform _anchor = default;
     [SerializeField]
     private GameObject _debugInformationCanvas = default;
+    private GameObject _debugInformationInstance = default;
     [SerializeField]
     private GameObject _obj = default;
 
     [SerializeField]
     private GameObject _worldCanvasPrefab = default;
+    [SerializeField]
+    private MeshRenderer _meshRenderer = default;
 
     private List<GameObject> _constant = new List<GameObject>();
     private List<GameObject> _predicate = new List<GameObject>();
+
+
     private int _x;
     private int _z;
 
@@ -29,6 +34,11 @@ public class Field : MonoBehaviour
         _x = x;
         _z = z;
         SpawnTextIntern("X: " + x + "\nZ: " + z);
+    }
+
+    public void SetMaterial(Material material)
+    {
+        _meshRenderer.material = material;
     }
 
     public void SpawnDefaultElement()
@@ -48,14 +58,14 @@ public class Field : MonoBehaviour
     private void SpawnTextIntern(string txt)
     {
 
-        GameObject canvas = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
+        _debugInformationInstance = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
 
-        canvas.transform.SetParent(this.transform);
-        canvas.transform.localRotation = Quaternion.Euler(90, 90, 0);
-        canvas.transform.localPosition = new Vector3(0f, 0.15f, 0f);
-        canvas.transform.localScale = new Vector3(1,1,1);
+        _debugInformationInstance.transform.SetParent(this.transform);
+        _debugInformationInstance.transform.localRotation = Quaternion.Euler(90, 90, 0);
+        _debugInformationInstance.transform.localPosition = new Vector3(0f, 0.15f, 0f);
+        _debugInformationInstance.transform.localScale = new Vector3(1,1,1);
         //canvas.transform.localRotation.SetFromToRotation(canvas.transform.localRotation.ToEuler(), new Vector3(90, 90, 0));
-        canvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = txt;
+        _debugInformationInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = txt;
     }
 
     public void SpawnText(string constant)
@@ -69,4 +79,18 @@ public class Field : MonoBehaviour
             canvas.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = constant;
         }
     }
+
+    public void SetDebugMode(bool value)
+    {
+        _debugInformationInstance.SetActive(value);
+    }
+}
+
+public interface ISelectable
+{
+    string GetDebugInformation();
+    void StartHover();
+    void EndHover();
+    void Selectable();
+    void Deselectable();
 }

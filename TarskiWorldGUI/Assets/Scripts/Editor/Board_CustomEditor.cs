@@ -6,6 +6,7 @@ using UnityEngine;
 [CustomEditor(typeof(Board))]
 public class Board_CustomEditor  : Editor
 {
+    bool param = false;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
