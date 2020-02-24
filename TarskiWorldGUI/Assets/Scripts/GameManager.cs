@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class GameManager : ASingleton<GameManager>
 {
+
+    [SerializeField]
+    private SelectionManager _selectionManager = default;
+    public SelectionManager GetSelectionManager() => _selectionManager;
+
+    [SerializeField]
+    private FloatVar _debugFloatVar = default;
+    public FloatVar DebugFloatVar => _debugFloatVar;
+
+    private List<IDebug> _debugList = new List<IDebug>();
+
+
     protected override void SingletonAwake()
     {
         _debugFloatVar.ValueChangedEvent.AddEventListener(DebugModeChangedListener);
         _debugFloatVar.ForceChangedEvent();
     }
-
-    [SerializeField]
-    private SelectionManager _selectionManager = default;
-    public SelectionManager GetSelectionManager() => _selectionManager;
-    List<IDebug> _debugList = new List<IDebug>();
-    [SerializeField]
-    private FloatVar _debugFloatVar = default;
-    public FloatVar DebugFloatVar => _debugFloatVar;
 
     public bool IsDebugMode(int id)
     {

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SelectionManager;
 
 public class SelectionManager : MonoBehaviour, IDebug
 {
@@ -132,7 +131,9 @@ public class SelectionManager : MonoBehaviour, IDebug
     private void SetDebugConsole(string txt)
     {
         if (_isDebugModeActive)
+        {
             Debug.Log(txt);
+        }
     }
 
     public int GetDebugID()
