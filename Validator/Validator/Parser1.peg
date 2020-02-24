@@ -1,0 +1,48 @@
+﻿@namespace Validator
+@classname PegPL1Parser
+@using System.Linq;
+@using Validator
+@accessibility internal
+@members
+{
+	private List<Argument> BuildArguments(List<Argument> list, Argument argument)
+	{
+		list.Add(argument);
+		return list;
+	}
+
+	private List<Formula> BuildConjunction(Formula list, Formula argument)
+	{
+		Conjunction conj = list as Conjunction;
+		if(conj != null)
+		{		
+			conj.Arguments.Insert(0, argument);
+			return conj.Arguments;
+		}
+		else
+		{
+			return new List<Formula> { argument, list };
+		}
+	}
+}
+
+formula <Formula>	= conjunction
+					/ atom
+
+conjunction <Formula> = atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
+
+conjunctionPart <Formula>	= atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
+							/ atom:atom
+
+atom <Formula> = n:string openedBracket argument:argument closedBracked{ new Predicate(argument, n,n) } 
+
+argument <List<Argument>> -memoize	= argument:argument "," constant:constant  { BuildArguments(argument, constant)}
+									/ constant:constant { new List<Argument> { constant }}
+
+constant <Constant> = constant:string { new Constant(constant,constant) }
+
+string = "" ([a-z]i)*
+
+openedBracket = " "* "(" " "*
+closedBracked = " "* ")" " "*
+conjunctionSymbol = " "* "\u2227" " "*

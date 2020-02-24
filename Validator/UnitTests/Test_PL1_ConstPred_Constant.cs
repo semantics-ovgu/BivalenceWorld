@@ -19,9 +19,9 @@ namespace UnitTests
             List<WorldObject> worldObjects = new List<WorldObject>
             {
                 new WorldObject(new List<string> { "a", "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.BIG }, null),
-                new WorldObject(new List<string> { "b", "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
-                new WorldObject(new List<string> { "b", "d" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.BIG }, null),
-                new WorldObject(new List<string> { "c" }, new List<string> {TarskiWorldDataFields.CUBE }, null)
+                new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
+                new WorldObject(new List<string> { "d" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.BIG }, null),
+                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE }, null)
             };
 
             return new WorldParameter(worldObjects, null);
@@ -55,12 +55,10 @@ namespace UnitTests
             ConstDictionary consts = structure.GetConsts();
             PredicateDictionary preds = structure.GetPredicates();
 
-            Assert.AreEqual(consts.Count, 4);
-
             Assert.AreEqual(consts["a"], "u0");
-            Assert.AreEqual(consts["c"], "u1");
-            Assert.AreEqual(consts["b"], "u2");
-            Assert.AreEqual(consts["d"], "u3");
+            Assert.AreEqual(consts["c"], "u0");
+            Assert.AreEqual(consts["b"], "u1");
+            Assert.AreEqual(consts["d"], "u2");
         }
 
         [TestMethod]
@@ -76,10 +74,8 @@ namespace UnitTests
         public void PL1_Predicates_ContainsValue_True()
         {
             List<List<string>> consts = _predDictionary[TarskiWorldDataFields.TET];
-            Assert.AreEqual(consts.Count, 3);
 
             Assert.IsTrue(consts.Any(c => c.Contains("u0")));
-            Assert.IsTrue(consts.Any(c => c.Contains("u2")));
             Assert.IsTrue(consts.Any(c => c.Contains("u1")));
         }
     }
