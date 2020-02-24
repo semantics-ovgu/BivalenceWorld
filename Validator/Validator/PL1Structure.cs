@@ -7,14 +7,18 @@ namespace Validator
 {
     public class PL1Structure
     {
-        private PL1DataStructure _pL1DataStructure;
-        private List<string> _universum = new List<string>();
+        private PL1DataStructure _modelDataStructure;
+
+        private string _genericIdentifier = "n";
+        private int _genericIndex = 0;
+
+        private List<string> _universe = new List<string>();
         private string _universeIdentifier = "u";
 
 
         public PL1Structure()
         {
-            _pL1DataStructure = new PL1DataStructure(new ConstDictionary(), new PredicateDictionary(), new FunctionDictionary());
+            _modelDataStructure = new PL1DataStructure(new ConstDictionary(), new PredicateDictionary(), new FunctionDictionary());
         }
 
 
@@ -44,9 +48,9 @@ namespace Validator
 
             foreach (var argument in arguments)
             {
-                if (_pL1DataStructure.Consts.ContainsKey(argument))
+                if (_modelDataStructure.Consts.ContainsKey(argument))
                 {
-                    universeIdentifier.Add(_pL1DataStructure.Consts[argument]);
+                    universeIdentifier.Add(_modelDataStructure.Consts[argument]);
                 }
                 else
                 {
@@ -65,21 +69,36 @@ namespace Validator
             }
         }
 
-
-        public void AddConst(string key)
+        public string AddConst()
         {
-            ConstDictionary consts = _pL1DataStructure.Consts;
+            ConstDictionary consts = _modelDataStructure.Consts;
+            string key = _genericIdentifier + _genericIndex;
+            _genericIndex++;
+            consts.Add(key, _universeIdentifier + consts.CurrIndex++);
+
+            return key;
+        }
+
+        public void AddConst(string key, string keySameUniverseIdentifier = null)
+        {
+            ConstDictionary consts = _modelDataStructure.Consts;
 
             if (!consts.ContainsKey(key))
             {
-                consts.Add(key, _universeIdentifier + consts.Count);
+                if (keySameUniverseIdentifier == null)
+                {
+                    consts.Add(key, _universeIdentifier + consts.CurrIndex);
+                    consts.CurrIndex++;
+                }
+                else
+                    consts.Add(key, consts[keySameUniverseIdentifier]);
             }
         }
 
 
         public void AddFunctions(string function, List<string> arguments, string resultArgument)
         {
-            FunctionDictionary functions = _pL1DataStructure.Functions;
+            FunctionDictionary functions = _modelDataStructure.Functions;
             List<string> unviverseIdentifier = CreateUniverseConsts(arguments.ToArray());
             List<string> unviverseIdentifierResult = CreateUniverseConsts(resultArgument);
 
@@ -96,7 +115,7 @@ namespace Validator
 
         public void AddPredicate(string predicate, List<string> arguments)
         {
-            PredicateDictionary predicates = _pL1DataStructure.Predicates;
+            PredicateDictionary predicates = _modelDataStructure.Predicates;
 
             List<string> universeIdentifier = CreateUniverseConsts(arguments.ToArray());
 
@@ -115,16 +134,15 @@ namespace Validator
         }
 
         //--Refactorn--//
-        public ConstDictionary GetConsts() => _pL1DataStructure.Consts;
-        public PredicateDictionary GetPredicates() => _pL1DataStructure.Predicates;
-        public FunctionDictionary GetFunctions() => _pL1DataStructure.Functions;
-
+        public ConstDictionary GetConsts() => _modelDataStructure.Consts;
+        public PredicateDictionary GetPredicates() => _modelDataStructure.Predicates;
+        public FunctionDictionary GetFunctions() => _modelDataStructure.Functions;
     }
 
 
     public class ConstDictionary : Dictionary<string, string>
     {
-
+        public int CurrIndex = 0;
     }
 
     public class PredicateDictionary : Dictionary<string, List<List<string>>>

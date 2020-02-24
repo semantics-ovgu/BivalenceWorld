@@ -126,6 +126,7 @@ namespace Validator
             //--Initialize consts and static predicates--//
             foreach (var data in parameter.Data)
             {
+                string keyUniverseIdentifier = _pl1Structure.AddConst();
                 foreach (var pred in data.Predicates)
                 {
                     if (_signature.Predicates.Any(s => s.Item1 == pred))
@@ -134,7 +135,7 @@ namespace Validator
                         {
                             if (_signature.Consts.Contains(con))
                             {
-                                _pl1Structure.AddConst(con);
+                                _pl1Structure.AddConst(con, keyUniverseIdentifier);
                             }
                             _pl1Structure.AddPredicate(pred, new List<string> { con });
                         }
