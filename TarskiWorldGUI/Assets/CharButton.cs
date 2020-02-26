@@ -5,50 +5,24 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class CharButton : MonoBehaviour
-{
 
+public class CharButton : ASentenceButton
+{
     [SerializeField]
     private int _uniCodeIndex = 0;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI _textElement = default;
-    [SerializeField]
-    private Button _button = default;
 
-    private void OnValidate()
+    protected override string GetDisplayString()
     {
-        if (_textElement == null)
-            _textElement = GetComponent<TMPro.TextMeshProUGUI>();
-
-        if(_textElement != null)
-        {
-            _textElement.text += " ";
-
-        }
+        return char.ConvertFromUtf32(_uniCodeIndex); 
     }
 
-    private void Awake()
+    private void Start()
     {
-        _textElement.text = char.ConvertFromUtf32(_uniCodeIndex);
-        if (_button == null)
-            _button = GetComponent<Button>();
-
-        _button.onClick.AddListener(ButtonClickedListener);
+        _textElement.text = GetDisplayString();
     }
 
-
-
-    private static string GetUnicodeForTMPro(string iconUnicode)
+    protected override void ButtonClickedListener()
     {
-        int unicode = int.Parse(iconUnicode, System.Globalization.NumberStyles.HexNumber);
-        string result = char.ConvertFromUtf32(unicode);
-
-        return result;
-    }
-
-    private void ButtonClickedListener()
-    {
-        GameManager.Instance.AddUnicodeIDToTextInput(_uniCodeIndex);
+        GameManager.Instance.GetTextInputField().CurrentTextInputElement?.AddUnicodeId(_uniCodeIndex);
     }
 }

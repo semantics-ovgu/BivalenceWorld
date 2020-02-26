@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GUI_TextInputElement : MonoBehaviour
@@ -27,21 +23,31 @@ public class GUI_TextInputElement : MonoBehaviour
         _inputFields.onDeselect.AddListener(Deselected);
     }
 
-    private void Deselected(string arg0)
+    public void AddText(string txt)
     {
-        Debug.Log("DESelected");
-        //SelectedTextInputFieldElementeEvent.InvokeEvent(null);
-    }
-
-    private void Selected(string arg0)
-    {
-        Debug.Log("Selected");
-        SelectedTextInputFieldElementeEvent.InvokeEvent(this);
+        _inputFields.text = _inputFields.text + txt;
+        _inputFields.Select();
+        _inputFields.caretPosition = _inputFields.text.Length;
     }
 
     public void AddUnicodeId(int unicodeId)
     {
         _inputFields.text = _inputFields.text +  char.ConvertFromUtf32(unicodeId);
+    }
+
+    public void RemoveText()
+    {
+        _inputFields.text = "";
+    }
+
+    private void Deselected(string arg0)
+    {
+        //SelectedTextInputFieldElementeEvent.InvokeEvent(null);
+    }
+
+    private void Selected(string arg0)
+    {
+        SelectedTextInputFieldElementeEvent.InvokeEvent(this);
     }
 
     private void EndEdit(string arg0)

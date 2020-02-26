@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class GameManager : ASingleton<GameManager>
 {
-
     [SerializeField]
     private SelectionManager _selectionManager = default;
     public SelectionManager GetSelectionManager() => _selectionManager;
 
     [SerializeField]
     private GUI_TextInputField _textInputField = default;
+    public GUI_TextInputField GetTextInputField() => _textInputField;
 
     [SerializeField]
     private FloatVar _debugFloatVar = default;
@@ -30,11 +30,6 @@ public class GameManager : ASingleton<GameManager>
     public bool IsDebugMode(int id)
     {
         return id == _debugFloatVar.CurrentValue;
-    }
-
-    public void AddUnicodeIDToTextInput(int unicodeId)
-    {
-        _textInputField.CurrentTextInputElement.AddUnicodeId(unicodeId);
     }
 
     public void AddObjToDebugList(IDebug component)
