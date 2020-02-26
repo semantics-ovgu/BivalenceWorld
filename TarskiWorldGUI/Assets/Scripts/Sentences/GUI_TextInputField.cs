@@ -1,9 +1,6 @@
-﻿
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GUI_TextInputField : MonoBehaviour
 {
@@ -11,9 +8,21 @@ public class GUI_TextInputField : MonoBehaviour
     List<GUI_TextInputElement> _inputFields = default;
     public List<GUI_TextInputElement> InputField => _inputFields;
 
-    internal List<GUI_TextInputElement> GetTextInputElement()
+    [SerializeField]
+    private GUI_TextInputElement _currentTextInputElement = default;
+    public GUI_TextInputElement CurrentTextInputElement => _currentTextInputElement;
+
+    public List<GUI_TextInputElement> GetTextInputElement()
     {
         return _inputFields;
+    }
+
+    private void Awake()
+    {
+        foreach (var item in _inputFields)
+        {
+            item.SelectedTextInputFieldElementeEvent.AddEventListener(SelectedListener);
+        }
     }
 
     public List<string> GetInputFieldText()
@@ -25,10 +34,16 @@ public class GUI_TextInputField : MonoBehaviour
             if(!item.IsEmptyString())
             {
                 list.Add(item.GetInputText());
+
             }
         }
 
         return list;
+    }
+
+    private void SelectedListener(GUI_TextInputElement arg0)
+    {
+        _currentTextInputElement = arg0;
     }
 
     public List<GUI_TextInputElement> GetGuiTextElementsWithText()
