@@ -19,6 +19,8 @@ public class GameManager : ASingleton<GameManager>
     public FloatVar DebugFloatVar => _debugFloatVar;
 
     private List<IDebug> _debugList = new List<IDebug>();
+    private Board _currentBoard = default;
+    public Board GetCurrentBoard() => _currentBoard;
 
 
     protected override void SingletonAwake()
@@ -30,6 +32,11 @@ public class GameManager : ASingleton<GameManager>
     public bool IsDebugMode(int id)
     {
         return id == _debugFloatVar.CurrentValue;
+    }
+
+    public void RegisterBoard(Board board)
+    {
+        _currentBoard = board;
     }
 
     public void AddObjToDebugList(IDebug component)

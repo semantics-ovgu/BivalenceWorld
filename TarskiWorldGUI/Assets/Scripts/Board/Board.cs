@@ -23,6 +23,7 @@ public class Board : MonoBehaviour, IDebug
     private void Awake()
     {
         GameManager.Instance?.AddObjToDebugList(this);
+        GameManager.Instance?.RegisterBoard(this);
         CreateMap();
     }
 
