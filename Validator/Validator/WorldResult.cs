@@ -8,7 +8,6 @@ namespace Validator
     {
         private Result<List<Result<T>>> _result;
 
-
         public WorldResult(Result<List<Result<T>>> result)
         {
             _result = result;

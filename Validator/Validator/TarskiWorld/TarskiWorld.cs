@@ -123,7 +123,7 @@ namespace Validator
 
         public WorldResult<bool> Check(WorldParameter parameter)
         {
-            WorldResult<bool> worldResult = new WorldResult<bool>();
+            WorldResult<bool> worldResult = new WorldResult<bool>(Result<List<Result<bool>>>.CreateResult(true, new List<Result<bool>>()));
             try
             {
                 //--Initialize consts and static predicates--//
@@ -192,7 +192,7 @@ namespace Validator
                 worldResult = new WorldResult<bool>(Result<List<Result<bool>>>.CreateResult(false, new List<Result<bool>>(), e.Message));
             }
 
-            if (worldResult.Result.IsValid)
+            if (worldResult.Result.IsValid && parameter.Sentences != null)
             {
                 List<Result<bool>> sentences = new List<Result<bool>>();
                 foreach (var item in parameter.Sentences)
