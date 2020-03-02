@@ -123,68 +123,95 @@ namespace Validator
 
         public WorldResult<bool> Check(WorldParameter parameter)
         {
-            //--Initialize consts and static predicates--//
-            foreach (var data in parameter.Data)
+            WorldResult<bool> worldResult = new WorldResult<bool>();
+            try
             {
-                string keyUniverseIdentifier = _pl1Structure.AddConst();
-                foreach (var pred in data.Predicates)
+                //--Initialize consts and static predicates--//
+                foreach (var data in parameter.Data)
                 {
-                    if (_signature.Predicates.Any(s => s.Item1 == pred))
+                    string keyUniverseIdentifier = _pl1Structure.AddConst();
+                    foreach (var pred in data.Predicates)
                     {
-                        foreach (var con in data.Consts)
+                        if (_signature.Predicates.Any(s => s.Item1 == pred))
                         {
-                            if (_signature.Consts.Contains(con))
+                            foreach (var con in data.Consts)
                             {
-                                _pl1Structure.AddConst(con, keyUniverseIdentifier);
-                            }
-                            _pl1Structure.AddPredicate(pred, new List<string> { con });
-                        }
-                    }
-                }
-            }
-
-            //--Calc <dynamic> predicates--//
-            foreach (var pred in _signature.Predicates)
-            {
-                if (_predValidation.ContainsKey(pred.Item1))
-                {
-                    IPredicateValidation predValidation = _predValidation[pred.Item1];
-                    IEnumerable<List<WorldObject>> worldObjects = AllWorldObjectsCombinations(parameter.Data, pred.Item2);
-
-                    foreach (var objects in worldObjects)
-                    {
-                        if (predValidation.Check(objects))
-                        {
-                            IEnumerable<List<string>> consts = AllConstCombinations(objects);
-                            foreach (var constList in consts)
-                            {
-                                _pl1Structure.AddPredicate(pred.Item1, constList);
+                                if (_signature.Consts.Contains(con))
+                                {
+                                    _pl1Structure.AddConst(con, keyUniverseIdentifier);
+                                }
+                                _pl1Structure.AddPredicate(pred, new List<string> { con });
                             }
                         }
                     }
                 }
-            }
 
-            //--Calc functions--//
-            foreach (var func in _signature.Functions)
-            {
-                if (_funcValidation.ContainsKey(func.Item1))
+                //--Calc <dynamic> predicates--//
+                foreach (var pred in _signature.Predicates)
                 {
-                    IFunctionValidation funcValidation = _funcValidation[func.Item1];
-                    IEnumerable<IEnumerable<string>> allConsts = AllConstCombinations(parameter.Data.Where(s => s.Consts.Count > 0).Select(s => s.Consts.First()).ToList(), func.Item2);
-                    foreach (var objects in allConsts)
+                    if (_predValidation.ContainsKey(pred.Item1))
                     {
-                        List<WorldObject> inputObjects = new List<WorldObject>();
-                        foreach (var con in objects)
-                            inputObjects.Add(parameter.Data.Find(x => x.Consts.Contains(con)));
+                        IPredicateValidation predValidation = _predValidation[pred.Item1];
+                        IEnumerable<List<WorldObject>> worldObjects = AllWorldObjectsCombinations(parameter.Data, pred.Item2);
 
-                        WorldObject result = funcValidation.Check(inputObjects.ToList(), parameter.Data);
-                        _pl1Structure.AddFunctions(func.Item1, objects.ToList(), result.Consts.First());
+                        foreach (var objects in worldObjects)
+                        {
+                            if (predValidation.Check(objects))
+                            {
+                                IEnumerable<List<string>> consts = AllConstCombinations(objects);
+                                foreach (var constList in consts)
+                                {
+                                    _pl1Structure.AddPredicate(pred.Item1, constList);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //--Calc functions--//
+                foreach (var func in _signature.Functions)
+                {
+                    if (_funcValidation.ContainsKey(func.Item1))
+                    {
+                        IFunctionValidation funcValidation = _funcValidation[func.Item1];
+                        IEnumerable<IEnumerable<string>> allConsts = AllConstCombinations(parameter.Data.Where(s => s.Consts.Count > 0).Select(s => s.Consts.First()).ToList(), func.Item2);
+                        foreach (var objects in allConsts)
+                        {
+                            List<WorldObject> inputObjects = new List<WorldObject>();
+                            foreach (var con in objects)
+                                inputObjects.Add(parameter.Data.Find(x => x.Consts.Contains(con)));
+
+                            WorldObject result = funcValidation.Check(inputObjects.ToList(), parameter.Data);
+                            _pl1Structure.AddFunctions(func.Item1, objects.ToList(), result.Consts.First());
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                worldResult = new WorldResult<bool>(Result<List<Result<bool>>>.CreateResult(false, new List<Result<bool>>(), e.Message));
+            }
 
-            return new WorldResult<bool>();
+            if (worldResult.Result.IsValid)
+            {
+                List<Result<bool>> sentences = new List<Result<bool>>();
+                foreach (var item in parameter.Sentences)
+                {
+                    try
+                    {
+                        Formula formula = PL1Parser.Parse(item);
+                        sentences.Add(Result<bool>.CreateResult(true, true));
+                    }
+                    catch (Exception e)
+                    {
+                        sentences.Add(Result<bool>.CreateResult(false, false, e.Message));
+                    }
+                }
+
+                worldResult = new WorldResult<bool>(Result<List<Result<bool>>>.CreateResult(true, sentences));
+            }
+
+            return worldResult;
         }
     }
 }
