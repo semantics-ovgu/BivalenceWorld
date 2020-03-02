@@ -18,7 +18,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     [SerializeField]
     private MeshRenderer _meshRenderer = default;
 
-
+    [SerializeField]
     private List<Predicate> _predicate = new List<Predicate>();
     private PredicateObj _predicateInstance = default;
 
@@ -59,17 +59,23 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         _debugInformationInstance.SetActive(value);
     }
 
+    //Refactor tmp list and this predicates list to obj list
     public List<Predicate> GetPredicatesList()
     {
         if(_predicateInstance != null)
         {
-            List<Predicate> predicates = _predicate;
-            foreach (var item in _predicateInstance.GetPredicates())
+            var tmpPredicateList = new List<Predicate>();
+            foreach (var item in _predicate)
             {
-                predicates.Add(item);
+                tmpPredicateList.Add(item);
             }
 
-            return predicates;
+            foreach (var item in _predicateInstance.GetPredicates())
+            {
+                tmpPredicateList.Add(item);
+            }
+
+            return tmpPredicateList;
         }
         else
         {

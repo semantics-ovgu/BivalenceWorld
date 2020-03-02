@@ -33,9 +33,20 @@ public class ValidateButton : MonoBehaviour
         var obj = board.GetFieldElements();
         foreach (var item in obj)
         {
+            
             if (item.HasPredicateInstance())
             {
-                //ToDo: Create new Datastruct for Validator
+                Debug.Log("--- New Element --- ");
+                List<Predicate> predicates = item.GetPredicatesList();
+                var constant = item.GetConstantsList();
+                foreach (var pred in predicates)
+                {
+                    Debug.Log(pred.PredicateIdentifier);
+                }
+                foreach (var co in constant)
+                {
+                    Debug.Log(co);
+                }
             }
         }
 
