@@ -55,9 +55,6 @@ public class ValidateButton : MonoBehaviour
                 coord.Add(item.GetX());
                 coord.Add(item.GetZ());
                 worldObjs.Add(new WorldObject(constant, worldPredicates, coord));
-
-
-
             }
         }
 

@@ -838,8 +838,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 6690717627409629780}
-  _wrongColor: {r: 1, g: 0, b: 0, a: 0}
-  _rightColor: {r: 0.24022818, g: 1, b: 0, a: 0}
+  _wrongColor: {r: 1, g: 0, b: 0, a: 1}
+  _rightColor: {r: 0.24022818, g: 1, b: 0, a: 1}
 --- !u!1 &8157945841054116799
 GameObject:
   m_ObjectHideFlags: 0
