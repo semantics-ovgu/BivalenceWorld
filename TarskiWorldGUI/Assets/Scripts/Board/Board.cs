@@ -19,6 +19,7 @@ public class Board : MonoBehaviour, IDebug
     private Transform _anchor = default;
     [SerializeField]
     private List<Field> _obj = new List<Field>();
+    public List<Field> GetFieldElements() => _obj;
 
     private void Awake()
     {
