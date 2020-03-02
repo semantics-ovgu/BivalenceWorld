@@ -24,7 +24,10 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
 
     private int _x;
+    public int GetX() => _x;
     private int _z;
+    public int GetZ() => _z;
+
 
     public void Init(int x, int z)
     {
