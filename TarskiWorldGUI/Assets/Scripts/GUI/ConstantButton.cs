@@ -10,6 +10,7 @@ public class ConstantButton : MonoBehaviour
     [SerializeField]
     private string _constant = "";
     private IConstant _instance = default;
+    private IConstant _boardWithCurrentConstant = default;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class ConstantButton : MonoBehaviour
         {
             manager.GetSelectionManager().SelectionClickedEvent.AddEventListener(SelectionClickedListener);
             manager.GetSelectionManager().SelectionUnclickedEvent.AddEventListener(SelectionUnclickedListener);
+
+
         }
         if (_targetButton)
         {
@@ -29,13 +32,29 @@ public class ConstantButton : MonoBehaviour
 
     private void ButtonClicked()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
+            if(((Field)_instance).HasPredicateInstance())
+                TryDelteConstant();
+
             _instance.AddConstant(_constant);
         }
         else
         {
             Debug.LogWarning("Instance is null");
+        }
+    }
+
+    private void TryDelteConstant()
+    {
+        var instance = GameManager.Instance;
+        if (instance)
+        {
+            var fieldobj = instance.GetCurrentBoard().GetBoardWithTargetConstant(_constant);
+            if (fieldobj != null)
+            {
+                fieldobj.RemoveConstant(_constant);
+            }
         }
     }
 

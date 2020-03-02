@@ -38,6 +38,19 @@ public class PredicateObj : MonoBehaviour
         }
     }
 
+    public void RemoveConstant(string constant)
+    {
+        if (_constant.Contains(constant))
+        {
+            _constant.Remove(constant);
+            SpawnText();
+        }
+        else
+        {
+            Debug.Log("Something is wrong. Constant has not the key but u try to delete: " + constant);
+        }
+    }
+
     public void SpawnText()
     {
         if (_constant.Count == 0 && _worldCanvasInstance != null)

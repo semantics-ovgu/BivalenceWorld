@@ -38,6 +38,11 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         _meshRenderer.material = material;
     }
 
+    public bool HasPredicateInstance()
+    {
+        return _predicateInstance;
+    }
+
     private void SpawnTextIntern(string txt)
     {
         _debugInformationInstance = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
@@ -86,6 +91,27 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
     }
 
+    public List<string> GetConstantsList()
+    {
+        return _predicateInstance?.GetConstant();
+    }
+
+    public void AddConstant(string constant)
+    {
+        if (_predicateInstance != null)
+        {
+            _predicateInstance.AddConstant(constant);
+        }
+    }
+
+    public void RemoveConstant(string constant)
+    {
+        if (_predicateInstance != null)
+        {
+            _predicateInstance.RemoveConstant(constant);
+        }
+    }
+
     private void TryCreatePredicate(Predicate predicate)
     {
         if (!_predicate.Contains(predicate))
@@ -113,24 +139,11 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     private void DestroyPredicateObj(Predicate predicate)
     {
-        if(_predicateInstance != null)
+        if (_predicateInstance != null)
         {
             _predicate.Remove(predicate);
             Destroy(_predicateInstance.gameObject);
             _predicateInstance = null;
-        }
-    }
-
-    public List<string> GetConstantsList()
-    {
-        return _predicateInstance.GetConstant();
-    }
-
-    public void AddConstant(string constant)
-    {
-        if(_predicateInstance != null)
-        {
-            _predicateInstance.AddConstant(constant);
         }
     }
 }

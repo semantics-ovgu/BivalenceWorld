@@ -33,6 +33,8 @@ public class GUI_TextInputElement : MonoBehaviour
     public void AddUnicodeId(int unicodeId)
     {
         _inputFields.text = _inputFields.text +  char.ConvertFromUtf32(unicodeId);
+        _inputFields.Select();
+        _inputFields.caretPosition = _inputFields.text.Length;
     }
 
     public void RemoveText()

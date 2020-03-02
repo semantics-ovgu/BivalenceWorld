@@ -23,6 +23,8 @@ public class CharButton : ASentenceButton
 
     protected override void ButtonClickedListener()
     {
+        SpaceBeforeText();
         GameManager.Instance.GetTextInputField().CurrentTextInputElement?.AddUnicodeId(_uniCodeIndex);
+        SpaceAfterText();
     }
 }

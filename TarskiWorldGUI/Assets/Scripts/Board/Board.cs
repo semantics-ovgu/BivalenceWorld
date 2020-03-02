@@ -27,6 +27,20 @@ public class Board : MonoBehaviour, IDebug
         CreateMap();
     }
 
+    public IConstant GetBoardWithTargetConstant(string constant)
+    {
+        for (int i = 0; i < _obj.Count; i++)
+        {
+            Field item = _obj[i];
+            List<string> constantList = item.GetConstantsList();
+            if (constantList != null && constantList.Contains(constant))
+            {
+                return _obj[i].GetComponent<IConstant>();
+            }
+        }
+        return null;
+    }
+
     public void CreateMap()
     {
         DestroyMap();
@@ -41,6 +55,17 @@ public class Board : MonoBehaviour, IDebug
         }
         _obj = new List<Field>();
     }
+
+    public int GetDebugID()
+    {
+        return 1;
+    }
+
+    public void DebugModeChanged(bool isDebug)
+    {
+        SetDebugModeForField(isDebug);
+    }
+
 
     private void SetDebugModeForField(bool value)
     {
@@ -76,15 +101,5 @@ public class Board : MonoBehaviour, IDebug
                 }
             }
         }
-    }
-
-    public int GetDebugID()
-    {
-        return 1;
-    }
-
-    public void DebugModeChanged(bool isDebug)
-    {
-        SetDebugModeForField(isDebug);
     }
 }

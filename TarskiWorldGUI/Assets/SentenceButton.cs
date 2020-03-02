@@ -7,9 +7,12 @@ public class SentenceButton : ASentenceButton
     [SerializeField]
     private string _sentence = "";
 
+
     protected override void ButtonClickedListener()
     {
+        SpaceBeforeText();
         GameManager.Instance.GetTextInputField().CurrentTextInputElement?.AddText(GetDisplayString());
+        SpaceAfterText();
     }
 
     protected override string GetDisplayString()

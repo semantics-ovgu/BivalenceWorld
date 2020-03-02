@@ -6,4 +6,5 @@ public interface IConstant
 {
     List<string> GetConstantsList();
     void AddConstant(string predicate);
+    void RemoveConstant(string constant);
 }

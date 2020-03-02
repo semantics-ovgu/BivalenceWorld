@@ -10,6 +10,10 @@ public abstract class ASentenceButton : MonoBehaviour
     protected TMPro.TextMeshProUGUI _textElement = default;
     [SerializeField]
     protected Button _button = default;
+    [SerializeField]
+    private bool _spaceBeforeText = false;
+    [SerializeField]
+    private bool _spaceAfterText = false;
 
     private void OnValidate()
     {
@@ -32,6 +36,27 @@ public abstract class ASentenceButton : MonoBehaviour
         {
             _button = GetComponent<Button>();
         }
+    }
+
+    protected void SpaceBeforeText()
+    {
+        if (_spaceBeforeText)
+        {
+            SetSpaceText();
+        }
+    }
+
+    protected void SpaceAfterText()
+    {
+        if (_spaceAfterText)
+        {
+            SetSpaceText();
+        }
+    }
+
+    private void SetSpaceText()
+    {
+        GameManager.Instance.GetTextInputField()?.CurrentTextInputElement.AddText(" ");
     }
 
     protected abstract void ButtonClickedListener();
