@@ -16,12 +16,36 @@ public class ValidateButton : MonoBehaviour
 
     private void ButtonClickedListener()
     {
+        var manager = GameManager.Instance;
+        if (manager == null)
+            return;
+
         var resultSentences = new List<string>();
-        var list = GameManager.Instance.GetTextInputField().GetGuiTextElementsWithText();
-        foreach (var item in list)
+        var list = manager.GetTextInputField().GetGuiTextElementsWithText();
+        foreach (GUI_TextInputElement item in list)
         {
             resultSentences.Add(item.GetInputText());
             Debug.Log(item.GetInputText());
         }
+
+        var board = manager.GetCurrentBoard();
+
+        var obj = board.GetFieldElements();
+        foreach (var item in obj)
+        {
+            if (item.HasPredicateInstance())
+            {
+                //ToDo: Create new Datastruct for Validator
+            }
+        }
+
+        //Conclusion
+
+        foreach (var item in list)
+        {
+            item.Validate(true);
+        }
+
+
     }
 }

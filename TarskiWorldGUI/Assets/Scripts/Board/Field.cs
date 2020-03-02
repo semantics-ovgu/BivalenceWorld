@@ -61,13 +61,22 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     public List<Predicate> GetPredicatesList()
     {
-        List<Predicate> predicates = _predicate;
-        foreach (var item in _predicateInstance.GetPredicates())
+        if(_predicateInstance != null)
         {
-            predicates.Add(item);
+            List<Predicate> predicates = _predicate;
+            foreach (var item in _predicateInstance.GetPredicates())
+            {
+                predicates.Add(item);
+            }
+
+            return predicates;
+        }
+        else
+        {
+            Debug.Log("PredicateInstance is null" + this.name);
+            return null;
         }
 
-        return predicates;
     }
 
     public void AddPredicate(Predicate predicate)
