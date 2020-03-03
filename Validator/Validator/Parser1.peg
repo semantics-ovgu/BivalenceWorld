@@ -11,9 +11,9 @@
 		return list;
 	}
 
-	private List<Formula> BuildConjunction(Formula list, Formula argument)
+	private List<Formula> BuildConjunction(Formula formula, Formula argument)
 	{
-		Conjunction conj = list as Conjunction;
+		Conjunction conj = formula as Conjunction;
 		if(conj != null)
 		{		
 			conj.Arguments.Insert(0, argument);
@@ -21,21 +21,47 @@
 		}
 		else
 		{
-			return new List<Formula> { argument, list };
+			return new List<Formula> { argument, formula };
+		}
+	}
+
+	private List<Formula> BuildDisjunction(Formula formula, Formula argument)
+	{
+		Disjunction conj = formula as Disjunction;
+		if(conj != null)
+		{		
+			conj.Arguments.Insert(0, argument);
+			return conj.Arguments;
+		}
+		else
+		{
+			return new List<Formula> { argument, formula };
 		}
 	}
 }
 
-formula <Formula>	= conjunction
-					/ atom
+//Entry point: Formula
+formula <Formula>	= conjunction / disjunction / singleAtom
 
+//Conjunction
 conjunction <Formula> = atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
 
 conjunctionPart <Formula>	= atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
 							/ atom:atom
 
-atom <Formula> = n:string openedBracket argument:argument closedBracked{ new Predicate(argument, n,n) } 
+//Disjunction
+disjunction <Formula> = atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildDisjunction(disjunctionPart,atom), "Disjunction", "Disjunction") }
 
+disjunctionPart <Formula>	= atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildDisjunction(disjunctionPart,atom), "Disjunction", "Disjunction") }
+							/ atom:atom
+
+//Atom
+atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
+
+//Single Atom
+singleAtom <Formula> = n:string openedBracket argument:argument closedBracked !.+ { new Predicate(argument, n,n) }
+
+//Arguments
 argument <List<Argument>> -memoize	= argument:argument "," constant:constant  { BuildArguments(argument, constant)}
 									/ constant:constant { new List<Argument> { constant }}
 
@@ -46,3 +72,4 @@ string = "" ([a-z]i)*
 openedBracket = " "* "(" " "*
 closedBracked = " "* ")" " "*
 conjunctionSymbol = " "* "\u2227" " "*
+disjunctionSymbol = " "* "\u2228" " "*

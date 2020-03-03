@@ -143,16 +143,36 @@ namespace Validator
     public class ConstDictionary : Dictionary<string, string>
     {
         public int CurrIndex = 0;
+
+        public string TryGetValue(string key)
+        {
+            if (ContainsKey(key))
+                return this[key];
+            else
+                return key;
+        }
     }
 
     public class PredicateDictionary : Dictionary<string, List<List<string>>>
     {
-
+        public List<List<string>> TryGetValue(string key)
+        {
+            if (ContainsKey(key))
+                return this[key];
+            else
+                return new List<List<string>>();
+        }
     }
 
     public class FunctionDictionary : Dictionary<string, ListDictionary>
     {
-
+        public ListDictionary TryGetValue(string key)
+        {
+            if (ContainsKey(key))
+                return this[key];
+            else
+                return new ListDictionary();
+        }
     }
 
     public class ListDictionary : Dictionary<List<string>, string>
@@ -160,6 +180,14 @@ namespace Validator
         public ListDictionary() : base(new ListComparer())
         {
 
+        }
+
+        public string TryGetValue(List<string> key)
+        {
+            if (ContainsKey(key))
+                return this[key];
+            else
+                return "";
         }
 
         private class ListComparer : IEqualityComparer<List<string>>

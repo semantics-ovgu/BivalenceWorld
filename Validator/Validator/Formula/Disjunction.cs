@@ -5,22 +5,22 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Conjunction : GenericFormula<Formula>, IFormulaValidate
+    internal class Disjunction : GenericFormula<Formula>, IFormulaValidate
     {
-        public Conjunction(List<Formula> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
+        public Disjunction(List<Formula> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
         {
         }
 
 
         public Result<bool> Validate(IWorldPL1Structure pL1Structure)
         {
-            Result<bool> result = Result<bool>.CreateResult(true, true);
+            Result<bool> result = Result<bool>.CreateResult(true, false);
             foreach (var conjunctionPart in GetArgumentsOfType<IFormulaValidate>())
             {
                 Result<bool> validate = conjunctionPart.Validate(pL1Structure);
-                if (!validate.Value)
+                if (validate.Value)
                 {
-                    result = Result<bool>.CreateResult(true, false);
+                    result = Result<bool>.CreateResult(true, true);
                     break;
                 }
             }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal abstract class GenericFormula<T> : Formula
+    internal abstract class GenericFormula<T> : Formula where T : Formula
     {
         private List<T> _arguments = new List<T>();
 
@@ -14,5 +14,11 @@ namespace Validator
         }
 
         public List<T> Arguments => _arguments;
+
+        protected IEnumerable<R> GetArgumentsOfType<R>() where R : class
+        {
+            foreach (var item in Arguments)
+                yield return item as R;
+        }
     }
 }
