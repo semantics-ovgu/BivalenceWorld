@@ -11,32 +11,10 @@
 		return list;
 	}
 
-	private List<Formula> BuildConjunction(Formula formula, Formula argument)
+	private List<Formula> BuildGenericFormula(Formula formula, Formula argument)
 	{
-		Conjunction conj = formula as Conjunction;
-		if(conj != null)
-		{		
-			conj.Arguments.Insert(0, argument);
-			return conj.Arguments;
-		}
-		else
-		{
-			return new List<Formula> { argument, formula };
-		}
-	}
-
-	private List<Formula> BuildDisjunction(Formula formula, Formula argument)
-	{
-		Disjunction conj = formula as Disjunction;
-		if(conj != null)
-		{		
-			conj.Arguments.Insert(0, argument);
-			return conj.Arguments;
-		}
-		else
-		{
-			return new List<Formula> { argument, formula };
-		}
+		List<Formula> result = new	List<Formula>();
+		return new List<Formula> { argument, formula };
 	}
 }
 
@@ -44,16 +22,18 @@
 formula <Formula>	= conjunction / disjunction / singleAtom
 
 //Conjunction
-conjunction <Formula> = atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
+conjunction <Formula> = atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart,atom), "Conjunction", "Conjunction") }
 
-conjunctionPart <Formula>	= atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildConjunction(conjunctionPart,atom), "Conjunction", "Conjunction") }
-							/ atom:atom
+conjunctionPart <Formula>	= atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart,atom), "Conjunction", "Conjunction") }
+							/ singleAtom 
+							/ formula
 
 //Disjunction
-disjunction <Formula> = atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildDisjunction(disjunctionPart,atom), "Disjunction", "Disjunction") }
+disjunction <Formula> = atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart,atom), "Disjunction", "Disjunction") }
 
-disjunctionPart <Formula>	= atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildDisjunction(disjunctionPart,atom), "Disjunction", "Disjunction") }
-							/ atom:atom
+disjunctionPart <Formula>	= atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart,atom), "Disjunction", "Disjunction") }
+							/ singleAtom
+							/ formula
 
 //Atom
 atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
