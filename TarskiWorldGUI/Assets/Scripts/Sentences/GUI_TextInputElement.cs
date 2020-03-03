@@ -23,23 +23,53 @@ public class GUI_TextInputElement : MonoBehaviour
         _inputFields.onDeselect.AddListener(Deselected);
     }
 
+
     public void AddText(string txt)
     {
-        _inputFields.text = _inputFields.text + txt;
-        _inputFields.Select();
-        _inputFields.caretPosition = _inputFields.text.Length;
+        int carePos = _inputFields.caretPosition;
+        var text = _inputFields.text.Insert(carePos, txt);
+        SetInputFieldText(text, carePos + txt.Length);
     }
 
     public void AddUnicodeId(int unicodeId)
     {
-        _inputFields.text = _inputFields.text +  char.ConvertFromUtf32(unicodeId);
-        _inputFields.Select();
-        _inputFields.caretPosition = _inputFields.text.Length;
+        int carePos = _inputFields.caretPosition;
+        string newText = char.ConvertFromUtf32(unicodeId);
+        var text = _inputFields.text.Insert(carePos, newText);
+        SetInputFieldText(text, carePos + newText.Length);;
     }
 
     public void RemoveText()
     {
         _inputFields.text = "";
+    }
+    public bool IsEmptyString()
+    {
+        return string.IsNullOrEmpty(_inputFields.text) ? true : false;
+    }
+
+    public string GetInputText()
+    {
+        return _inputFields.text;
+    }
+
+    public void Validate(bool v)
+    {
+        _validateImage.SetColor(v);
+    }
+
+
+    private void SetInputFieldText(string txt, int caretPosition)
+    {
+   
+        _inputFields.text = txt;
+        SetCaretPosition(caretPosition);
+    }
+
+    private void SetCaretPosition(int caretPos)
+    {
+        _inputFields.Select();
+        _inputFields.caretPosition = caretPos;
     }
 
     private void Deselected(string arg0)
@@ -68,20 +98,5 @@ public class GUI_TextInputElement : MonoBehaviour
     private void SetInteractableButton(bool isInteractable)
     {
         _singleValidateButton.interactable = isInteractable;
-    }
-
-    public bool IsEmptyString()
-    {
-        return string.IsNullOrEmpty(_inputFields.text) ? true : false;
-    }
-
-    public string GetInputText()
-    {
-        return _inputFields.text;
-    }
-
-    public void Validate(bool v)
-    {
-        _validateImage.SetColor(v);
     }
 }

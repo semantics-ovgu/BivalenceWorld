@@ -9,8 +9,18 @@ public class ConstantButton : MonoBehaviour
     private Button _targetButton = default;
     [SerializeField]
     private string _constant = "";
+    [SerializeField]
+    private TMPro.TextMeshProUGUI _targetText = default;
     private IConstant _instance = default;
     private IConstant _boardWithCurrentConstant = default;
+
+    private void OnValidate()
+    {
+        if(_targetText != null)
+        {
+            _targetText.text = _constant;
+        }
+    }
 
     private void Start()
     {

@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class Field : MonoBehaviour, IPredicate, IConstant
 {
-    // X Y
-    // Constants (Unendlich A - Z)
-    // Predicate (Tet und BIG -> Liste)
-
     [SerializeField]
     private Transform _anchor = default;
     [SerializeField]
@@ -18,15 +14,13 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     [SerializeField]
     private MeshRenderer _meshRenderer = default;
 
-    [SerializeField]
-    private List<Predicate> _predicate = new List<Predicate>();
-    private PredicateObj _predicateInstance = default;
-
-
-    private int _x;
     public int GetX() => _x;
-    private int _z;
+    private int _x;
+
     public int GetZ() => _z;
+    private int _z;
+
+    private PredicateObj _predicateInstance = default;
 
 
     public void Init(int x, int z)
@@ -45,34 +39,17 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     {
         return _predicateInstance;
     }
-
-    private void SpawnTextIntern(string txt)
-    {
-        _debugInformationInstance = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
-
-        _debugInformationInstance.transform.SetParent(this.transform);
-        _debugInformationInstance.transform.localRotation = Quaternion.Euler(90, 90, 0);
-        _debugInformationInstance.transform.localPosition = new Vector3(0f, 0.15f, 0f);
-        _debugInformationInstance.transform.localScale = new Vector3(1,1,1);
-        _debugInformationInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = txt;
-    }
-
     public void SetDebugMode(bool value)
     {
         _debugInformationInstance.SetActive(value);
     }
 
-    //Refactor tmp list and this predicates list to obj list
     public List<Predicate> GetPredicatesList()
     {
         if(_predicateInstance != null)
         {
             var tmpPredicateList = new List<Predicate>();
-            foreach (var item in _predicate)
-            {
-                tmpPredicateList.Add(item);
-            }
-
+            tmpPredicateList.Add(_predicateInstance.GetInitialPredicate());
             foreach (var item in _predicateInstance.GetPredicates())
             {
                 tmpPredicateList.Add(item);
@@ -85,7 +62,6 @@ public class Field : MonoBehaviour, IPredicate, IConstant
             Debug.Log("PredicateInstance is null" + this.name);
             return null;
         }
-
     }
 
     public void AddPredicate(Predicate predicate)
@@ -130,39 +106,66 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
     }
 
+    private void CreatePredicate(Predicate predicate)
+    {
+        var instance = Instantiate(predicate.Prefab, _anchor).GetComponent<PredicateObj>();
+        if (instance == null)
+        {
+            Debug.LogWarning("Wrong Mapping here: is no predicateObj");
+            return;
+        }
+        _predicateInstance = instance;
+        _predicateInstance.Init(predicate);
+    }
+
     private void TryCreatePredicate(Predicate predicate)
     {
-        if (!_predicate.Contains(predicate))
+        if (_predicateInstance == null)
         {
-            if(_predicate.Count > 0)
-            {
-                DestroyPredicateObj(_predicate[0]);
-            }
-
-            var instance  = Instantiate(predicate.Prefab, _anchor).GetComponent<PredicateObj>();
-            if (instance == null)
-            {
-                Debug.LogWarning("Wrong Mapping here: is no predicateObj");
-                return;
-            }
-
-            _predicateInstance = instance;
-            _predicate.Add(predicate);
+            CreatePredicate(predicate);
+        }
+        else if(_predicateInstance != null && _predicateInstance.GetInitialPredicate() != predicate)
+        {
+            List<string> constants = _predicateInstance.GetConstant();
+            DestroyPredicateObj();
+            CreatePredicate(predicate);
+            AddConstantToNewPredicate(constants);
         }
         else
         {
-            DestroyPredicateObj(predicate);
+            DestroyPredicateObj();
         }
     }
 
-    private void DestroyPredicateObj(Predicate predicate)
+    private void AddConstantToNewPredicate(List<string> constants)
+    {
+        if (constants != null && constants.Count > 0)
+        {
+            foreach (var item in constants)
+            {
+                _predicateInstance.AddConstant(item);
+            }
+        }
+    }
+
+    private void DestroyPredicateObj()
     {
         if (_predicateInstance != null)
         {
-            _predicate.Remove(predicate);
             Destroy(_predicateInstance.gameObject);
             _predicateInstance = null;
         }
+    }
+
+    private void SpawnTextIntern(string txt)
+    {
+        _debugInformationInstance = Instantiate(_debugInformationCanvas, this.transform.position, Quaternion.identity, this.transform);
+
+        _debugInformationInstance.transform.SetParent(this.transform);
+        _debugInformationInstance.transform.localRotation = Quaternion.Euler(90, 90, 0);
+        _debugInformationInstance.transform.localPosition = new Vector3(0f, 0.15f, 0f);
+        _debugInformationInstance.transform.localScale = new Vector3(1, 1, 1);
+        _debugInformationInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = txt;
     }
 }
 

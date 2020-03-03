@@ -5,24 +5,31 @@ using UnityEngine;
 
 public class PredicateObj : MonoBehaviour
 {
+    public float GetDefaultSize() => _defaultSize;
     [SerializeField]
     private float _defaultSize = 4.0f;
-    public float GetDefaultSize() => _defaultSize;
 
-    private List<Predicate> _predicateList = new List<Predicate>();
-    public List<Predicate> GetPredicates() => _predicateList;
-
+    public GameObject GetVisual() => _visual;
     [SerializeField]
-    private GameObject _visuel = default;
-    public GameObject GetVisuel() => _visuel;
-
-    private List<string> _constant = new List<string>();
-    public List<string> GetConstant() => _constant;
+    private GameObject _visual = default;
 
     [SerializeField]
     private GameObject _worldCanvasPrefab = default;
     private GameObject _worldCanvasInstance = default;
 
+    public List<string> GetConstant() => _constant;
+    private List<string> _constant = new List<string>();
+
+    public List<Predicate> GetPredicates() => _predicateList;
+    private List<Predicate> _predicateList = new List<Predicate>();
+
+    public Predicate GetInitialPredicate() => _initialPredicate;
+    private Predicate _initialPredicate = default;
+
+    public void Init(Predicate predicate)
+    {
+        _initialPredicate = predicate;
+    }
 
     public void AddConstant(string constant)
     {

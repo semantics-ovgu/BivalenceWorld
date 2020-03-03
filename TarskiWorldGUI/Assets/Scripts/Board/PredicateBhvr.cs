@@ -22,6 +22,6 @@ public class PredicateBhvr : MonoBehaviour
 
     private void ChangeScaleFactor(float value)
     {
-        _targetObj.GetVisuel().transform.localScale = Vector3.one * value;
+        _targetObj.GetVisual().transform.localScale = Vector3.one * value;
     }
 }
