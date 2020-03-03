@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSize: 4
-  _visuel: {fileID: 7401420183904403091}
+  _visual: {fileID: 7401420183904403091}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}
 --- !u!1 &7401420183904403091

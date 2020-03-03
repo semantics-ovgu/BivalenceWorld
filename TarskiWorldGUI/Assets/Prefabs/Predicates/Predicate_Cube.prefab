@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5021495075325936535}
   - component: {fileID: 5021495075325936534}
   m_Layer: 0
-  m_Name: Visuel
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultSize: 4
-  _visuel: {fileID: 5021495075325936533}
+  _visual: {fileID: 5021495075325936533}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}

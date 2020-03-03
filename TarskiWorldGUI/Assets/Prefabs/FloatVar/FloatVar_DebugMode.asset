@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0a9d23c53c39448b5afacd8c634999, type: 3}
   m_Name: FloatVar_DebugMode
   m_EditorClassIdentifier: 
-  _currentValue: 2
+  _currentValue: 1
