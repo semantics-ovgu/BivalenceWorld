@@ -57,6 +57,18 @@ namespace UnitTests
             return sentences;
         }
 
+        private List<string> Sentences_DisAndConjunction()
+        {
+            List<string> sentences = new List<string>
+            {
+                "Tet(a) \u2228 Cube(a) \u2227 Cube(c)",
+                "Cube(a) \u2228 Cube(b) \u2227 Tet(b)",
+                "Tet(b) \u2227 Tet(a) \u2228 Tet(c)",
+                "Tet(a) \u2228 Cube(b) \u2227 Tet(b)"
+            };
+            return sentences;
+        }
+
         private List<string> Sentences_InvalidOperator()
         {
             List<string> sentences = new List<string>
@@ -108,6 +120,20 @@ namespace UnitTests
             Assert.IsTrue(result.Result.Value[2].Value);
             Assert.IsTrue(result.Result.Value[3].Value);
             Assert.IsFalse(result.Result.Value[4].Value);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_DisAndConjunction_Valid()
+        {
+            TarskiWorld world = new TarskiWorld();
+            WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_DisAndConjunction());
+            var result = world.Check(parameter);
+
+            Assert.AreEqual(result.Result.Value.Count, 4);
+            Assert.IsTrue(result.Result.Value[0].Value);
+            Assert.IsFalse(result.Result.Value[1].Value);
+            Assert.IsTrue(result.Result.Value[2].Value);
+            Assert.IsTrue(result.Result.Value[3].Value);
         }
 
         [TestMethod]
