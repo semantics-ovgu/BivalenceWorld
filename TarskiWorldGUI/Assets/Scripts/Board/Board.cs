@@ -36,7 +36,7 @@ public class Board : MonoBehaviour, IDebug
             List<string> constantList = item.GetConstantsList();
             if (constantList != null && constantList.Contains(constant))
             {
-                return _obj[i].GetComponent<IConstant>();
+                return item.GetComponent<IConstant>();
             }
         }
         return null;

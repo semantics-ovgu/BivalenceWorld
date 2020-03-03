@@ -12,7 +12,7 @@ public class ConstantButton : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI _targetText = default;
     private IConstant _instance = default;
-    private IConstant _boardWithCurrentConstant = default;
+
 
     private void OnValidate()
     {
@@ -40,14 +40,25 @@ public class ConstantButton : MonoBehaviour
 
     }
 
+
     private void ButtonClicked()
     {
         if (_instance != null)
         {
+            IConstant targetInstanceWithConstant = null;
             if(((Field)_instance).HasPredicateInstance())
-                TryDelteConstant();
+            {
+                targetInstanceWithConstant = TryDeleteConstant();
+            }
 
-            _instance.AddConstant(_constant);
+            if(targetInstanceWithConstant == null)
+            {
+                _instance.AddConstant(_constant);
+            }
+            else if(targetInstanceWithConstant  != null && targetInstanceWithConstant != _instance)
+            {
+                _instance.AddConstant(_constant);
+            }
         }
         else
         {
@@ -55,17 +66,20 @@ public class ConstantButton : MonoBehaviour
         }
     }
 
-    private void TryDelteConstant()
+    private IConstant TryDeleteConstant()
     {
         var instance = GameManager.Instance;
         if (instance)
         {
-            var fieldobj = instance.GetCurrentBoard().GetBoardWithTargetConstant(_constant);
+            IConstant fieldobj = instance.GetCurrentBoard().GetBoardWithTargetConstant(_constant);
+            Debug.Log("sameConstant: " + fieldobj);
             if (fieldobj != null)
             {
                 fieldobj.RemoveConstant(_constant);
             }
+            return fieldobj;
         }
+        return null;
     }
 
     private void SelectionUnclickedListener(SelectionManager.EventArgs arg0)
