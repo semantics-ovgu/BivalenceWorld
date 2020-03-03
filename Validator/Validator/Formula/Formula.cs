@@ -16,7 +16,6 @@ namespace Validator
             _rawFormula = rawFormula;
         }
 
-
         public string Name => _name;
         public string RawFormula => _rawFormula;
     }

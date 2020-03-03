@@ -111,6 +111,17 @@ namespace Validator
         }
 
 
+
+        private Result<bool> ValidateFormula(Formula formula)
+        {
+            if (formula is IFormulaValidate validateFormula)
+            {
+                return validateFormula.Validate(this);
+            }
+            return Result<bool>.CreateResult(false, false, "Formula has no IFormulaValidate interface");
+        }
+
+
         public PL1Structure GetPl1Structure()
         {
             return _pl1Structure;
@@ -200,7 +211,7 @@ namespace Validator
                     try
                     {
                         Formula formula = PL1Parser.Parse(item);
-                        sentences.Add(Result<bool>.CreateResult(true, true));
+                        sentences.Add(ValidateFormula(formula));
                     }
                     catch (Exception e)
                     {
