@@ -21,7 +21,7 @@ namespace Validator
                 var pos1 = obj1.TryGetPosition();
                 var pos2 = obj2.TryGetPosition();
 
-                if (pos1.IsValid && pos2.IsValid && pos1.Value.X == pos2.Value.X)
+                if (pos1.IsValid && pos2.IsValid && pos1.Value.Y == pos2.Value.Y)
                     result = true;
 
                 return result;
