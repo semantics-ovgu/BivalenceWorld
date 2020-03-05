@@ -44,9 +44,9 @@ namespace UnitTests
         [TestMethod]
         public void PL1_PredBigger_True()
         {
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.BIGGER));
+            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.LARGER));
 
-            List<List<string>> preds = _predDictionary[TarskiWorldDataFields.BIGGER];
+            List<List<string>> preds = _predDictionary[TarskiWorldDataFields.LARGER];
 
             Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u1"));
             Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u2"));

@@ -52,6 +52,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Test_TarskiWorld_Predicate.cs" />
     <Compile Include="Test_TarskiWorld_Parsing.cs" />
     <Compile Include="Test_Parser_Conjunctions.cs" />
     <Compile Include="Test_PL1_ConstPred_Constant.cs" />
