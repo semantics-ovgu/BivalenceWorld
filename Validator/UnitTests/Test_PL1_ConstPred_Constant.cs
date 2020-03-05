@@ -18,9 +18,9 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                new WorldObject(new List<string> { "a", "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.BIG }, null),
+                new WorldObject(new List<string> { "a", "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, null),
                 new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
-                new WorldObject(new List<string> { "d" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.BIG }, null),
+                new WorldObject(new List<string> { "d" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, null),
                 new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE }, null)
             };
 
@@ -65,7 +65,7 @@ namespace UnitTests
         public void PL1_Predicates_ContainsKey_True()
         {
             Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.TET));
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.BIG));
+            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.LARGE));
             Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.SMALL));
             Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.CUBE));
         }

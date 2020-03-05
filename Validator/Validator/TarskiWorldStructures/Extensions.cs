@@ -10,7 +10,7 @@ namespace Validator
         {
             Result<(int X, int Y)> result = Result<(int, int)>.CreateResult(false, (0, 0), "Obj has no [X,Y] Position");
 
-            if (obj.Tags.Count > 1)
+            if (obj.Tags != null && obj.Tags.Count > 1)
             {
                 int? x = obj.Tags[0] as int?;
                 int? y = obj.Tags[1] as int?;

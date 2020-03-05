@@ -105,8 +105,7 @@ namespace Validator
                 (TarskiWorldDataFields.DODEC, 1),
                 (TarskiWorldDataFields.SMALL, 1),
                 (TarskiWorldDataFields.MEDIUM, 1),
-                (TarskiWorldDataFields.BIG, 1),
-
+                (TarskiWorldDataFields.LARGE, 1),
                 (TarskiWorldDataFields.ADJOINS, 2),
                 (TarskiWorldDataFields.BACKOF, 2),
                 (TarskiWorldDataFields.FRONTOF, 2),

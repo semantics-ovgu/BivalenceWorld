@@ -6,7 +6,7 @@ namespace Validator
 {
     public static class TarskiWorldDataFields
     {
-        public const string BIG = "Big";
+        public const string LARGE = "Large";
         public const string CUBE = "Cube";
         public const string DODEC = "Dodec";
         public const string MEDIUM = "Medium";

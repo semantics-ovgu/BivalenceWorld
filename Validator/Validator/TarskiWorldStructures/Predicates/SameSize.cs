@@ -20,7 +20,7 @@ namespace Validator
 
                 if (obj1.CheckPredicate(obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.SMALL) ||
                     obj1.CheckPredicate(obj2, TarskiWorldDataFields.MEDIUM, TarskiWorldDataFields.MEDIUM) ||
-                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.BIG, TarskiWorldDataFields.BIG))
+                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.LARGE, TarskiWorldDataFields.LARGE))
                 {
                     result = true;
                 }
