@@ -25,10 +25,13 @@ public class PredicateObj : MonoBehaviour
 
     public Predicate GetInitialPredicate() => _initialPredicate;
     private Predicate _initialPredicate = default;
+    [SerializeField]
+    private Predicate _sizePredicate;
 
     public void Init(Predicate predicate)
     {
         _initialPredicate = predicate;
+        _predicateList.Add(_sizePredicate);
     }
 
     public void AddConstant(string constant)
@@ -91,21 +94,27 @@ public class PredicateObj : MonoBehaviour
         }
         return finalString;
     }
-
+    //refactor can only have one predicate
     public void AddModifier(Predicate predicate)
     {
+        Debug.Log("add modifier" + predicate.PredicateIdentifier);
         var bhvr = predicate.Prefab.GetComponent<PredicateBhvr>();
         if (bhvr != null)
         {
-            if (!_predicateList.Contains(predicate))
-            {
-                bhvr.Create(this);
-                _predicateList.Add(predicate);
-            }
-            else
-            {
-                RemoveModifier(predicate);
-            }
+            _predicateList = new List<Predicate>();
+            _predicateList.Add(predicate);
+            bhvr.Create(this);
+            //if (!_predicateList.Contains(predicate))
+            //{
+            //    Debug.Log("not same");
+            //    bhvr.Create(this);
+            //    _predicateList.Add(predicate);
+            //}
+            //else
+            //{
+            //    Debug.Log("Remnove because same");
+            //    RemoveModifier(predicate);
+            //}
         }
         else
         {

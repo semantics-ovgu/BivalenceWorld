@@ -16,18 +16,6 @@ public class CameraRotation : MonoBehaviour
     private Vector3 _orthoRot = new Vector3(90, 90, 0);
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SetCamera(_defaultPos, _defaultRot);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SetCamera(_orthoPos, _orthoRot);
-        }
-    }
-
     public void SetCameraDefault ()
     {
         SetCamera(_defaultPos, _defaultRot);
