@@ -78,11 +78,11 @@ public class Board : MonoBehaviour, IDebug
 
     private void InternCreateMap()
     {
-        for (int x = 0; x < _heigh; x++)
+        for (int z = 0; z < _heigh; z++)
         {
-            for (int z = 0; z < _width; z++)
+            for (int x = 0; x < _width; x++)
             {
-                Field instance =  Instantiate(_prefab, new Vector3(x * 5, 0, z * -5), Quaternion.identity, _anchor);
+                Field instance =  Instantiate(_prefab, new Vector3(z * 5, 0, x * -5), Quaternion.identity, _anchor);
                 _obj.Add(instance);
                 instance.Init(x, z);
 
