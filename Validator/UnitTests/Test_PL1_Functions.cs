@@ -41,7 +41,7 @@ namespace UnitTests
             _funcDictionary = structure.GetFunctions();
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void PL1_FuncFrontOf_True()
         {
             Assert.IsTrue(_funcDictionary.ContainsKey(TarskiWorldDataFields.FRONTOF));

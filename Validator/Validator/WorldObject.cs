@@ -8,7 +8,7 @@ namespace Validator
         private List<string> _predicates;
         private List<object> _tags;
 
-        
+
         public WorldObject(List<string> consts, List<string> predicates, List<object> tags)
         {
             _consts = consts;

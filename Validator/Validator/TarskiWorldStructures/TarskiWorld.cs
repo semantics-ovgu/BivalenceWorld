@@ -9,7 +9,6 @@ namespace Validator
     {
         private Dictionary<string, IFunctionValidation> _funcValidation = new Dictionary<string, IFunctionValidation>
         {
-            { TarskiWorldDataFields.FRONTOF, new FrontOf() }
         };
 
         private PL1Structure _pl1Structure = new PL1Structure();
@@ -17,8 +16,17 @@ namespace Validator
 
         private Dictionary<string, IPredicateValidation> _predValidation = new Dictionary<string, IPredicateValidation>
         {
-            { TarskiWorldDataFields.BIGGER, new Bigger() },
-            { TarskiWorldDataFields.SMALLER, new Smaller() }
+            { TarskiWorldDataFields.ADJOINS, new Adjoins() },
+            { TarskiWorldDataFields.BACKOF, new BackOf() },
+            { TarskiWorldDataFields.BETWEEN, new Between() },
+            { TarskiWorldDataFields.LARGER, new Larger() },
+            { TarskiWorldDataFields.FRONTOF, new FrontOf() },
+            { TarskiWorldDataFields.RIGHTOF, new RightOf() },
+            { TarskiWorldDataFields.SAMECOL, new SameCol() },
+            { TarskiWorldDataFields.SAMEROW, new SameRow() },
+            { TarskiWorldDataFields.SAMESHAPE, new SameShape() },
+            { TarskiWorldDataFields.SAMESIZE, new SameSize() },
+            { TarskiWorldDataFields.SMALLER, new Smaller() },
         };
 
 
@@ -94,17 +102,28 @@ namespace Validator
             {
                 (TarskiWorldDataFields.TET, 1),
                 (TarskiWorldDataFields.CUBE, 1),
+                (TarskiWorldDataFields.DODEC, 1),
                 (TarskiWorldDataFields.SMALL, 1),
+                (TarskiWorldDataFields.MEDIUM, 1),
                 (TarskiWorldDataFields.BIG, 1),
-                (TarskiWorldDataFields.BIGGER, 2),
-                (TarskiWorldDataFields.SMALLER, 2),
+
+                (TarskiWorldDataFields.ADJOINS, 2),
+                (TarskiWorldDataFields.BACKOF, 2),
                 (TarskiWorldDataFields.FRONTOF, 2),
-                (TarskiWorldDataFields.INBETWEEN, 3)
+                (TarskiWorldDataFields.LARGER, 2),
+                (TarskiWorldDataFields.LEFTOF, 2),
+                (TarskiWorldDataFields.RIGHTOF, 2),
+                (TarskiWorldDataFields.SAMECOL, 2),
+                (TarskiWorldDataFields.SAMEROW, 2),
+                (TarskiWorldDataFields.SAMESHAPE, 2),
+                (TarskiWorldDataFields.SAMESIZE, 2),
+                (TarskiWorldDataFields.SMALLER, 2),
+
+                (TarskiWorldDataFields.BETWEEN, 3)
             };
 
             List<(string, int)> functions = new List<(string, int)>
             {
-                (TarskiWorldDataFields.FRONTOF, 1)
             };
 
             return new Signature(consts, predicates, functions);

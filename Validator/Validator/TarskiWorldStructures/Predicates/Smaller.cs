@@ -6,26 +6,20 @@ namespace Validator
 {
     internal class Smaller : IPredicateValidation
     {
-        private bool CheckBiggerPredicate(WorldObject o1, WorldObject o2, string p1, string p2)
-        {
-            return o1.Predicates.Contains(p1) && o2.Predicates.Contains(p2);
-        }
-
-
         public bool Check(List<WorldObject> obj)
         {
             if (obj.Count != 2)
             {
-                return false;
+                throw new Exception("Invalid input parameter: " + nameof(Smaller));
             }
             else
             {
                 WorldObject obj1 = obj[0];
                 WorldObject obj2 = obj[1];
 
-                if (CheckBiggerPredicate(obj1, obj2, TarskiWorldDataFields.MEDIUM, TarskiWorldDataFields.BIG) ||
-                    CheckBiggerPredicate(obj1, obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.BIG) ||
-                    CheckBiggerPredicate(obj1, obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.MEDIUM))
+                if (obj1.CheckPredicate(obj2, TarskiWorldDataFields.MEDIUM, TarskiWorldDataFields.BIG) ||
+                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.BIG) ||
+                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.MEDIUM))
                 {
                     return true;
                 }
