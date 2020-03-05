@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GUI_TextInputElement : MonoBehaviour
@@ -92,6 +93,14 @@ public class GUI_TextInputElement : MonoBehaviour
         else
         {
             SetInteractableButton(true);
+        }
+    }
+
+    internal void ParserValide(bool isValid)
+    {
+        if (!isValid)
+        {
+            _validateImage.ParseError();
         }
     }
 

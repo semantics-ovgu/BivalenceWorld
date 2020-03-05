@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ public class GUI_ValidateImage : MonoBehaviour
 
     [SerializeField]
     private Color _rightColor = default;
+    [SerializeField]
+    private Color _wrongParseColor = default;
+
 
 
     public void SetColor(bool isCorrect)
@@ -36,5 +40,11 @@ public class GUI_ValidateImage : MonoBehaviour
     private void SetColorToImage(Color color)
     {
         _targetImage.color = color;
+    }
+
+    internal void ParseError()
+    {
+        SetColorToImage(_wrongParseColor);
+        ActivateImage(true);
     }
 }

@@ -77,10 +77,14 @@ public class ValidateButton : MonoBehaviour, IDebug
 
         //Conclusion
 
+
         for (int i = 0; i < result.Result.Value.Count; i++)
         {
+  
             Result<bool> item = result.Result.Value[i];
-            list[i].Validate(item.Value);
+            list[i].ParserValide(item.IsValid);
+            if (item.IsValid)
+                list[i].Validate(item.Value);
         }
     }
 
