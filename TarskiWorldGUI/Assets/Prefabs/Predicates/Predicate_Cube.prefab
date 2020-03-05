@@ -158,3 +158,4 @@ MonoBehaviour:
   _visual: {fileID: 5021495075325936533}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}
+  _sizePredicate: {fileID: 11400000, guid: 71a7563f7dcc5a44dab83007821b71f1, type: 2}

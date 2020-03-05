@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 775460f03b9d5b44b9dd801d3fdc3e00, type: 3}
-  m_Name: Predicate_Big
+  m_Name: Predicate_Medium
   m_EditorClassIdentifier: 
-  PredicateIdentifier: Big
-  Prefab: {fileID: 5362147754156647512, guid: 5e1b896bef9967e4c95d8767927d44f5, type: 3}
+  PredicateIdentifier: Medium
+  Prefab: {fileID: 6265121156793268357, guid: ffa996c79e735094ab364236c61ceb76, type: 3}
