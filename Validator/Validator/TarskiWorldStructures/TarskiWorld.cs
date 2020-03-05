@@ -19,6 +19,7 @@ namespace Validator
             { TarskiWorldDataFields.ADJOINS, new Adjoins() },
             { TarskiWorldDataFields.BACKOF, new BackOf() },
             { TarskiWorldDataFields.BETWEEN, new Between() },
+            { TarskiWorldDataFields.FRONTOF, new FrontOf() },
             { TarskiWorldDataFields.LARGER, new Larger() },
             { TarskiWorldDataFields.LEFTOF, new LeftOf() },
             { TarskiWorldDataFields.RIGHTOF, new RightOf() },
