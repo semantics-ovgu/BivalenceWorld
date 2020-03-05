@@ -5,18 +5,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using Validator;
 
-public class ValidateButton : MonoBehaviour
+public class ValidateButton : MonoBehaviour, IDebug
 {
     [SerializeField]
     private Button _targetButton = default;
+    private bool _isDebugMode = false;
+
+    public void DebugModeChanged(bool isDebug)
+    {
+        _isDebugMode = isDebug;
+    }
+
+    public int GetDebugID()
+    {
+        return 3;
+    }
 
     private void Awake()
     {
         _targetButton.onClick.AddListener(ButtonClickedListener);
+        GameManager.Instance.AddObjToDebugList(this);
     }
 
     private void ButtonClickedListener()
     {
+
         var manager = GameManager.Instance;
         if (manager == null)
             return;
@@ -26,7 +39,7 @@ public class ValidateButton : MonoBehaviour
         foreach (GUI_TextInputElement item in list)
         {
             resultSentences.Add(item.GetInputText());
-            Debug.Log(item.GetInputText());
+                DebugConsole(item.GetInputText());
         }
 
         var board = manager.GetCurrentBoard();
@@ -38,18 +51,18 @@ public class ValidateButton : MonoBehaviour
 
             if (item.HasPredicateInstance())
             {
-                Debug.Log("--- New Element --- ");
+                DebugConsole("--- New Element --- ");
                 List<Predicate> predicates = item.GetPredicatesList();
                 var constant = item.GetConstantsList();
                 List<string> worldPredicates = new List<string>();
                 foreach (var pred in predicates)
                 {
-                    Debug.Log(pred.PredicateIdentifier);
+                    DebugConsole(pred.PredicateIdentifier);
                     worldPredicates.Add(pred.PredicateIdentifier);
                 }
                 foreach (var co in constant)
                 {
-                    Debug.Log(co);
+                    DebugConsole(co);
                 }
                 List<object> coord = new List<object>();
                 coord.Add(item.GetX());
@@ -69,5 +82,11 @@ public class ValidateButton : MonoBehaviour
             Result<bool> item = result.Result.Value[i];
             list[i].Validate(item.Value);
         }
+    }
+
+    private void DebugConsole(string value)
+    {
+        if(_isDebugMode)
+            Debug.Log(value);
     }
 }

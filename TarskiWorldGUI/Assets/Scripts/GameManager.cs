@@ -18,6 +18,10 @@ public class GameManager : ASingleton<GameManager>
     private FloatVar _debugFloatVar = default;
     public FloatVar DebugFloatVar => _debugFloatVar;
 
+    [SerializeField]
+    private Camera _mainCamera = default;
+    public Camera GetMainCamera() => _mainCamera;
+
     private List<IDebug> _debugList = new List<IDebug>();
     private Board _currentBoard = default;
     public Board GetCurrentBoard() => _currentBoard;
@@ -27,6 +31,11 @@ public class GameManager : ASingleton<GameManager>
     {
         _debugFloatVar.ValueChangedEvent.AddEventListener(DebugModeChangedListener);
         _debugFloatVar.ForceChangedEvent();
+    }
+
+    private void Start()
+    {
+        CheckDebugList(_debugFloatVar.CurrentValue);
     }
 
     public bool IsDebugMode(int id)
@@ -47,9 +56,14 @@ public class GameManager : ASingleton<GameManager>
 
     private void DebugModeChangedListener(FloatVar.EventArgs arg0)
     {
+        CheckDebugList(arg0.NewValue);
+    }
+
+    private void CheckDebugList(float newValue)
+    {
         foreach (var item in _debugList)
         {
-            if (item.GetDebugID() == arg0.NewValue)
+            if (item.GetDebugID() == newValue)
             {
                 item.DebugModeChanged(true);
             }

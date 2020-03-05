@@ -10,8 +10,6 @@ public class CameraRotation : MonoBehaviour
     private Vector3 _defaultPos = new Vector3(-18, 30, -27);
     [SerializeField]
     private Vector3 _defaultRot = new Vector3(35, 90, 0);
-
-
     [SerializeField]
     private Vector3 _orthoPos = new Vector3(22, 48, -36);
     [SerializeField]
@@ -28,6 +26,16 @@ public class CameraRotation : MonoBehaviour
         {
             SetCamera(_orthoPos, _orthoRot);
         }
+    }
+
+    public void SetCameraDefault ()
+    {
+        SetCamera(_defaultPos, _defaultRot);
+    }
+
+    public void SetCameraOrthogonal()
+    {
+        SetCamera(_orthoPos, _orthoRot);
     }
 
     private void SetCamera(Vector3 pos, Vector3 rot)
