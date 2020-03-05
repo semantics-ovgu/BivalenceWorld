@@ -17,11 +17,11 @@ public class PredicateBhvr : MonoBehaviour
 
     public void Undo()
     {
-        ChangeScaleFactor(_targetObj.GetDefaultSize());
+        _targetObj.GetVisual().transform.localScale = Vector3.one * _targetObj.GetDefaultSize();
     }
 
     private void ChangeScaleFactor(float value)
     {
-        _targetObj.GetVisual().transform.localScale = Vector3.one * value;
+        _targetObj.GetVisual().transform.localScale = Vector3.one * _targetObj.GetDefaultSize() * value;
     }
 }

@@ -72,7 +72,6 @@ public class ConstantButton : MonoBehaviour
         if (instance)
         {
             IConstant fieldobj = instance.GetCurrentBoard().GetBoardWithTargetConstant(_constant);
-            Debug.Log("sameConstant: " + fieldobj);
             if (fieldobj != null)
             {
                 fieldobj.RemoveConstant(_constant);
