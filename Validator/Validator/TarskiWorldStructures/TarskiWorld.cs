@@ -20,7 +20,7 @@ namespace Validator
             { TarskiWorldDataFields.BACKOF, new BackOf() },
             { TarskiWorldDataFields.BETWEEN, new Between() },
             { TarskiWorldDataFields.LARGER, new Larger() },
-            { TarskiWorldDataFields.FRONTOF, new FrontOf() },
+            { TarskiWorldDataFields.LEFTOF, new LeftOf() },
             { TarskiWorldDataFields.RIGHTOF, new RightOf() },
             { TarskiWorldDataFields.SAMECOL, new SameCol() },
             { TarskiWorldDataFields.SAMEROW, new SameRow() },
