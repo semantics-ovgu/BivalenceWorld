@@ -42,7 +42,7 @@ atom <Formula> = n:string openedBracket argument:argument closedBracked { new Pr
 singleAtom <Formula> = n:string openedBracket argument:argument closedBracked !.+ { new Predicate(argument, n,n) }
 
 //Arguments
-argument <List<Argument>> -memoize	= argument:argument "," constant:constant  { BuildArguments(argument, constant)}
+argument <List<Argument>> -memoize	= argument:argument argumentDelimiter constant:constant  { BuildArguments(argument, constant)}
 									/ constant:constant { new List<Argument> { constant }}
 
 constant <Constant> = constant:string { new Constant(constant,constant) }
@@ -53,3 +53,4 @@ openedBracket = " "* "(" " "*
 closedBracked = " "* ")" " "*
 conjunctionSymbol = " "* "\u2227" " "*
 disjunctionSymbol = " "* "\u2228" " "*
+argumentDelimiter = " "* "," " "*
