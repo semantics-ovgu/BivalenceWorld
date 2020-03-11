@@ -108,7 +108,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     private void CreatePredicate(Predicate predicate)
     {
-        var instance = Instantiate(predicate.Prefab, _anchor).GetComponent<PredicateObj>();
+        var instance = Instantiate(predicate.Prefab, new Vector3(this.transform.position.x, 2, this.transform.position.z), Quaternion.identity, null).GetComponent<PredicateObj>();
         if (instance == null)
         {
             Debug.LogWarning("Wrong Mapping here: is no predicateObj");

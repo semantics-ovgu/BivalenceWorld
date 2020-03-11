@@ -7,10 +7,14 @@ public class SelectionManager : MonoBehaviour, IDebug
 {
     [SerializeField]
     private Camera _targetCamera = default;
-    private string _selectableTag = "Selectable";
     private ISelectable _targetSelectable = default;
     private ISelectable _clickedElemente = default;
-    private bool _isDebugModeActive = false;
+
+	public ISelectable TargetHoveredElement => _targetSelectable;
+	private bool _isDebugModeActive = false;
+
+	[SerializeField]
+	private LayerMask _layerMask = default;
 
     public GenericEvent<EventArgs> SelectionClickedEvent = new GenericEvent<EventArgs>();
     public GenericEvent<EventArgs> SelectionUnclickedEvent = new GenericEvent<EventArgs>();
@@ -47,7 +51,20 @@ public class SelectionManager : MonoBehaviour, IDebug
         }
     }
 
-    private void TryDeselectLastClickedObj()
+	internal void DeselectObj()
+	{
+		TryDeselectLastClickedObj();
+	}
+
+	internal void SelectObj()
+	{
+		DeselectObj();
+		_targetSelectable.Selectable();
+		_clickedElemente = _targetSelectable;
+		SelectionClickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
+	}
+
+	private void TryDeselectLastClickedObj()
     {
         if (_clickedElemente != null && _clickedElemente != _targetSelectable)
         {
@@ -58,20 +75,12 @@ public class SelectionManager : MonoBehaviour, IDebug
 
     private void CalculateRayCast()
     {
-        var ray = _targetCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+		RaycastHit[] elements = Physics.RaycastAll(_targetCamera.ScreenPointToRay(Input.mousePosition), 150f, _layerMask.value);
+		if (elements != null && elements.Length > 0)
         {
-            Transform selection = hit.transform;
-            if (selection.CompareTag(_selectableTag))
-            {
-                CheckRayCastTarget(selection);
-            }
-            else
-            {
-                ResetTmpInstance();
-            }
+			Transform selection = elements[0].transform;
+			CheckRayCastTarget(selection);
+
         }
         else
         {
@@ -88,7 +97,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         }
         else
         {
-            Debug.LogWarning("Interact Obj with Tag " + _selectableTag + ", but can not find a interface called " + typeof(ISelectable).ToString());
+            Debug.LogWarning("Interact Obj with Tag but can not find a interface called " + typeof(ISelectable).ToString());
         }
     }
     private void RayCastHitWithObj(ISelectable targetInterface)
@@ -101,7 +110,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         {
             if (_targetSelectable != null)
             {
-                _targetSelectable.EndHover();
+				_targetSelectable.EndHover();
             }
 
             SaveAsNewInstance(targetInterface);
@@ -124,7 +133,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         if (_targetSelectable != null)
         {
             _targetSelectable.EndHover();
-            _targetSelectable = null;
+			_targetSelectable = null;
         }
     }
 

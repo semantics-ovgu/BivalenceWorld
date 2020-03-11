@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4781179195985995663}
   - component: {fileID: -8648725566137285782}
   - component: {fileID: 3469355400875733386}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Field
   m_TagString: Selectable
   m_Icon: {fileID: 0}
@@ -51,9 +51,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anchor: {fileID: 5835479648002455914}
   _debugInformationCanvas: {fileID: 3966326919527576481, guid: 551a5b46703924e459f31bbbdb474dc3,
-    type: 3}
-  _obj: {fileID: 8196542216851857006, guid: c7b2ea97272b1784a80e8b85cc01679d, type: 3}
-  _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}
   _meshRenderer: {fileID: 907353817910209661}
 --- !u!114 &4781179195985995663
