@@ -16,6 +16,14 @@ namespace Validator
             Result<bool> result = Result<bool>.CreateResult(true, false);
             ConstDictionary constDict = pL1Structure.GetPl1Structure().GetConsts();
             PredicateDictionary predDict = pL1Structure.GetPl1Structure().GetPredicates();
+            if (pL1Structure is IWorldSignature worldSignature)
+            {
+                Signature signature = worldSignature.GetSignature();
+                if (!signature.Predicates.Any(elem => elem.Item1 == Name && elem.Item2 == Arguments.Count))
+                {
+                    return Result<bool>.CreateResult(false, false, "Predicate " + Name + " not found in signature.");
+                }
+            }
 
             List<string> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure);
             List<List<string>> predicateList = predDict.TryGetValue(Name);
