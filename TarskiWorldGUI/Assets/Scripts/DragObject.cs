@@ -12,6 +12,9 @@ public class DragObject : MonoBehaviour
 	[SerializeField]
 	private Material _selectedMaterial = default;
 	private Material _normalMaterial = default;
+	[SerializeField]
+	private PredicateObj _predicate = default;
+	private Vector3 _startPos = default;
 
 	private void Awake()
 	{
@@ -20,7 +23,7 @@ public class DragObject : MonoBehaviour
 
 	void OnMouseDown()
 	{
-
+		_startPos = this.transform.position;
 		_renderer.material = _selectedMaterial;
 
 		_mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -49,7 +52,31 @@ public class DragObject : MonoBehaviour
 	private void OnMouseUp()
 	{
 		_renderer.material = _normalMaterial;
-		var selection = GameManager.Instance.GetSelectionManager();
-		selection.SelectObj();
+		SelectionManager selection = GameManager.Instance.GetSelectionManager();
+
+		ISelectable target = selection.TargetHoveredElement;
+		var field = target.GetRootObj().GetComponent<Field>();
+
+		if(CheckIfFieldIsEmpty(field))
+		{
+			if(_predicate.GetField() != field)
+				selection.SelectObj();
+
+			_predicate.GetField().ResetPredicate();
+			field.AddPredicateObj(_predicate);
+		}
+		else
+		{
+
+			this.transform.position = _startPos;
+		}
+	}
+
+	private bool CheckIfFieldIsEmpty(Field field)
+	{
+		if (field != null && field.GetPredicateInstance() == null)
+			return true;
+		else
+			return false;
 	}
 }

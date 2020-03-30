@@ -10,9 +10,9 @@ public class CameraRotation_CustomEditor : Editor
     {
         base.OnInspectorGUI();
 
-        if (GUILayout.Button("RotateCameraDefault"))
+        if (GUILayout.Button("OrthoCamera"))
         {
-            ((CameraRotation)target).SetCameraDefault();
+            ((CameraRotation)target).SetCameraOrthogonal();
         }
     }
 }

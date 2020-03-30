@@ -16,7 +16,7 @@ public class SelectableObject : MonoBehaviour, ISelectable
 
     public string GetDebugInformation()
     {
-        return "";
+        return this.gameObject.name;
     }
 
     public void StartHover()

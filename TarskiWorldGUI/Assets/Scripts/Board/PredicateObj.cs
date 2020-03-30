@@ -27,12 +27,24 @@ public class PredicateObj : MonoBehaviour
     private Predicate _initialPredicate = default;
     [SerializeField]
     private Predicate _sizePredicate;
+	private Field _currentField = default;
 
     public void Init(Predicate predicate)
     {
-        _initialPredicate = predicate;
+
+		_initialPredicate = predicate;
         _predicateList.Add(_sizePredicate);
     }
+
+	public void SetField(Field field)
+	{
+		_currentField = field;
+	}
+
+	public Field GetField()
+	{
+		return _currentField;
+	}
 
     public void AddConstant(string constant)
     {

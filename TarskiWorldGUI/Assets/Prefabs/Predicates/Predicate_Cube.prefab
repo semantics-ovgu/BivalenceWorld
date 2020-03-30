@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 5683707004565867323}
   _selectedMaterial: {fileID: 2100000, guid: 3f02058e45752a844babce1600babf88, type: 2}
+  _predicate: {fileID: 7938253127798642088}
 --- !u!65 &-1170396277769968167
 BoxCollider:
   m_ObjectHideFlags: 0
