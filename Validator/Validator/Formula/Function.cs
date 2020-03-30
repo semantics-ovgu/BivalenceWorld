@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Validator
@@ -17,6 +18,15 @@ namespace Validator
             FunctionDictionary funcDict = pl1Structure.GetFunctions();
             List<string> universeIdentifier = GetUniverseIdentifier(Arguments, pL1WorldStructure);
             ListDictionary listDict = funcDict.TryGetValue(Name);
+
+            if (pL1WorldStructure is IWorldSignature worldSignature)
+            {
+                Signature signature = worldSignature.GetSignature();
+                if (!signature.Functions.Any(elem => elem.Item1 == Name && elem.Item2 == Arguments.Count))
+                {
+                    return Result<string>.CreateResult(false, "", "Function " + Name + " not found in signature.");
+                }
+            }
 
             string result = listDict.TryGetValue(universeIdentifier);
 
