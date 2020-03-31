@@ -21,6 +21,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     private int _z;
 
     private PredicateObj _predicateInstance = default;
+	public PredicateObj GetPredicateInstance() => _predicateInstance;
 
 
     public void Init(int x, int z)
@@ -64,7 +65,21 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
     }
 
-    public void AddPredicate(Predicate predicate)
+	public void AddPredicateObj(PredicateObj obj)
+	{
+		if (obj == null)
+			Debug.Log("NULL");
+		_predicateInstance = obj;
+		_predicateInstance.gameObject.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+		_predicateInstance.SetField(this);
+	}
+
+	internal void ResetPredicate()
+	{
+		_predicateInstance = null;
+	}
+
+	public void AddPredicate(Predicate predicate)
     {
         var obj = predicate.Prefab.GetComponent<PredicateObj>();
         if (obj != null)
@@ -108,7 +123,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     private void CreatePredicate(Predicate predicate)
     {
-        var instance = Instantiate(predicate.Prefab, new Vector3(this.transform.position.x, 2, this.transform.position.z), Quaternion.identity, null).GetComponent<PredicateObj>();
+        var instance = Instantiate(predicate.Prefab, new Vector3(this.transform.position.x, 0, this.transform.position.z), Quaternion.identity, null).GetComponent<PredicateObj>();
         if (instance == null)
         {
             Debug.LogWarning("Wrong Mapping here: is no predicateObj");
@@ -116,6 +131,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
         _predicateInstance = instance;
         _predicateInstance.Init(predicate);
+		_predicateInstance.SetField(this);
     }
 
     private void TryCreatePredicate(Predicate predicate)

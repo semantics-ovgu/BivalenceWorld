@@ -12,6 +12,9 @@ public class DragObject : MonoBehaviour
 	[SerializeField]
 	private Material _selectedMaterial = default;
 	private Material _normalMaterial = default;
+	[SerializeField]
+	private PredicateObj _predicate = default;
+	private Vector3 _startPos = default;
 
 	private void Awake()
 	{
@@ -20,7 +23,7 @@ public class DragObject : MonoBehaviour
 
 	void OnMouseDown()
 	{
-
+		_startPos = this.transform.position;
 		_renderer.material = _selectedMaterial;
 
 		_mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -42,14 +45,55 @@ public class DragObject : MonoBehaviour
 
 	void OnMouseDrag()
 	{
-		transform.position = new Vector3(GetMouseAsWorldPoint().x + _mOffset.x, _yCord, GetMouseAsWorldPoint().z + _mOffset.z);
+		//transform.position = new Vector3(GetMouseAsWorldPoint().x + _mOffset.x, _yCord, GetMouseAsWorldPoint().z + _mOffset.z);
+	
+		var asd = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+
+		if(asd.Length > 0)
+		{
+			for (int i = 0; i < asd.Length; i++)
+			{
+				if(asd[i].collider.gameObject.layer == LayerMask.NameToLayer("Selectable"))
+				{
+					var pos = asd[i].point;
+					//Anhand der größe offseten
+					transform.position = new Vector3(pos.x, pos.y, pos.z);
+				}
+			}
+		}
+
 		//Debug.Log(GameManager.Instance.GetSelectionManager().TargetHoveredElement);
 	}
 
 	private void OnMouseUp()
 	{
 		_renderer.material = _normalMaterial;
-		var selection = GameManager.Instance.GetSelectionManager();
-		selection.SelectObj();
+		SelectionManager selection = GameManager.Instance.GetSelectionManager();
+
+		ISelectable target = selection.TargetHoveredElement;
+		//check if is null them remove to old field and select this
+		var field = target.GetRootObj().GetComponent<Field>();
+
+		if(CheckIfFieldIsEmpty(field))
+		{
+			if(_predicate.GetField() != field)
+				selection.SelectObj();
+
+			_predicate.GetField().ResetPredicate();
+			field.AddPredicateObj(_predicate);
+		}
+		else
+		{
+
+			this.transform.position = _startPos;
+		}
+	}
+
+	private bool CheckIfFieldIsEmpty(Field field)
+	{
+		if (field != null && field.GetPredicateInstance() == null)
+			return true;
+		else
+			return false;
 	}
 }

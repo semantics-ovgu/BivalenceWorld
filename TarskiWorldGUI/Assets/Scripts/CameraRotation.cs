@@ -16,7 +16,7 @@ public class CameraRotation : MonoBehaviour
     private Vector3 _orthoRot = new Vector3(90, 90, 0);
 
 
-    public void SetCameraDefault ()
+	public void SetCameraDefault ()
     {
         SetCamera(_defaultPos, _defaultRot);
     }
