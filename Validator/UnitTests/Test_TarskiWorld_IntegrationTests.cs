@@ -43,5 +43,26 @@ namespace UnitTests
             Assert.IsTrue(result.Result.Value[0].Value);
             Assert.IsFalse(result.Result.Value[1].Value);
         }
+
+
+        [TestMethod]
+        public void TarskiWorld_IntegrationRound01()
+        {
+            List<string> sentences = new List<string>
+            {
+                "Tet(a) \u21d2  (∃x (Dodec(x)  ∧ Large(x)))"                
+            };
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, new List<object> {3, 3 }),
+                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.DODEC, TarskiWorldDataFields.LARGE }, new List<object> {4, 4 }),
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+
+            TarskiWorld world = new TarskiWorld();
+            var result = world.Check(parameter);
+
+            Assert.IsTrue(result.Result.Value[0].Value);
+        }
     }
 }

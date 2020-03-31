@@ -25,8 +25,8 @@ namespace UnitTests
         {
             List<string> sentences = new List<string>
             {
-                "Tet(a)",
-                "Tet(b)",
+                "   Tet(a)",
+                " Tet(b)",
                 "Cube(a)"
             };
             return sentences;

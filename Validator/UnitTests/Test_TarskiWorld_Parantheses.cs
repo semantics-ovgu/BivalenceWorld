@@ -15,7 +15,7 @@ namespace UnitTests
             TarskiWorld world = new TarskiWorld();
             List<string> sentences = new List<string>
             {
-                "Tet(a) \u2227 (Tet(b) \u2228 Tet(c))"
+                "Tet(a) \u2227 (  Tet(b) \u2228 Tet(c))"
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {

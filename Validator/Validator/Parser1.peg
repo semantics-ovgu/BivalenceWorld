@@ -28,7 +28,7 @@
 }
 
 //Entry point: Formula
-formulaBegin <Formula> = formula:formula " "* !.+ { formula }
+formulaBegin <Formula> = " "* formula:formula " "* !.+ { formula }
 
 //Formula
 formula <Formula> = implication / conjunction / disjunction / singleExpression
@@ -52,7 +52,7 @@ disjunctionPart <Formula>	= singleExpression:singleExpression disjunctionSymbol 
 singleExpression <Formula> = parenthese / quantum / atom
 
 //Parenthese
-parenthese <Parenthese> = "(" formula:formula ")" { new Parenthese(formula) }
+parenthese <Parenthese> = "(" " "* formula:formula " "* ")" { new Parenthese(formula) }
 
 //Quantum
 quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "+ singleExpression:singleExpression { BuildQuantum(quantumSymbol, variable, singleExpression) }
