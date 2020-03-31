@@ -6,6 +6,6 @@ namespace Validator
 {
     internal interface IFormulaValidate
     {
-        Result<bool> Validate(IWorldPL1Structure pL1Structure);
+        Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
     }
 }

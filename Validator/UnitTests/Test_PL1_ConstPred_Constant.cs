@@ -62,6 +62,31 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void PL1_NoConstants()
+        {
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { "" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
+                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE }, null)
+            };
+
+
+            TarskiWorld world = new TarskiWorld();
+            world.Check(new WorldParameter(worldObjects, null));
+
+            PL1Structure structure = world.GetPl1Structure();
+            ConstDictionary consts = structure.GetConsts();
+            PredicateDictionary preds = structure.GetPredicates();
+
+            Assert.AreEqual(consts["n0"], "u0");
+            Assert.AreEqual(consts["n1"], "u1");
+            Assert.AreEqual(consts["n2"], "u2");
+            Assert.AreEqual(consts["n3"], "u3");
+        }
+
+        [TestMethod]
         public void PL1_Predicates_ContainsKey_True()
         {
             Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.TET));

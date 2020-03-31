@@ -52,6 +52,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Test_TarskiWorld_IntegrationTests.cs" />
+    <Compile Include="Test_TarskiWorld_Quantum.cs" />
+    <Compile Include="Test_TarskiWorld_Implication.cs" />
+    <Compile Include="Test_TarskiWorld_Parantheses.cs" />
     <Compile Include="Test_TarskiWorld_Predicate.cs" />
     <Compile Include="Test_TarskiWorld_Parsing.cs" />
     <Compile Include="Test_Parser_Conjunctions.cs" />

@@ -12,12 +12,12 @@ namespace Validator
         }
 
 
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure)
+        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             Result<bool> result = Result<bool>.CreateResult(true, true);
             foreach (var conjunctionPart in GetArgumentsOfType<IFormulaValidate>())
             {
-                Result<bool> validate = conjunctionPart.Validate(pL1Structure);
+                Result<bool> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
                 if (!validate.Value)
                 {
                     result = Result<bool>.CreateResult(true, false);

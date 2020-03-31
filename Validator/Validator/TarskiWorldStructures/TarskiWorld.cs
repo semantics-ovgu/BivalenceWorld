@@ -96,7 +96,13 @@ namespace Validator
                 "c",
                 "d",
                 "e",
-                "f"
+                "f",
+                "u",
+                "v",
+                "w",
+                "x",
+                "y",
+                "z"
             };
 
             List<(string, int)> predicates = new List<(string, int)>
@@ -135,7 +141,7 @@ namespace Validator
         {
             if (formula is IFormulaValidate validateFormula)
             {
-                return validateFormula.Validate(this);
+                return validateFormula.Validate(this, new Dictionary<string, string>());
             }
             return Result<bool>.CreateResult(false, false, "Formula has no IFormulaValidate interface");
         }
@@ -160,17 +166,28 @@ namespace Validator
                 foreach (var data in parameter.Data)
                 {
                     string keyUniverseIdentifier = _pl1Structure.AddConst();
+
                     foreach (var pred in data.Predicates)
                     {
                         if (_signature.Predicates.Any(s => s.Item1 == pred))
                         {
-                            foreach (var con in data.Consts)
+                            if (data.Consts.Any() && !string.IsNullOrEmpty(data.Consts.FirstOrDefault()))
                             {
-                                if (_signature.Consts.Contains(con))
+                                foreach (var con in data.Consts)
                                 {
                                     _pl1Structure.AddConst(con, keyUniverseIdentifier);
+                                    _pl1Structure.AddPredicate(pred, new List<string> { con });
                                 }
-                                _pl1Structure.AddPredicate(pred, new List<string> { con });
+                            }
+                            else
+                            {
+                                if (!data.Consts.Any())
+                                    data.Consts.Add(keyUniverseIdentifier);
+                                else
+                                    data.Consts[0] = keyUniverseIdentifier;
+
+                                _pl1Structure.AddConst(keyUniverseIdentifier, keyUniverseIdentifier);
+                                _pl1Structure.AddPredicate(pred, new List<string> { keyUniverseIdentifier });
                             }
                         }
                     }

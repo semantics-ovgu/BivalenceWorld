@@ -13,33 +13,52 @@
 
 	private List<Formula> BuildGenericFormula(Formula formula, Formula argument)
 	{
-		List<Formula> result = new	List<Formula>();
 		return new List<Formula> { argument, formula };
+	}
+
+	private Formula BuildQuantum(string quantumSymbol, IList<string> variable, Formula formula)
+	{
+		if(quantumSymbol == "\u2200")
+			return new Quantum(EQuantumType.All, formula, variable.First(), "Allquantum", "Allquantum");
+		else if(quantumSymbol == "\u2203")
+			return new Quantum(EQuantumType.Exist, formula, variable.First(), "Existquantum", "Existquantum");
+
+		return new Quantum(EQuantumType.None, formula, variable.First(), "Nonequantum", "Nonequantum");
 	}
 }
 
 //Entry point: Formula
-formula <Formula>	= conjunction / disjunction / singleAtom
+formulaBegin <Formula> = formula:formula " "* !.+ { formula }
+
+//Formula
+formula <Formula> = implication / conjunction / disjunction / singleExpression
+
+//Implication
+implication <Formula>	= singleExpression:singleExpression implicationSymbol formula2:formula { new Implication(singleExpression, formula2, "Implication", "Implication") }
 
 //Conjunction
-conjunction <Formula> = atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart,atom), "Conjunction", "Conjunction") }
+conjunction <Formula>	= singleExpression:singleExpression conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart, singleExpression), "Conjunction", "Conjunction") }
 
-conjunctionPart <Formula>	= atom:atom conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart,atom), "Conjunction", "Conjunction") }
-							/ singleAtom 
+conjunctionPart <Formula>	= singleExpression:singleExpression conjunctionSymbol conjunctionPart:conjunctionPart { new Conjunction(BuildGenericFormula(conjunctionPart, singleExpression), "Conjunction", "Conjunction") }
 							/ formula
 
 //Disjunction
-disjunction <Formula> = atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart,atom), "Disjunction", "Disjunction") }
+disjunction <Formula>	= singleExpression:singleExpression disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart, singleExpression), "Disjunction", "Disjunction") }
 
-disjunctionPart <Formula>	= atom:atom disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart,atom), "Disjunction", "Disjunction") }
-							/ singleAtom
+disjunctionPart <Formula>	= singleExpression:singleExpression disjunctionSymbol disjunctionPart:disjunctionPart { new Disjunction(BuildGenericFormula(disjunctionPart, singleExpression), "Disjunction", "Disjunction") }
 							/ formula
+														
+//Single expression
+singleExpression <Formula> = parenthese / quantum / atom
+
+//Parenthese
+parenthese <Parenthese> = "(" formula:formula ")" { new Parenthese(formula) }
+
+//Quantum
+quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "+ singleExpression:singleExpression { BuildQuantum(quantumSymbol, variable, singleExpression) }
 
 //Atom
 atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
-
-//Single Atom
-singleAtom <Formula> = n:string openedBracket argument:argument closedBracked !.+ { new Predicate(argument, n,n) }
 
 //Arguments
 argument <List<Argument>> -memoize	= argument:argument argumentDelimiter constant:constant  { BuildArguments(argument, constant)}
@@ -49,8 +68,12 @@ constant <Constant> = constant:string { new Constant(constant,constant) }
 
 string = "" ([a-z]i)*
 
+variable = ([u-z]i)<1>
+
 openedBracket = " "* "(" " "*
 closedBracked = " "* ")" " "*
 conjunctionSymbol = " "* "\u2227" " "*
 disjunctionSymbol = " "* "\u2228" " "*
+implicationSymbol = " "* "\u21D2" " "*
 argumentDelimiter = " "* "," " "*
+quantumSymbol = [\u2200,\u2203]

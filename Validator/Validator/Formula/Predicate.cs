@@ -11,7 +11,7 @@ namespace Validator
         {
         }
 
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure)
+        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             Result<bool> result = Result<bool>.CreateResult(true, false);
             ConstDictionary constDict = pL1Structure.GetPl1Structure().GetConsts();
@@ -25,7 +25,7 @@ namespace Validator
                 }
             }
 
-            List<string> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure);
+            List<string> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
             List<List<string>> predicateList = predDict.TryGetValue(Name);
 
             foreach (var predElem in predicateList)
