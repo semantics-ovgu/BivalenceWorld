@@ -31,7 +31,6 @@ public class PredicateObj : MonoBehaviour
 
     public void Init(Predicate predicate)
     {
-
 		_initialPredicate = predicate;
         _predicateList.Add(_sizePredicate);
     }

@@ -49,7 +49,7 @@ public class DragObject : MonoBehaviour
 	
 		var asd = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
 
-		if(asd.Length > 0)
+		if (asd.Length > 0)
 		{
 			for (int i = 0; i < asd.Length; i++)
 			{
@@ -61,8 +61,6 @@ public class DragObject : MonoBehaviour
 				}
 			}
 		}
-
-		//Debug.Log(GameManager.Instance.GetSelectionManager().TargetHoveredElement);
 	}
 
 	private void OnMouseUp()
@@ -72,19 +70,25 @@ public class DragObject : MonoBehaviour
 
 		ISelectable target = selection.TargetHoveredElement;
 		//check if is null them remove to old field and select this
-		var field = target.GetRootObj().GetComponent<Field>();
-
-		if(CheckIfFieldIsEmpty(field))
+		if(target != null)
 		{
-			if(_predicate.GetField() != field)
-				selection.SelectObj();
+			var field = target.GetRootObj().GetComponent<Field>();
 
-			_predicate.GetField().ResetPredicate();
-			field.AddPredicateObj(_predicate);
+			if (CheckIfFieldIsEmpty(field))
+			{
+				if (_predicate.GetField() != field)
+					selection.SelectObj();
+
+				_predicate.GetField().ResetPredicate();
+				field.AddPredicateObj(_predicate);
+			}
+			else
+			{
+				this.transform.position = _startPos;
+			}
 		}
 		else
 		{
-
 			this.transform.position = _startPos;
 		}
 	}
