@@ -164,7 +164,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
     }
 
-    private void DestroyPredicateObj()
+    public void DestroyPredicateObj()
     {
         if (_predicateInstance != null)
         {

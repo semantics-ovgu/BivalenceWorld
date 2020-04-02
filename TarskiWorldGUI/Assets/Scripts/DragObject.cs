@@ -15,6 +15,8 @@ public class DragObject : MonoBehaviour
 	[SerializeField]
 	private PredicateObj _predicate = default;
 	private Vector3 _startPos = default;
+	[SerializeField]
+	private Transform _rootObj = default;
 
 	private void Awake()
 	{
@@ -23,12 +25,10 @@ public class DragObject : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		_startPos = this.transform.position;
+		_startPos = _rootObj.position;
 		_renderer.material = _selectedMaterial;
 
 		_mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-		_mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
-		_yCord = this.transform.position.y;
 
 		//Debug.Log("Down");
 	}
@@ -57,7 +57,8 @@ public class DragObject : MonoBehaviour
 				{
 					var pos = asd[i].point;
 					//Anhand der größe offseten
-					transform.position = new Vector3(pos.x, pos.y, pos.z);
+					_rootObj.position = new Vector3(pos.x, pos.y, pos.z);
+
 				}
 			}
 		}
@@ -84,12 +85,16 @@ public class DragObject : MonoBehaviour
 			}
 			else
 			{
-				this.transform.position = _startPos;
+				//field.DestroyPredicateObj();
+				_rootObj.position = _startPos;
+				//this.transform.position = Vector3.zero;
 			}
 		}
 		else
 		{
-			this.transform.position = _startPos;
+			_predicate.CurrentField.DestroyPredicateObj();
+			//_rootObj.position = _startPos;
+			//this.transform.position = Vector3.zero;
 		}
 	}
 

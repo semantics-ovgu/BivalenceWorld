@@ -17,7 +17,7 @@ public class GUI_CameraRotationButton : MonoBehaviour
     private void Start()
     {
         InitCameraRotationRef();
-        _rotation.SetCameraOrthogonal();
+        _rotation.SetCameraDefault();
         _defaultText.text = "2D";
         _is3DMode = true;
         _rotationButton.onClick.AddListener(ButtonClickedListener);

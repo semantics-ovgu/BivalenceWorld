@@ -8,20 +8,22 @@ public class PredicateBhvr : MonoBehaviour
     private float _scaleFactor = 2.0f;
 
     private PredicateObj _targetObj = default;
+	private GameObject _scaleObj = default;
 
-    public void Create(PredicateObj obj)
+	public void Create(PredicateObj obj, GameObject scaleObj)
     {
-        _targetObj = obj;
+		_scaleObj = scaleObj;
+		_targetObj = obj;
         ChangeScaleFactor(_scaleFactor);
     }
 
     public void Undo()
     {
-        _targetObj.transform.localScale = Vector3.one * _targetObj.GetDefaultSize();
+		_scaleObj.transform.localScale = Vector3.one * _targetObj.GetDefaultSize();
     }
 
     private void ChangeScaleFactor(float value)
     {
-        _targetObj.transform.localScale = Vector3.one * _targetObj.GetDefaultSize() * value;
+		_scaleObj.transform.localScale = Vector3.one * _targetObj.GetDefaultSize() * value;
     }
 }

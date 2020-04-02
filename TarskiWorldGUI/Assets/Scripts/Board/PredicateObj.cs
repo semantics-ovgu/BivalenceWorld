@@ -28,6 +28,7 @@ public class PredicateObj : MonoBehaviour
     [SerializeField]
     private Predicate _sizePredicate;
 	private Field _currentField = default;
+	public Field CurrentField => _currentField;
 
     public void Init(Predicate predicate)
     {
@@ -81,7 +82,7 @@ public class PredicateObj : MonoBehaviour
         else if (_worldCanvasInstance == null)
         {
             _worldCanvasInstance = Instantiate(_worldCanvasPrefab, this.transform.position, Quaternion.identity, this.transform);
-            _worldCanvasInstance.transform.localPosition = new Vector3(0, 7, 0);
+            _worldCanvasInstance.transform.localPosition = new Vector3(0, 6.5f, 0);
             _worldCanvasPrefab.transform.localScale = Vector3.one * 1f;
             _worldCanvasInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = GetConstantString();
         }
@@ -114,7 +115,7 @@ public class PredicateObj : MonoBehaviour
         {
             _predicateList = new List<Predicate>();
             _predicateList.Add(predicate);
-            bhvr.Create(this);
+            bhvr.Create(this, _visual);
             //if (!_predicateList.Contains(predicate))
             //{
             //    Debug.Log("not same");
