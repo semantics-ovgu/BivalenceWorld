@@ -74,6 +74,6 @@ openedBracket = " "* "(" " "*
 closedBracked = " "* ")" " "*
 conjunctionSymbol = " "* "\u2227" " "*
 disjunctionSymbol = " "* "\u2228" " "*
-implicationSymbol = " "* "\u21D2" " "*
+implicationSymbol = " "* "\u2192" " "*
 argumentDelimiter = " "* "," " "*
 quantumSymbol = [\u2200,\u2203]
