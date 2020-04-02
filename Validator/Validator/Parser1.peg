@@ -55,7 +55,7 @@ singleExpression <Formula> = parenthese / quantum / atom
 parenthese <Parenthese> = "(" " "* formula:formula " "* ")" { new Parenthese(formula) }
 
 //Quantum
-quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "+ singleExpression:singleExpression { BuildQuantum(quantumSymbol, variable, singleExpression) }
+quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "* singleExpression:singleExpression { BuildQuantum(quantumSymbol, variable, singleExpression) }
 
 //Atom
 atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }

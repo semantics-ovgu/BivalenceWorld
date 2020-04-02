@@ -44,7 +44,7 @@ namespace UnitTests
                 "\u2203x Tet(x)",
                 "\u2203 x Cube(x)",
                 "\u2203x (Tet(x) \u2227 Small(x))",
-                "\u2203x (Cube(x) \u2227 Medium(x))"
+                "\u2203x(Cube(x) \u2227 Medium(x))"
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {

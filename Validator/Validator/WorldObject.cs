@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Validator
 {
@@ -11,7 +12,8 @@ namespace Validator
 
         public WorldObject(List<string> consts, List<string> predicates, List<object> tags)
         {
-            _consts = consts;
+            _consts = new List<string>();
+            _consts.AddRange(consts.Select(s => s));
             _predicates = predicates;
             _tags = tags;
         }
