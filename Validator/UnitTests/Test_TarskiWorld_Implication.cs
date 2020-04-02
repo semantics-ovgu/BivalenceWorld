@@ -15,10 +15,10 @@ namespace UnitTests
             TarskiWorld world = new TarskiWorld();
             List<string> sentences = new List<string>
             {
-                "Tet(a) \u21D2 Tet(b)" ,
-                "Tet(b) \u21D2 Tet(c)",
-                "Tet(c) \u21D2 Cube(a)",
-                "Tet(c) \u21D2 Tet(a)"
+                "Tet(a) \u2192 Tet(b)" ,
+                "Tet(b) \u2192 Tet(c)",
+                "Tet(c) \u2192 Cube(a)",
+                "Tet(c) \u2192 Tet(a)"
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {

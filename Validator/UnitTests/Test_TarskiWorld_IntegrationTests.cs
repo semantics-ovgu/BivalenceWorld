@@ -32,8 +32,8 @@ namespace UnitTests
         {
             List<string> sentences = new List<string>
             {
-                "(\u2203x Dodec(x)) \u21D2 ((\u2200y (Tet(y) \u21D2 Medium(y))) \u2227 Dodec(f))",
-                "(\u2203x Dodec(x)) \u21D2 ((\u2200y (Tet(y) \u21D2 Medium(y))) \u2227 Dodec(e))"
+                "(\u2203x Dodec(x)) \u2192 ((\u2200y (Tet(y) \u2192 Medium(y))) \u2227 Dodec(f))",
+                "(\u2203x Dodec(x)) \u2192 ((\u2200y (Tet(y) \u2192 Medium(y))) \u2227 Dodec(e))"
             };
             WorldParameter parameter = new WorldParameter(CreateWorld(), sentences);
 
@@ -50,7 +50,7 @@ namespace UnitTests
         {
             List<string> sentences = new List<string>
             {
-                "Tet(a) \u21d2  (∃x (Dodec(x)  ∧ Large(x)))"                
+                "Tet(a) \u2192  (∃x (Dodec(x)  ∧ Large(x)))"
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
