@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Function : Argument
+    public class Function : Argument
     {
         public Function(List<Argument> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    interface IFunctionValidation
+    public interface IFunctionValidation
     {
         WorldObject Check(List<WorldObject> objs, List<WorldObject> others);
     }

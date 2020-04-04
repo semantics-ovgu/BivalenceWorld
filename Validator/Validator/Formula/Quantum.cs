@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Quantum : GenericFormula<Formula>, IFormulaValidate
+    public class Quantum : GenericFormula<Formula>, IFormulaValidate
     {
         private EQuantumType _type = EQuantumType.None;
         private string _variable = "";

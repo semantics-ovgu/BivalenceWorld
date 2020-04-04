@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    interface IPredicateValidation
+    public interface IPredicateValidation
     {
         bool Check(List<WorldObject> obj);
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal enum EQuantumType
+    public enum EQuantumType
     {
         None,
         Exist,

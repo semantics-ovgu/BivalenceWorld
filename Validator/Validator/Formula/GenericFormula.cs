@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal abstract class GenericFormula<T> : Formula where T : Formula
+    public abstract class GenericFormula<T> : Formula where T : Formula
     {
         private List<T> _arguments = new List<T>();
 

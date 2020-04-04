@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Implication : GenericFormula<Formula>, IFormulaValidate
+    public class Implication : GenericFormula<Formula>, IFormulaValidate
     {
         public Implication(Formula first, Formula second, string name, string rawFormula) : base(new List<Formula> { first, second }, name, rawFormula)
         {

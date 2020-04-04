@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Parenthese : Formula, IFormulaValidate
+    public class Parenthese : Formula, IFormulaValidate
     {
         private Formula _formula = null;
 

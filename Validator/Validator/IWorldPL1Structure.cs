@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    interface IWorldPL1Structure
+    public interface IWorldPL1Structure
     {
         PL1Structure GetPl1Structure();
     }

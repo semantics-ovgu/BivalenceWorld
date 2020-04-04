@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Disjunction : GenericFormula<Formula>, IFormulaValidate
+    public class Disjunction : GenericFormula<Formula>, IFormulaValidate
     {
         public Disjunction(List<Formula> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal abstract class Formula
+    public abstract class Formula
     {
         private string _name = "";
         private string _rawFormula = "";

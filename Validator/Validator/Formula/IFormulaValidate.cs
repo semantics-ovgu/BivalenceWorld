@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal interface IFormulaValidate
+    public interface IFormulaValidate
     {
         Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
     }

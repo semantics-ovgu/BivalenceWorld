@@ -6,7 +6,7 @@ using System.Text;
 [assembly: InternalsVisibleTo("UnitTests")]
 namespace Validator
 {
-    internal class PL1Parser
+    public class PL1Parser
     {
         public static Formula Parse(string sentence)
         {

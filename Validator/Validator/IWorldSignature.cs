@@ -1,6 +1,6 @@
 ﻿namespace Validator
 {
-    interface IWorldSignature
+    public interface IWorldSignature
     {
         Signature GetSignature();
         WorldResult<bool> Check(WorldParameter parameter);

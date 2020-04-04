@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal class Predicate : GenericFormula<Argument>, IFormulaValidate
+    public class Predicate : GenericFormula<Argument>, IFormulaValidate
     {
         public Predicate(List<Argument> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
         {
