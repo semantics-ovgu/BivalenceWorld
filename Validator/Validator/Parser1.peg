@@ -49,13 +49,22 @@ disjunctionPart <Formula>	= singleExpression:singleExpression disjunctionSymbol 
 							/ formula
 														
 //Single expression
-singleExpression <Formula> = parenthese / quantum / atom
+singleExpression <Formula> = parenthese / quantum / negation / equals / notEquals / atom
 
 //Parenthese
 parenthese <Parenthese> = "(" " "* formula:formula " "* ")" { new Parenthese(formula) }
 
 //Quantum
 quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "* singleExpression:singleExpression { BuildQuantum(quantumSymbol, variable, singleExpression) }
+
+//Negation
+negation <Formula> = negationSymbol " "* singleExpression:singleExpression { new Negation(singleExpression) }
+
+//Equals
+equals <Formula> = const1:constant equalsSymbol const2:constant { new Equals(const1, const2) }
+
+//Equals
+notEquals <Formula> = const1:constant notEqualsSymbol const2:constant { new Negation(new Equals(const1, const2)) }
 
 //Atom
 atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
@@ -75,5 +84,8 @@ closedBracked = " "* ")" " "*
 conjunctionSymbol = " "* "\u2227" " "*
 disjunctionSymbol = " "* "\u2228" " "*
 implicationSymbol = " "* "\u2192" " "*
+negationSymbol = " "* "\u00ac" " "*
 argumentDelimiter = " "* "," " "*
 quantumSymbol = [\u2200,\u2203]
+equalsSymbol = " "* "=" " "*
+notEqualsSymbol = " "* "\u2260" " "*

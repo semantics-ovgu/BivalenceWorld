@@ -26,6 +26,12 @@ namespace UnitTests
             return worldObjects;
         }
 
+        private const string AllQuantum = "\u2200";
+        private const string ExistQuantum = "\u2203";
+        private const string Implication = "\u2192";
+        private const string AND = "\u2227";
+        private const string OR = "\u2228";
+
 
         [TestMethod]
         public void TarskiWorld_ComplexSentences()
@@ -56,6 +62,49 @@ namespace UnitTests
             {
                 new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, new List<object> {3, 3 }),
                 new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.DODEC, TarskiWorldDataFields.LARGE }, new List<object> {4, 4 }),
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+
+            TarskiWorld world = new TarskiWorld();
+            var result = world.Check(parameter);
+
+            Assert.IsTrue(result.Result.Value[0].Value);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_IntegrationRound02()
+        {
+            List<string> sentences = new List<string>
+            {
+                "\u2200 x (Tet(x) \u2192  Large(x))"
+            };
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                new WorldObject(new List<string> {  }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+
+            TarskiWorld world = new TarskiWorld();
+            var result = world.Check(parameter);
+
+            Assert.IsTrue(result.Result.Value[0].Value);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_IntegrationRound03()
+        {
+            List<string> sentences = new List<string>
+                {
+                    $"{AllQuantum}x (Large(x) {Implication} (Tet(x)" +
+                    $"{OR} {ExistQuantum}y (Cube(x) {AND} Cube(y))" +
+                    $"{OR} {ExistQuantum}y (Dodec(x) {AND} Dodec(y))))"
+                };
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                new WorldObject(new List<string> {  }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM }, new List<object> {3, 3 }),
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
 

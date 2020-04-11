@@ -52,7 +52,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Test_DiceGame\GameRuleSet.cs" />
+    <Compile Include="Test_DiceGame\GameWorld.cs" />
+    <Compile Include="Test_DiceGame\GameWorldFields.cs" />
+    <Compile Include="Test_DiceGame\NotEquals.cs" />
+    <Compile Include="Test_DiceGame\Test_DiceGame_Performance.cs" />
     <Compile Include="Test_TarskiWorld_IntegrationTests.cs" />
+    <Compile Include="Test_TarskiWorld_Equals.cs" />
+    <Compile Include="Test_TarskiWorld_Negation.cs" />
     <Compile Include="Test_TarskiWorld_Quantum.cs" />
     <Compile Include="Test_TarskiWorld_Implication.cs" />
     <Compile Include="Test_TarskiWorld_Parantheses.cs" />

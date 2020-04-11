@@ -14,9 +14,13 @@ namespace Validator
         public override Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (dictVariables.ContainsKey(Name))
+            {
                 return Result<string>.CreateResult(true, dictVariables[Name]);
+            }
             else
+            {
                 return Result<string>.CreateResult(true, Name);
+            }
         }
     }
 }
