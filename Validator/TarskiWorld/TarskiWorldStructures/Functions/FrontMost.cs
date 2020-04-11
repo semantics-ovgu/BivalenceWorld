@@ -22,7 +22,7 @@ namespace Validator
                 {
                     var objPos = worldObject.TryGetPosition().Value;
 
-                    if (currPos.X == objPos.X && objPos.Y > currPos.Y)
+                    if (currPos.X == objPos.X && objPos.Y < currPos.Y)
                     {
                         curr = worldObject;
                         currPos = objPos;
