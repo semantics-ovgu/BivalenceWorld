@@ -12,12 +12,9 @@ namespace Validator
 
             if (obj.Tags != null && obj.Tags.Count > 1)
             {
-                int? x = obj.Tags[0] as int?;
-                int? y = obj.Tags[1] as int?;
-
-                if (x.HasValue && y.HasValue)
+                if (obj.Tags[0] is int x && obj.Tags[1] is int y)
                 {
-                    result = Result<(int, int)>.CreateResult(true, (x.Value, y.Value));
+                    result = Result<(int, int)>.CreateResult(true, (x, y));
                 }
             }
 

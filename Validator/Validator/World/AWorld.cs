@@ -105,6 +105,7 @@ namespace Validator
                 foreach (var data in parameter.Data)
                 {
                     string keyUniverseIdentifier = _pl1Structure.AddConst();
+                    bool removeKeyUniverse = true;
 
                     foreach (var pred in data.Predicates)
                     {
@@ -127,9 +128,12 @@ namespace Validator
 
                                 _pl1Structure.AddConst(keyUniverseIdentifier, keyUniverseIdentifier);
                                 _pl1Structure.AddPredicate(pred, new List<string> { keyUniverseIdentifier });
+                                removeKeyUniverse = false;
                             }
                         }
                     }
+                    if (removeKeyUniverse)
+                        _pl1Structure.RemoveConst(keyUniverseIdentifier);
                 }
 
                 //--Calc <dynamic> predicates--//

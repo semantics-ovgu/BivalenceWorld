@@ -113,5 +113,21 @@ namespace UnitTests
 
             Assert.IsTrue(result.Result.Value[0].Value);
         }
+
+        [TestMethod]
+        public void TarskiWorld_ModelRepresentation()
+        {
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                    new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                    new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, new List<object> {5, 3 }),
+                    new WorldObject(new List<string> {  }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM }, new List<object> {3, 5 }),
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, new List<string>());
+
+            TarskiWorld world = new TarskiWorld();
+            var result = world.Check(parameter);
+            var representation = world.GetPl1Structure().GetModelRepresentation();
+        }
     }
 }

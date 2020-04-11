@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Validator
 {
@@ -50,6 +47,10 @@ namespace Validator
 
             List<(string, int)> functions = new List<(string, int)>
             {
+                (TarskiWorldDataFields.FRONTMOST, 1),
+                (TarskiWorldDataFields.BACKMOST, 1),
+                (TarskiWorldDataFields.RIGHTMOST, 1),
+                (TarskiWorldDataFields.LEFTMOST, 1),
             };
 
             return new Signature(consts, predicates, functions);
@@ -58,25 +59,31 @@ namespace Validator
         protected override Dictionary<string, IPredicateValidation> CreatePredicateDictionary()
         {
             return new Dictionary<string, IPredicateValidation>
-        {
-            { TarskiWorldDataFields.ADJOINS, new Adjoins() },
-            { TarskiWorldDataFields.BACKOF, new BackOf() },
-            { TarskiWorldDataFields.BETWEEN, new Between() },
-            { TarskiWorldDataFields.FRONTOF, new FrontOf() },
-            { TarskiWorldDataFields.LARGER, new Larger() },
-            { TarskiWorldDataFields.LEFTOF, new LeftOf() },
-            { TarskiWorldDataFields.RIGHTOF, new RightOf() },
-            { TarskiWorldDataFields.SAMECOL, new SameCol() },
-            { TarskiWorldDataFields.SAMEROW, new SameRow() },
-            { TarskiWorldDataFields.SAMESHAPE, new SameShape() },
-            { TarskiWorldDataFields.SAMESIZE, new SameSize() },
-            { TarskiWorldDataFields.SMALLER, new Smaller() },
-        };
+            {
+                { TarskiWorldDataFields.ADJOINS, new Adjoins() },
+                { TarskiWorldDataFields.BACKOF, new BackOf() },
+                { TarskiWorldDataFields.BETWEEN, new Between() },
+                { TarskiWorldDataFields.FRONTOF, new FrontOf() },
+                { TarskiWorldDataFields.LARGER, new Larger() },
+                { TarskiWorldDataFields.LEFTOF, new LeftOf() },
+                { TarskiWorldDataFields.RIGHTOF, new RightOf() },
+                { TarskiWorldDataFields.SAMECOL, new SameCol() },
+                { TarskiWorldDataFields.SAMEROW, new SameRow() },
+                { TarskiWorldDataFields.SAMESHAPE, new SameShape() },
+                { TarskiWorldDataFields.SAMESIZE, new SameSize() },
+                { TarskiWorldDataFields.SMALLER, new Smaller() },
+            };
         }
 
         protected override Dictionary<string, IFunctionValidation> CreateFunctionDictionary()
         {
-            return new Dictionary<string, IFunctionValidation>();
+            return new Dictionary<string, IFunctionValidation>()
+            {
+                {TarskiWorldDataFields.BACKMOST, new BackMost() },
+                {TarskiWorldDataFields.LEFTMOST, new LeftMost() },
+                {TarskiWorldDataFields.RIGHTMOST, new RightMost() },
+                {TarskiWorldDataFields.FRONTMOST, new FrontMost() }
+            };
         }
     }
 }

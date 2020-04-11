@@ -49,7 +49,7 @@ disjunctionPart <Formula>	= singleExpression:singleExpression disjunctionSymbol 
 							/ formula
 														
 //Single expression
-singleExpression <Formula> = parenthese / quantum / negation / equals / notEquals / atom
+singleExpression <Formula> = parenthese / quantum / negation / equals / notEquals / predicate
 
 //Parenthese
 parenthese <Parenthese> = "(" " "* formula:formula " "* ")" { new Parenthese(formula) }
@@ -61,22 +61,30 @@ quantum <Formula>	= quantumSymbol:quantumSymbol " "* variable:variable " "* sing
 negation <Formula> = negationSymbol " "* singleExpression:singleExpression { new Negation(singleExpression) }
 
 //Equals
-equals <Formula> = const1:constant equalsSymbol const2:constant { new Equals(const1, const2) }
+equals <Formula> = const1:singleArgument equalsSymbol const2:singleArgument { new Equals(const1, const2) }
 
-//Equals
-notEquals <Formula> = const1:constant notEqualsSymbol const2:constant { new Negation(new Equals(const1, const2)) }
+//NotEquals
+notEquals <Formula> = const1:singleArgument notEqualsSymbol const2:singleArgument { new Negation(new Equals(const1, const2)) }
 
-//Atom
-atom <Formula> = n:string openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
+//Predicate
+predicate <Formula> = n:predicateString openedBracket argument:argument closedBracked { new Predicate(argument, n,n) }
+
+//Function
+function <Argument> = n:functionString openedBracket argument:argument closedBracked { new Function(argument, n,n) }
 
 //Arguments
 argument <List<Argument>> -memoize	= argument:argument argumentDelimiter constant:constant  { BuildArguments(argument, constant)}
-									/ constant:constant { new List<Argument> { constant }}
+									/ singleArgument:singleArgument { new List<Argument> { singleArgument }}
 
+//Single Argument
+singleArgument <Argument> = function / constant
+
+//Constant
 constant <Constant> = constant:string { new Constant(constant,constant) }
 
 string = "" ([a-z]i)*
-
+functionString = "" [a-z] ([a-z]i)*
+predicateString = "" [A-Z] ([a-z]i)*
 variable = ([u-z]i)<1>
 
 openedBracket = " "* "(" " "*

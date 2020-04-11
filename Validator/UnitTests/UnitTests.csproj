@@ -67,7 +67,7 @@
     <Compile Include="Test_TarskiWorld_Parsing.cs" />
     <Compile Include="Test_Parser_Conjunctions.cs" />
     <Compile Include="Test_PL1_ConstPred_Constant.cs" />
-    <Compile Include="Test_PL1_Functions.cs" />
+    <Compile Include="Test_Tarski_Functions.cs" />
     <Compile Include="Test_PL1_DynamicPred.cs" />
     <Compile Include="Test_Parser_Atoms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

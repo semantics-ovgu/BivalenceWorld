@@ -25,6 +25,11 @@ namespace Validator
         public const string SAMESHAPE = "SameShape";
         public const string SAMESIZE = "SameSize";
 
+        public const string LEFTMOST = "lm";
+        public const string RIGHTMOST = "rm";
+        public const string FRONTMOST = "fm";
+        public const string BACKMOST = "bm";
+
         public const string BETWEEN = "Between";
     }
 }
