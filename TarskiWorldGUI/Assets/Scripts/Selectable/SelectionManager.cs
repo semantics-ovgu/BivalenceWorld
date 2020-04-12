@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour, IDebug
 {
-    [SerializeField]
-    private Camera _targetCamera = default;
+	private Camera _targetCamera = default;
     private ISelectable _targetSelectable = default;
     private ISelectable _clickedElemente = default;
 
@@ -19,13 +18,17 @@ public class SelectionManager : MonoBehaviour, IDebug
     public GenericEvent<EventArgs> SelectionClickedEvent = new GenericEvent<EventArgs>();
     public GenericEvent<EventArgs> SelectionUnclickedEvent = new GenericEvent<EventArgs>();
 
-    private void Awake()
+    private void Start()
     {
-        if(_targetCamera == null)
-        {
-            _targetCamera = Camera.main;
-        }
-        GameManager.Instance?.AddObjToDebugList(this);
+
+	        _targetCamera = GameManager.Instance.GetMainCamera();
+            GameManager.Instance.GetCameraManager().CameraChangedEvent.AddEventListener(CameraChangedListener);
+            GameManager.Instance?.AddObjToDebugList(this);
+    }
+
+    private void CameraChangedListener(Camera arg0)
+    {
+	    _targetCamera = arg0;
     }
 
     private void Update()

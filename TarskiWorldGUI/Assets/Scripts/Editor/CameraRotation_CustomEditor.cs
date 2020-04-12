@@ -14,5 +14,9 @@ public class CameraRotation_CustomEditor : Editor
         {
             ((CameraRotation)target).SetCameraOrthogonal();
         }
+        if (GUILayout.Button("3dCamera"))
+        {
+	        ((CameraRotation)target).SetCameraDefault();
+        }
     }
 }

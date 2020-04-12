@@ -48,10 +48,10 @@ public class GUI_CameraRotationButton : MonoBehaviour
         var manager = GameManager.Instance;
         if (manager != null)
         {
-            _rotation = manager.GetMainCamera().gameObject.GetComponent<CameraRotation>();
+	        _rotation = manager.GetCameraManager();
             if (_rotation == null)
             {
-                _rotation = manager.GetMainCamera().gameObject.AddComponent<CameraRotation>();
+                Debug.LogWarning("Can not find Camera Manager Script");
             }
         }
     }

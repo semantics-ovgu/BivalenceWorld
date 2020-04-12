@@ -199,7 +199,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4100943871206412666}
   - component: {fileID: 2887749609260972315}
-  - component: {fileID: 1414086942247996610}
   m_Layer: 0
   m_Name: SelectableBhvr
   m_TagString: Selectable
@@ -236,21 +235,6 @@ MonoBehaviour:
   _selectableObj: {fileID: 4781179195985995663}
   _renderer: {fileID: 907353817910209661}
   _selectedMaterial: {fileID: 2100000, guid: 3f02058e45752a844babce1600babf88, type: 2}
---- !u!114 &1414086942247996610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5830875436184705291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987032a48e3d0d24bba841f147da1582, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectableObj: {fileID: 4781179195985995663}
-  _particleSystemPrefab: {fileID: 5540690513253194917, guid: a44cab47568606540988e9397148c21e,
-    type: 3}
 --- !u!1 &8054075996195791168
 GameObject:
   m_ObjectHideFlags: 0

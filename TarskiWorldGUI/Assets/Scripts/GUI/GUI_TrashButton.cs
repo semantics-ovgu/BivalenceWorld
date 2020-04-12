@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrashButton : MonoBehaviour
+public class GUI_TrashButton : MonoBehaviour
 {
     [SerializeField]
     private Button _targetButton = default;

@@ -18,9 +18,10 @@ public class DragObject : MonoBehaviour
 	[SerializeField]
 	private Transform _rootObj = default;
 
-	private void Awake()
+	private void Start()
 	{
 		_normalMaterial = _renderer.material;
+
 	}
 
 	void OnMouseDown()
@@ -28,7 +29,7 @@ public class DragObject : MonoBehaviour
 		_startPos = _rootObj.position;
 		_renderer.material = _selectedMaterial;
 
-		_mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+		_mZCoord = GameManager.Instance.GetCameraManager().GetCurrentCamera().WorldToScreenPoint(gameObject.transform.position).z;
 
 		//Debug.Log("Down");
 	}
@@ -39,7 +40,7 @@ public class DragObject : MonoBehaviour
 		Vector3 mousePoint = Input.mousePosition;
 		// z coordinate of game object on screen
 		mousePoint.z = _mZCoord;
-		return Camera.main.ScreenToWorldPoint(mousePoint);
+		return GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenToWorldPoint(mousePoint);
 	}
 
 
@@ -47,7 +48,7 @@ public class DragObject : MonoBehaviour
 	{
 		//transform.position = new Vector3(GetMouseAsWorldPoint().x + _mOffset.x, _yCord, GetMouseAsWorldPoint().z + _mOffset.z);
 	
-		var asd = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+		var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
 
 		if (asd.Length > 0)
 		{

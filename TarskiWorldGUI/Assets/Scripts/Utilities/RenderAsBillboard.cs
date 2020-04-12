@@ -26,10 +26,24 @@ public class RenderAsBillboard : MonoBehaviour
     /// <summary> Used to restrict/enable rotation to certain axes. 0.0f disables rotation around that axis, 1.0f enables it. </summary>
     public Vector3 Axes = new Vector3(1.0f, 1.0f, 1.0f);
 
-#if UNITY_EDITOR
-    //Only implemented to display "enabled" in the inspector:
-    private void Start() { }
-#endif
+
+    private void Awake()
+    {
+	    var manager = GameManager.Instance;
+	    if (manager != null)
+	    {
+		    var cameraManager = manager.GetCameraManager();
+		    if (cameraManager != null)
+		    {
+                cameraManager.CameraChangedEvent.AddEventListener(CameraChangedListener);
+		    }
+	    }
+    }
+
+    private void CameraChangedListener(Camera arg0)
+    {
+	    _camera = arg0;
+    }
 
     //private void OnWillRenderObject()
     //{
@@ -45,7 +59,7 @@ public class RenderAsBillboard : MonoBehaviour
     {
         if(_camera == null)
         {
-            _camera = Camera.main;
+	        _camera = GameManager.Instance.GetMainCamera();
         }
         else
         {
