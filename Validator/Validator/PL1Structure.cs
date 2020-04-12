@@ -30,6 +30,7 @@ namespace Validator
         public string GetModelRepresentation()
         {
             StringBuilder builder = new StringBuilder();
+            int padding = 10;
 
             builder.AppendLine("---Constants---");
             foreach (var constValue in GetConsts())
@@ -40,29 +41,54 @@ namespace Validator
             builder.AppendLine("---Predicates---");
             foreach (var predicateValuePair in GetPredicates())
             {
-                builder.AppendLine($"{predicateValuePair.Key.PadRight(10)} -> ");
+                builder.Append($"{predicateValuePair.Key.PadRight(padding)} -> ");
                 for (var i = 0; i < predicateValuePair.Value.Count; i++)
                 {
                     var predicateValue = predicateValuePair.Value[i];
+                    if (i != 0)
+                    {
+                        builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                    }
+
                     if (i < predicateValuePair.Value.Count - 1)
                     {
-                        builder.AppendLine($"\t{{ {string.Join(",", predicateValue)} }},");
+                        builder.AppendLine($"{{ {string.Join(",", predicateValue)} }},");
                     }
                     else
                     {
-                        builder.AppendLine($"\t{{ {string.Join(",", predicateValue)} }}");
+                        builder.AppendLine($"{{ {string.Join(",", predicateValue)} }}");
                     }
                 }
+
+                builder.AppendLine();
             }
 
             builder.AppendLine("---Functions---");
             foreach (var functionValuePair in GetFunctions())
             {
-                builder.AppendLine($"{functionValuePair.Key.PadRight(10)} -> ");
+                builder.Append($"{functionValuePair.Key.PadRight(padding)} -> ");
+                int index = 0;
+                int maxIndex = functionValuePair.Value.Count;
                 foreach (var arguments in functionValuePair.Value)
                 {
-                    builder.AppendLine($"\t{{{string.Join(",", arguments.Key)}}} -> {arguments.Value},");
+                    if (index != 0)
+                    {
+                        builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                    }
+
+                    if (index < maxIndex - 1)
+                    {
+                        builder.AppendLine($"{{{string.Join(",", arguments.Key)}}} -> {arguments.Value},");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"{{{string.Join(",", arguments.Key)}}} -> {arguments.Value}");
+                    }
+
+                    index++;
                 }
+
+                builder.AppendLine();
             }
 
             return builder.ToString();
