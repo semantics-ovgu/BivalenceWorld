@@ -30,7 +30,7 @@ namespace Validator
         public string GetModelRepresentation()
         {
             StringBuilder builder = new StringBuilder();
-            int padding = 10;
+            const int padding = 10;
 
             builder.AppendLine("---Constants---");
             foreach (var constValue in GetConsts())

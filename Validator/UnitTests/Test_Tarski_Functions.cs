@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Validator;
+using Validator.World;
 
 namespace UnitTests
 {
@@ -22,8 +23,8 @@ namespace UnitTests
             {
                 "Cube(lm(b))",
                 "Medium(rm(b))",
-                "fm(c) = c",
-                "bm(c) = b",
+                "fm(c) = b",
+                "bm(c) = c",
                 "Cube(fm(c))"
             };
 
@@ -31,11 +32,11 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.IsTrue(result.Result.Value[0].Value);
-            Assert.IsTrue(result.Result.Value[1].Value);
-            Assert.IsTrue(result.Result.Value[2].Value);
-            Assert.IsTrue(result.Result.Value[3].Value);
-            Assert.IsFalse(result.Result.Value[4].Value);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[3].Value == EValidationResult.True);
+            Assert.IsFalse(result.Result.Value[4].Value == EValidationResult.True);
         }
     }
 }

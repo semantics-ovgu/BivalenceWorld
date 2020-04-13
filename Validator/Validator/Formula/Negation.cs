@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Validator.World;
 
 namespace Validator
 {
@@ -12,14 +13,21 @@ namespace Validator
             _formula = formula;
         }
 
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (_formula != null && _formula is IFormulaValidate formulaValidate)
             {
                 var res = formulaValidate.Validate(pL1Structure, dictVariables);
                 if (res.IsValid)
                 {
-                    return Result<bool>.CreateResult(true, !res.Value);
+                    if (res.Value == EValidationResult.True)
+                    {
+                        return Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+                    }
+                    else
+                    {
+                        return Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                    }
                 }
                 else
                 {
@@ -27,7 +35,7 @@ namespace Validator
                 }
             }
 
-            return Result<bool>.CreateResult(false, false, "No Formula in Parenthese");
+            return Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
         }
     }
 }

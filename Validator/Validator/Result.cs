@@ -39,6 +39,16 @@ namespace Validator
 
         #region Factory Methods
 
+        public static Result<T> CreateResult(T value, string errorText = "")
+        {
+            return new Result<T>
+            {
+                    _errorText = errorText,
+                    _isValid = true,
+                    _value = value
+            };
+        }
+
         public static Result<T> CreateResult(bool isValid, T value, string errorText = "")
         {
             return new Result<T>

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Validator;
+using Validator.World;
 
 public class GUI_ValidateButton : MonoBehaviour, IDebug
 {
@@ -73,7 +74,7 @@ public class GUI_ValidateButton : MonoBehaviour, IDebug
 
 		TarskiWorld world = new TarskiWorld();
 
-		WorldResult<bool> result = world.Check(new WorldParameter(worldObjs, resultSentences));
+		WorldResult<EValidationResult> result = world.Check(new WorldParameter(worldObjs, resultSentences));
 
 		//Conclusion
 
@@ -81,7 +82,7 @@ public class GUI_ValidateButton : MonoBehaviour, IDebug
 
 		for (int i = 0; i < result.Result.Value.Count; i++)
 		{
-			Result<bool> item = result.Result.Value[i];
+			Result<EValidationResult> item = result.Result.Value[i];
 			list[i].ParserValide(item.IsValid);
 			if (item.IsValid)
 			{

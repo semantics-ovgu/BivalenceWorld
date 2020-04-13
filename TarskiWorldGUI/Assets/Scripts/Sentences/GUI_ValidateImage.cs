@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Validator.World;
 
 public class GUI_ValidateImage : MonoBehaviour
 {
@@ -19,14 +20,14 @@ public class GUI_ValidateImage : MonoBehaviour
 
 
 
-    public void SetColor(bool isCorrect)
+    public void SetColor(EValidationResult isCorrect)
     {
         ActivateImage(true);
-        if (isCorrect == false)
+        if (isCorrect == EValidationResult.False)
         {
             SetColorToImage(_wrongColor);
         }
-        else
+        else if (isCorrect == EValidationResult.True)
         {
             SetColorToImage(_rightColor);
         }

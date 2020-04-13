@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Validator.World;
 
 public class GUI_TextInputElement : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GUI_TextInputElement : MonoBehaviour
         return _inputFields.text;
     }
 
-    public void Validate(bool v)
+    public void Validate(EValidationResult v)
     {
         _validateImage.SetColor(v);
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Validator.World;
 
 namespace Validator
 {
@@ -11,17 +12,18 @@ namespace Validator
         {
         }
 
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<bool> result = Result<bool>.CreateResult(true, false);
+            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
             ConstDictionary constDict = pL1Structure.GetPl1Structure().GetConsts();
             PredicateDictionary predDict = pL1Structure.GetPl1Structure().GetPredicates();
+
             if (pL1Structure is IWorldSignature worldSignature)
             {
                 Signature signature = worldSignature.GetSignature();
                 if (!signature.Predicates.Any(elem => elem.Item1 == Name && elem.Item2 == Arguments.Count))
                 {
-                    return Result<bool>.CreateResult(false, false, "Predicate " + Name + " not found in signature.");
+                    return Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated, "Predicate " + Name + " not found in signature.");
                 }
             }
 
@@ -32,7 +34,7 @@ namespace Validator
             {
                 if (predElem.SequenceEqual(universeArguments))
                 {
-                    result = Result<bool>.CreateResult(true, true);
+                    result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
                     break;
                 }
             }

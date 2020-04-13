@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Validator.World;
 
 namespace Validator
 {
@@ -11,16 +9,23 @@ namespace Validator
         {
         }
 
-
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<bool> result = Result<bool>.CreateResult(true, false);
+            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
             foreach (var conjunctionPart in GetArgumentsOfType<IFormulaValidate>())
             {
-                Result<bool> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
-                if (validate.Value)
+                Result<EValidationResult> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
+                if (validate.IsValid)
                 {
-                    result = Result<bool>.CreateResult(true, true);
+                    if (validate.Value == EValidationResult.True)
+                    {
+                        result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        break;
+                    }
+                }
+                else
+                {
+                    result = validate;
                     break;
                 }
             }

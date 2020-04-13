@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Validator;
+using Validator.World;
 
 namespace UnitTests
 {
@@ -26,9 +27,9 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.IsTrue(result.Result.Value[0].Value);
-            Assert.IsTrue(result.Result.Value[1].Value);
-            Assert.IsFalse(result.Result.Value[2].Value);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.IsFalse(result.Result.Value[2].Value == EValidationResult.True);
         }
 
         [TestMethod]
@@ -50,9 +51,9 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.IsTrue(result.Result.Value[0].Value);
-            Assert.IsTrue(result.Result.Value[1].Value);
-            Assert.IsFalse(result.Result.Value[2].Value);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.IsFalse(result.Result.Value[2].Value == EValidationResult.True);
         }
     }
 }

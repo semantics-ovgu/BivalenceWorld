@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Validator;
+using Validator.World;
 
 namespace UnitTests.Test_DiceGame
 {
@@ -24,7 +25,7 @@ namespace UnitTests.Test_DiceGame
             AWorld world = new GameWorld();
             var result = world.Check(new WorldParameter(worldObjects, GameRuleSet.GetRule(GameRuleSet.ERule.SelectionPossible)));
 
-            Assert.IsTrue(result.Result.Value[0].Value);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
         }
     }
 }

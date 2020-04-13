@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Validator;
+using Validator.World;
 
 namespace UnitTests
 {
@@ -30,10 +31,10 @@ namespace UnitTests
             var result = world.Check(parameter);
 
             Assert.AreEqual(result.Result.Value.Count, 4);
-            Assert.IsTrue(result.Result.Value[0].Value);
-            Assert.IsFalse(result.Result.Value[1].Value);
-            Assert.IsTrue(result.Result.Value[2].Value);
-            Assert.IsTrue(result.Result.Value[3].Value);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.IsFalse(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[3].Value == EValidationResult.True);
         }
     }
 }

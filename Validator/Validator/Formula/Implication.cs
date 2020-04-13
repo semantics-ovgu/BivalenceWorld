@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Validator.World;
 
 namespace Validator
 {
@@ -11,28 +10,41 @@ namespace Validator
         {
         }
 
-
-        public Result<bool> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<bool> result = Result<bool>.CreateResult(true, false);
+            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
             var arguments = GetArgumentsOfType<IFormulaValidate>().ToList();
-
             if (arguments.Count != 2)
-                result = Result<bool>.CreateResult(false, false, "Implication has invalid amount of arguments " + arguments.Count);
+            {
+                result = Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult,
+                        "Implication has invalid amount of arguments " + arguments.Count);
+            }
             else
             {
                 var result1 = arguments[0].Validate(pL1Structure, dictVariables);
                 var result2 = arguments[1].Validate(pL1Structure, dictVariables);
-
                 if (result1.IsValid && result2.IsValid)
                 {
-                    if (!result1.Value || result2.Value)
-                        result = Result<bool>.CreateResult(true, true);
+                    if (result1.Value == EValidationResult.False || result2.Value == EValidationResult.True)
+                    {
+                        result = Result<EValidationResult>.CreateResult(EValidationResult.True);
+                    }
                     else
-                        result = Result<bool>.CreateResult(true, false);
+                    {
+                        result = Result<EValidationResult>.CreateResult(EValidationResult.False);
+                    }
                 }
                 else
-                    result = Result<bool>.CreateResult(false, false, result1.Message + "\n" + result2.Message);
+                {
+                    if (!result1.IsValid)
+                    {
+                        result = result1;
+                    }
+                    else
+                    {
+                        result = result2;
+                    }
+                }
             }
 
             return result;
