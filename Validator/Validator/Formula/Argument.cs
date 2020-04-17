@@ -13,18 +13,24 @@ namespace Validator
 
         public abstract Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
 
-        public static List<string> GetUniverseIdentifier(List<Argument> arguments, IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
+        public static Result<List<string>> GetUniverseIdentifier(List<Argument> arguments, IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
         {
-            List<string> universeArguments = new List<string>();
+            Result<List<string>> universeArguments = Result<List<string>>.CreateResult(true, new List<string>());
             ConstDictionary constDict = pL1WorldStructure.GetPl1Structure().GetConsts();
 
             foreach (var item in arguments)
             {
                 Result<string> universeIdentifier = item.GetPL1UniverseIdentifier(pL1WorldStructure, dictVariables);
                 if (universeIdentifier.IsValid)
-                    universeArguments.Add(constDict.TryGetValue(universeIdentifier.Value));
+                {
+                    universeArguments.Value.Add(constDict.TryGetValue(universeIdentifier.Value));
+                }
+                else
+                {
+                    universeArguments = Result<List<string>>.CreateResult(false, new List<string>() { universeIdentifier.Value });
+                    break;
+                };
             }
-
             return universeArguments;
         }
     }

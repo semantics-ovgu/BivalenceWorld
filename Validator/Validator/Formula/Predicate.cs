@@ -27,15 +27,22 @@ namespace Validator
                 }
             }
 
-            List<string> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
+            Result<List<string>> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
             List<List<string>> predicateList = predDict.TryGetValue(Name);
 
-            foreach (var predElem in predicateList)
+            if (!universeArguments.IsValid)
             {
-                if (predElem.SequenceEqual(universeArguments))
+                result = Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
+            }
+            else
+            {
+                foreach (var predElem in predicateList)
                 {
-                    result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
-                    break;
+                    if (predElem.SequenceEqual(universeArguments.Value))
+                    {
+                        result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        break;
+                    }
                 }
             }
 

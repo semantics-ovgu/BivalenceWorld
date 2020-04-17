@@ -16,10 +16,15 @@ namespace Validator
 
         public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            List<string> universeIdentifier = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
+            Result<List<string>> universeIdentifier = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
 
-            string u1 = universeIdentifier[0];
-            string u2 = universeIdentifier[1];
+            if (!universeIdentifier.IsValid)
+            {
+                return Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
+            }
+
+            string u1 = universeIdentifier.Value[0];
+            string u2 = universeIdentifier.Value[1];
 
             if (u1 == u2)
             {

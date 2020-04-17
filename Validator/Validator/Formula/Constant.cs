@@ -17,9 +17,13 @@ namespace Validator
             {
                 return Result<string>.CreateResult(true, dictVariables[Name]);
             }
-            else
+            else if (pL1Structure.GetPl1Structure().GetConsts().ContainsKey(Name))
             {
                 return Result<string>.CreateResult(true, Name);
+            }
+            else
+            {
+                return Result<string>.CreateResult(false, "");
             }
         }
     }
