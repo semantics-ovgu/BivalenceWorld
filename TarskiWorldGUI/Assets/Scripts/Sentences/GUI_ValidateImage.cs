@@ -9,27 +9,21 @@ public class GUI_ValidateImage : MonoBehaviour
 {
     [SerializeField]
     private Image _targetImage = default;
-
     [SerializeField]
-    private Color _wrongColor = default;
+    private List<Container> _list = default;
 
-    [SerializeField]
-    private Color _rightColor = default;
-    [SerializeField]
-    private Color _wrongParseColor = default;
-
-
-
-    public void SetColor(EValidationResult isCorrect)
+    public void SetColor(EValidationResult validateResult)
     {
         ActivateImage(true);
-        if (isCorrect == EValidationResult.False)
+
+        var obj = _list.Find(x => x.Type == validateResult);
+        if (obj != null)
         {
-            SetColorToImage(_wrongColor);
+            SetSpriteToImage(obj.Sprite);
         }
-        else if (isCorrect == EValidationResult.True)
+        else
         {
-            SetColorToImage(_rightColor);
+            Debug.LogError("Can not find type: " + validateResult.ToString());
         }
     }
 
@@ -38,14 +32,15 @@ public class GUI_ValidateImage : MonoBehaviour
         _targetImage.gameObject.SetActive(isActiv);
     }
 
-    private void SetColorToImage(Color color)
+    private void SetSpriteToImage(Sprite sprite)
     {
-        _targetImage.color = color;
+        _targetImage.sprite = sprite;
     }
 
-    internal void ParseError()
+    [System.Serializable]
+    public class Container
     {
-        SetColorToImage(_wrongParseColor);
-        ActivateImage(true);
+	    public EValidationResult Type;
+	    public Sprite Sprite;
     }
 }

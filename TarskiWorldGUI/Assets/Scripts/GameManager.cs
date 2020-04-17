@@ -26,8 +26,12 @@ public class GameManager : ASingleton<GameManager>
 	private CameraRotation _cameraManager = default;
 	public CameraRotation GetCameraManager() => _cameraManager;
 
+	[SerializeField]
+	private Validation _validation = new Validation();
 
-	
+	public Validation GetValidation() => _validation;
+
+
 
 
 

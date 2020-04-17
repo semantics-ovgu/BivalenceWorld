@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Validator.World;
@@ -23,6 +24,14 @@ public class GUI_TextInputElement : MonoBehaviour
         _inputFields.onValueChanged.AddListener(EndEdit);
         _inputFields.onSelect.AddListener(Selected);
         _inputFields.onDeselect.AddListener(Deselected);
+        _singleValidateButton.onClick.AddListener(ButtonClickedListener);
+    }
+
+    private void ButtonClickedListener()
+    {
+        List<string> _sentences = new List<string>{_inputFields.text};
+        List<GUI_TextInputElement> inputFields = new List<GUI_TextInputElement>{this};
+        GameManager.Instance.GetValidation().StartCalculator(inputFields, _sentences);
     }
 
 
@@ -94,14 +103,6 @@ public class GUI_TextInputElement : MonoBehaviour
         else
         {
             SetInteractableButton(true);
-        }
-    }
-
-    internal void ParserValide(bool isValid)
-    {
-        if (!isValid)
-        {
-            _validateImage.ParseError();
         }
     }
 
