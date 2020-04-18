@@ -82,7 +82,7 @@ public class PredicateObj : MonoBehaviour
         else if (_worldCanvasInstance == null)
         {
             _worldCanvasInstance = Instantiate(_worldCanvasPrefab, this.transform.position, Quaternion.identity, this.transform);
-            _worldCanvasInstance.transform.localPosition = new Vector3(0, 6.5f, 0);
+            _worldCanvasInstance.transform.localPosition = new Vector3(-2f, 1f, 0f);
             _worldCanvasPrefab.transform.localScale = Vector3.one * 1f;
             _worldCanvasInstance.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = GetConstantString();
         }

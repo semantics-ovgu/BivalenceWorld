@@ -20,12 +20,14 @@ public class Selectable_ChangeMaterial : Selectable_ABhvr
 
     protected override void StartSelectedListener(SelectableObject.SelectableArgs arg0)
     {
+        Debug.Log("Started Selection on: " + this.gameObject.name);
         base.StartHoveredListener(arg0);
         _normalMaterial = _renderer.material;
         SetMaterialToRenderer(_selectedMaterial);
     }
     protected override void EndSelectedListener(SelectableObject.SelectableArgs arg0)
     {
+	    Debug.Log("Ended Selection on: " + this.gameObject.name);
         base.EndHoveredListener(arg0);
         SetMaterialToRenderer(_normalMaterial);
     }

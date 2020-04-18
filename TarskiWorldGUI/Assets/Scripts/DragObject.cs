@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
@@ -21,13 +19,12 @@ public class DragObject : MonoBehaviour
 	private void Start()
 	{
 		_normalMaterial = _renderer.material;
-
 	}
 
-	void OnMouseDown()
+	private void OnMouseDown()
 	{
 		_startPos = _rootObj.position;
-		_renderer.material = _selectedMaterial;
+		//_renderer.material = _selectedMaterial;
 
 		_mZCoord = GameManager.Instance.GetCameraManager().GetCurrentCamera().WorldToScreenPoint(gameObject.transform.position).z;
 
@@ -44,22 +41,21 @@ public class DragObject : MonoBehaviour
 	}
 
 
-	void OnMouseDrag()
+	private void OnMouseDrag()
 	{
 		//transform.position = new Vector3(GetMouseAsWorldPoint().x + _mOffset.x, _yCord, GetMouseAsWorldPoint().z + _mOffset.z);
-	
+
 		var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
 
 		if (asd.Length > 0)
 		{
 			for (int i = 0; i < asd.Length; i++)
 			{
-				if(asd[i].collider.gameObject.layer == LayerMask.NameToLayer("Selectable"))
+				if (asd[i].collider.gameObject.layer == LayerMask.NameToLayer("Selectable"))
 				{
 					var pos = asd[i].point;
 					//Anhand der größe offseten
 					_rootObj.position = new Vector3(pos.x, pos.y, pos.z);
-
 				}
 			}
 		}
@@ -67,19 +63,21 @@ public class DragObject : MonoBehaviour
 
 	private void OnMouseUp()
 	{
-		_renderer.material = _normalMaterial;
+		//_renderer.material = _normalMaterial;
 		SelectionManager selection = GameManager.Instance.GetSelectionManager();
 
 		ISelectable target = selection.TargetHoveredElement;
 		//check if is null them remove to old field and select this
-		if(target != null)
+		if (target != null)
 		{
 			var field = target.GetRootObj().GetComponent<Field>();
 
 			if (CheckIfFieldIsEmpty(field))
 			{
 				if (_predicate.GetField() != field)
+				{
 					selection.SelectObj();
+				}
 
 				_predicate.GetField().ResetPredicate();
 				field.AddPredicateObj(_predicate);
@@ -102,8 +100,10 @@ public class DragObject : MonoBehaviour
 	private bool CheckIfFieldIsEmpty(Field field)
 	{
 		if (field != null && field.GetPredicateInstance() == null)
+		{
 			return true;
-		else
-			return false;
+		}
+
+		return false;
 	}
 }
