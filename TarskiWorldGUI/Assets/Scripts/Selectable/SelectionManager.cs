@@ -54,22 +54,17 @@ public class SelectionManager : MonoBehaviour, IDebug
         }
     }
 
-	internal void DeselectObj()
-	{
-		TryDeselectLastClickedObj();
-	}
-
 	internal void SelectObj()
 	{
-		DeselectObj();
-		_targetSelectable.Selectable();
+		TryDeselectLastClickedObj();
+        _targetSelectable.Selectable();
 		_clickedElemente = _targetSelectable;
 		SelectionClickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
 	}
 
 	private void TryDeselectLastClickedObj()
     {
-        if (_clickedElemente != null && _clickedElemente != _targetSelectable)
+        if (_clickedElemente != null)// && _clickedElemente != _targetSelectable)
         {
             SelectionUnclickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
             _clickedElemente.Deselectable();
