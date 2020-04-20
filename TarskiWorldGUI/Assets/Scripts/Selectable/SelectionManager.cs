@@ -68,6 +68,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         {
             SelectionUnclickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
             _clickedElemente.Deselectable();
+            _clickedElemente = null;
         }
     }
 
