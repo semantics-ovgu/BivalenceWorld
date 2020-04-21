@@ -24,18 +24,12 @@ public class DragObject : MonoBehaviour
 	private void OnMouseDown()
 	{
 		_startPos = _rootObj.position;
-		//_renderer.material = _selectedMaterial;
-
 		_mZCoord = GameManager.Instance.GetCameraManager().GetCurrentCamera().WorldToScreenPoint(gameObject.transform.position).z;
-
-		//Debug.Log("Down");
 	}
 
 	private Vector3 GetMouseAsWorldPoint()
 	{
-		// Pixel coordinates of mouse (x,y)
 		Vector3 mousePoint = Input.mousePosition;
-		// z coordinate of game object on screen
 		mousePoint.z = _mZCoord;
 		return GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenToWorldPoint(mousePoint);
 	}
@@ -43,8 +37,6 @@ public class DragObject : MonoBehaviour
 
 	private void OnMouseDrag()
 	{
-		//transform.position = new Vector3(GetMouseAsWorldPoint().x + _mOffset.x, _yCord, GetMouseAsWorldPoint().z + _mOffset.z);
-
 		var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
 
 		if (asd.Length > 0)
@@ -63,11 +55,9 @@ public class DragObject : MonoBehaviour
 
 	private void OnMouseUp()
 	{
-		//_renderer.material = _normalMaterial;
 		SelectionManager selection = GameManager.Instance.GetSelectionManager();
 
 		ISelectable target = selection.TargetHoveredElement;
-		//check if is null them remove to old field and select this
 		if (target != null)
 		{
 			var field = target.GetRootObj().GetComponent<Field>();
@@ -84,16 +74,13 @@ public class DragObject : MonoBehaviour
 			}
 			else
 			{
-				//field.DestroyPredicateObj();
 				_rootObj.position = _startPos;
-				//this.transform.position = Vector3.zero;
 			}
 		}
 		else
 		{
 			_predicate.CurrentField.DestroyPredicateObj();
-			//_rootObj.position = _startPos;
-			//this.transform.position = Vector3.zero;
+			GameManager.Instance.GetValidation().SetPresentationLayout();
 		}
 	}
 

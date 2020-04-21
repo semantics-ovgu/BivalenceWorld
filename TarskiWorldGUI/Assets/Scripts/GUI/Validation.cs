@@ -96,10 +96,6 @@ public class Validation
 
 		WorldResult<EValidationResult> result = world.Check(new WorldParameter(worldObjs, resultSentences));
 
-		//Conclusion
-
-
-
 		for (int i = 0; i < result.Result.Value.Count; i++)
 		{
 			Result<EValidationResult> item = result.Result.Value[i];
@@ -128,8 +124,6 @@ public class Validation
 			presentation.SetText(presentationWorldTxt);
 		}
 	}
-
-
 
 	private void DebugConsole(string value)
 	{

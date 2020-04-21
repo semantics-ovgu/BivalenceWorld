@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1175253013238409878}
   - component: {fileID: 1175253013238409872}
   - component: {fileID: 7075227818687162702}
+  - component: {fileID: 1648174653937432453}
   m_Layer: 5
   m_Name: GUI_ConstantDisplay
   m_TagString: Untagged
@@ -92,6 +93,20 @@ MonoBehaviour:
   _camera: {fileID: 0}
   BillboardMode: 1
   Axes: {x: 1, y: 1, z: 1}
+--- !u!114 &1648174653937432453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175253013238409874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bb989d4a7d9994eaf1d3889eac1fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 1175253013369071396}
+  _image: {fileID: 7122051237753544872}
 --- !u!1 &1175253013369071398
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,11 +34,4 @@ public class GUI_ValidateButton : MonoBehaviour, IDebug
 	{
 		_validation.StartCalculator(textputElement, sentences);
 	}
-
-	public void SetModelPresentation()
-	{
-	
-	}
-
-
 }
