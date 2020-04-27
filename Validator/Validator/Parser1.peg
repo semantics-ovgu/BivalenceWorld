@@ -82,7 +82,7 @@ singleArgument <Argument> = function / constant
 //Constant
 constant <Constant> = constant:string { new Constant(constant,constant) }
 
-string = "" ([a-z]i)*
+string = "" ([a-z]i)+
 functionString = "" [a-z] ([a-z]i)*
 predicateString = "" [A-Z] ([a-z]i)*
 variable = ([u-z]i)<1>

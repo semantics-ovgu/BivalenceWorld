@@ -73,6 +73,23 @@ namespace UnitTests
             }
         }
 
+        [TestMethod]
+        public void TarskiWorld_EmptyConstant()
+        {
+            TarskiWorld world = new TarskiWorld();
+            List<string> stentences = new List<string>()
+            {
+                "Tet()"
+            };
+            WorldParameter parameter = new WorldParameter(CreateWorldObject(), stentences);
+            var result = world.Check(parameter);
+            Assert.AreEqual(result.Result.Value.Count, 1);
+            foreach (var obj in result.Result.Value)
+            {
+                Assert.AreEqual(obj.Value, EValidationResult.ParserFailed);
+            }
+        }
+
         private List<WorldObject> CreateWorldObject()
         {
             List<WorldObject> worldObjects = new List<WorldObject>

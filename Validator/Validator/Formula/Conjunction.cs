@@ -20,7 +20,6 @@ namespace Validator
                     if (validate.Value != EValidationResult.True)
                     {
                         result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
-                        break;
                     }
                 }
                 else

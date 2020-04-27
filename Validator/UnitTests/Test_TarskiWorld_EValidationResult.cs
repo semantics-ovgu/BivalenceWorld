@@ -41,11 +41,12 @@ namespace UnitTests
             {
                     "Tet(b)",
                     "Tes(a)",
-                    "Tet(rds(a))"
+                    "Tet(rds(a))",
+                    $"∀x (Cube(x) ∧ Cube(y))"
             };
             List<WorldObject> worldObjects = new List<WorldObject>()
             {
-                    new WorldObject(new List<string>() { "a" }, new List<string>() {"Tet"}, new List<object>() )
+                    new WorldObject(new List<string>() { "a", "c" }, new List<string>() {"Tet", "Large"}, new List<object> {3,2} )
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             TarskiWorld world = new TarskiWorld();
@@ -53,6 +54,7 @@ namespace UnitTests
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.CanNotBeValidated);
             Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.CanNotBeValidated);
             Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.CanNotBeValidated);
+            Assert.IsTrue(result.Result.Value[3].Value == EValidationResult.CanNotBeValidated);
         }
     }
 }

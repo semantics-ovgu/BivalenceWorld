@@ -21,6 +21,7 @@ namespace UnitTests
                 "Adjoins(b,a)",
                 "Adjoins(a,c)",
                 "Adjoins(a,d)",
+                "Adjoins(a,a)",
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
@@ -32,11 +33,11 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.AreEqual(result.Result.Value.Count, 4);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
             Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
             Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.True);
             Assert.IsFalse(result.Result.Value[3].Value == EValidationResult.True);
+            Assert.IsTrue(result.Result.Value[4].Value == EValidationResult.False);
         }
 
         [TestMethod]

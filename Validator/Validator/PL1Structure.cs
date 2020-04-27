@@ -32,10 +32,18 @@ namespace Validator
             StringBuilder builder = new StringBuilder();
             const int padding = 10;
 
+            builder.AppendLine("---Universe---");
+            builder.Append("Universe -> {");
+            builder.Append(string.Join(",", _universe));
+            builder.AppendLine("}");
+
             builder.AppendLine("---Constants---");
             foreach (var constValue in GetConsts())
             {
-                builder.AppendLine($"{constValue.Key.PadRight(5)} -> {constValue.Value}");
+                if (!constValue.Key.StartsWith(_genericIdentifier))
+                {
+                    builder.AppendLine($"{constValue.Key.PadRight(5)} -> {constValue.Value}");
+                }
             }
 
             builder.AppendLine("---Predicates---");
@@ -49,14 +57,18 @@ namespace Validator
                     {
                         builder.AppendFormat($"{{0,{padding + 4}}}", " ");
                     }
+                    else
+                    {
+                        builder.Append("{");
+                    }
 
                     if (i < predicateValuePair.Value.Count - 1)
                     {
-                        builder.AppendLine($"{{ {string.Join(",", predicateValue)} }},");
+                        builder.AppendLine($"({string.Join(",", predicateValue)}),");
                     }
                     else
                     {
-                        builder.AppendLine($"{{ {string.Join(",", predicateValue)} }}");
+                        builder.AppendLine($"({string.Join(",", predicateValue)})}}");
                     }
                 }
 
@@ -75,14 +87,18 @@ namespace Validator
                     {
                         builder.AppendFormat($"{{0,{padding + 4}}}", " ");
                     }
+                    else
+                    {
+                        builder.Append("{");
+                    }
 
                     if (index < maxIndex - 1)
                     {
-                        builder.AppendLine($"{{{string.Join(",", arguments.Key)}}} -> {arguments.Value},");
+                        builder.AppendLine($"({string.Join(",", arguments.Key)}) -> {arguments.Value},");
                     }
                     else
                     {
-                        builder.AppendLine($"{{{string.Join(",", arguments.Key)}}} -> {arguments.Value}");
+                        builder.AppendLine($"({string.Join(",", arguments.Key)}) -> {arguments.Value}}}");
                     }
 
                     index++;
@@ -145,7 +161,9 @@ namespace Validator
             ConstDictionary consts = _modelDataStructure.Consts;
             string key = _genericIdentifier + _genericIndex;
             _genericIndex++;
-            consts.Add(key, _universeIdentifier + consts.CurrIndex++);
+            string uni = _universeIdentifier + consts.CurrIndex++;
+            consts.Add(key, uni);
+            _universe.Add(uni);
 
             return key;
         }
@@ -158,8 +176,10 @@ namespace Validator
             {
                 if (keySameUniverseIdentifier == null)
                 {
-                    consts.Add(key, _universeIdentifier + consts.CurrIndex);
+                    string uni = _universeIdentifier + consts.CurrIndex;
+                    consts.Add(key, uni);
                     consts.CurrIndex++;
+                    _universe.Add(uni);
                 }
                 else
                 {

@@ -98,6 +98,8 @@ namespace UnitTests
                             new List<object> {3, 3}),
                     new WorldObject(new List<string> {"b"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
                             new List<object> {5, 3}),
+                    new WorldObject(new List<string> {"c"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                            new List<object> {4, 3}),
                     new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM}, new List<object> {3, 5})
             };
             WorldParameter parameter = new WorldParameter(worldObjects, new List<string>());

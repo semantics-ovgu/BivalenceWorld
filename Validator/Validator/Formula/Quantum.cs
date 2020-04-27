@@ -9,7 +9,7 @@ namespace Validator
         private EQuantumType _type = EQuantumType.None;
         private string _variable = "";
 
-        public Quantum(EQuantumType type, Formula argument, string variable, string name, string rawFormula) : base(new List<Formula> {argument}, name,
+        public Quantum(EQuantumType type, Formula argument, string variable, string name, string rawFormula) : base(new List<Formula> { argument }, name,
                 rawFormula)
         {
             _type = type;
@@ -65,7 +65,6 @@ namespace Validator
                 if (helpResult.Value != EValidationResult.True)
                 {
                     result = helpResult;
-                    break;
                 }
             }
 
@@ -92,7 +91,6 @@ namespace Validator
                 if (helpResult.Value == EValidationResult.True)
                 {
                     result = helpResult;
-                    break;
                 }
             }
 
