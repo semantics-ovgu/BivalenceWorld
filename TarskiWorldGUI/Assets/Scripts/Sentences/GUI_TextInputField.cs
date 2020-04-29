@@ -41,6 +41,14 @@ public class GUI_TextInputField : MonoBehaviour
         return list;
     }
 
+    public void ResetValidationOnTexts()
+    {
+	    foreach (var item in _inputFields)
+	    {
+		    item.ResetValidation();
+	    }
+    }
+
     private void SelectedListener(GUI_TextInputElement arg0)
     {
         _currentTextInputElement = arg0;

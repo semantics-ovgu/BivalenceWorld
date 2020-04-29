@@ -80,7 +80,17 @@ public class DragObject : MonoBehaviour
 		else
 		{
 			_predicate.CurrentField.DestroyPredicateObj();
-			GameManager.Instance.GetValidation().SetPresentationLayout();
+			WorldChanged();
+		}
+	}
+
+	private void WorldChanged()
+	{
+		var manager = GameManager.Instance;
+		if (manager != null)
+		{
+			manager.GetValidation().SetPresentationLayout();
+			manager.GetTextInputField().ResetValidationOnTexts();
 		}
 	}
 

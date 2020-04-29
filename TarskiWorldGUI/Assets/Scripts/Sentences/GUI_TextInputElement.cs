@@ -95,10 +95,10 @@ public class GUI_TextInputElement : MonoBehaviour
 
     private void EndEdit(string arg0)
     {
+	    ResetValidation();
         if (string.IsNullOrEmpty(arg0))
         {
             SetInteractableButton(false);
-            _validateImage.ActivateImage(false);
         }
         else
         {
@@ -109,5 +109,10 @@ public class GUI_TextInputElement : MonoBehaviour
     private void SetInteractableButton(bool isInteractable)
     {
         _singleValidateButton.interactable = isInteractable;
+    }
+
+    public void ResetValidation()
+    {
+	    _validateImage.ActivateImage(false);
     }
 }

@@ -72,7 +72,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 		_predicateInstance = obj;
 		_predicateInstance.gameObject.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
 		_predicateInstance.SetField(this);
-		UpdateWorldPresentation();
+		WorldChanged();
     }
 
 	internal void ResetPredicate()
@@ -99,7 +99,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
                 Debug.LogWarning("Can not find PredicatBhvr or PredicateObj");
             }
         }
-        UpdateWorldPresentation();
+        WorldChanged();
     }
 
     public List<string> GetConstantsList()
@@ -112,13 +112,18 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         if (_predicateInstance != null)
         {
             _predicateInstance.AddConstant(constant);
-            UpdateWorldPresentation();
+            WorldChanged();
         }
     }
 
-    private void UpdateWorldPresentation()
-    { 
-		GameManager.Instance.GetValidation().SetPresentationLayout();
+    private void WorldChanged()
+    {
+	    var manager = GameManager.Instance;
+	    if (manager != null)
+	    {
+		    manager.GetValidation().SetPresentationLayout();
+            manager.GetTextInputField().ResetValidationOnTexts();
+        }
     }
 
     public void RemoveConstant(string constant)
