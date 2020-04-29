@@ -131,6 +131,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         if (_predicateInstance != null)
         {
             _predicateInstance.RemoveConstant(constant);
+            WorldChanged();
         }
     }
 
