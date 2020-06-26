@@ -77,9 +77,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TarskiWorld\TarskiWorld.csproj">
-      <Project>{929ed1c9-1d8c-48d4-950e-317afeb89dd6}</Project>
-      <Name>TarskiWorld</Name>
+    <ProjectReference Include="..\BivalenceWorld\BivalenceWorld.csproj">
+      <Project>{dc2da77c-4e77-4612-9642-0f692c371644}</Project>
+      <Name>BivalenceWorld</Name>
     </ProjectReference>
     <ProjectReference Include="..\Validator\Validator.csproj">
       <Project>{927d841a-9e4f-4b7e-9dfc-3b7a41869285}</Project>

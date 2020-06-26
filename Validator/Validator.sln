@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validator", "Validator\Vali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{EF337FF4-A8F4-46D7-9595-1150AB5B152A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TarskiWorld", "TarskiWorld\TarskiWorld.csproj", "{929ED1C9-1D8C-48D4-950E-317AFEB89DD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BivalenceWorld", "BivalenceWorld\BivalenceWorld.csproj", "{DC2DA77C-4E77-4612-9642-0F692C371644}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{EF337FF4-A8F4-46D7-9595-1150AB5B152A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF337FF4-A8F4-46D7-9595-1150AB5B152A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF337FF4-A8F4-46D7-9595-1150AB5B152A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{929ED1C9-1D8C-48D4-950E-317AFEB89DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{929ED1C9-1D8C-48D4-950E-317AFEB89DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{929ED1C9-1D8C-48D4-950E-317AFEB89DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{929ED1C9-1D8C-48D4-950E-317AFEB89DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC2DA77C-4E77-4612-9642-0F692C371644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2DA77C-4E77-4612-9642-0F692C371644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2DA77C-4E77-4612-9642-0F692C371644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2DA77C-4E77-4612-9642-0F692C371644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
