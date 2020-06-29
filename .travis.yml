@@ -2,7 +2,7 @@ jobs:
     include:
       - language: csharp
         mono: none
-        dotnet: 2.1.19
+        dotnet: 2.1.502
         before_script:
             - cd Validator
         script:
