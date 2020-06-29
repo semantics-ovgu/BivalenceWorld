@@ -1,6 +1,6 @@
-matrix:
+jobs:
     include:
-        language: csharp
+      - language: csharp
         mono: none
         dotnet: 2.1.19
         before_script:
@@ -9,7 +9,7 @@ matrix:
             - dotnet restore
             - dotnet test
 
-        language: objective-c
+      - language: objective-c
         osx_image: xcode11.2
         cache:
           timeout: 86400 # 1 day
