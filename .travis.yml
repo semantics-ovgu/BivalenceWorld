@@ -9,15 +9,7 @@ jobs:
         script:
             - dotnet restore
             - dotnet build
-      - language: csharp
-        mono: latest
-        solution: Validator.sln
-        before_script:
-            - cd Validator
-        script:
-            - mono restore
-            - mono build
-            - mono test
+            - dotnet test
 
       - language: objective-c
         osx_image: xcode11.2
