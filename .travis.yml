@@ -1,18 +1,21 @@
 matrix:
     include:
         - language: csharp
-        solution: Validator.sln
         mono: none
         dotnet: 2.1.19
+        before_script:
+            - cd Validator
         script:
             - dotnet restore
     
-            - language: objective-c
+        - language: objective-c
         osx_image: xcode11.2
         cache:
         timeout: 86400 # 1 day
         directories:
             - $HOME/cache/
+        before_script:
+            - cd GUI
         install:
             - bash <(curl -fsSL https://raw.githubusercontent.com/neogeek/unity-ci-tools/v1.0.0/bin/install.sh)
         script:
