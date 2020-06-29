@@ -3,6 +3,7 @@ jobs:
       - language: csharp
         mono: none
         dotnet: 2.1.502
+        solution: Validator.sln
         before_script:
             - cd Validator
         script:
