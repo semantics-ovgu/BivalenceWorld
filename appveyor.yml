@@ -1,0 +1,14 @@
+image: Visual Studio 2017
+
+before_build:
+- nuget restore
+- choco install opencover.portable
+- choco install codecov
+
+build:
+  project: Validator\Validator.sln
+  verbosity: minimal
+
+test_script:
+- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\UnitTests\bin\Debug\netcoreapp2.1\UnitTests.dll -noshadow" -filter:"+[Validator*]* -[UnitTests*]*" -output:".\Validator_Coverage.xml"
+- codecov -f "Validator_Coverage.xml"

@@ -6,15 +6,10 @@ jobs:
         solution: Validator.sln
         before_script:
             - cd Validator
-        install:
-            - pip install coverage --user
         script:
             - dotnet restore
             - dotnet build
             - dotnet test
-            - coverage run -m unittest discover
-        after_success:
-            - bash <(curl -s https://codecov.io/bash)
 
       - language: objective-c
         osx_image: xcode11.2
