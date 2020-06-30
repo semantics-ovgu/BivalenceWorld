@@ -9,7 +9,10 @@ jobs:
         script:
             - dotnet restore
             - dotnet build
-            - dotnet test
+            - choco install opencover.portable
+            - choco install codecov
+            - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\UnitTests\bin\Debug\netcoreapp2.1\UnitTests.dll -noshadow" -filter:"+[Validator*]* -[UnitTests*]*" -output:".\Validator_Coverage.xml"
+            - codecov -f "Validator_Coverage.xml"
 
       - language: objective-c
         osx_image: xcode11.2
