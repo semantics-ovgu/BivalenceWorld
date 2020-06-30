@@ -7,7 +7,7 @@ jobs:
         before_script:
             - cd Validator
         install:
-            - pip install coverage
+            - pip install coverage --user
         script:
             - dotnet restore
             - dotnet build
