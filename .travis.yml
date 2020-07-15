@@ -15,7 +15,7 @@ jobs:
             - codecov -f "Validator_Coverage.xml"
 
       - language: objective-c
-        osx_image: xcode9.2
+        os: osx
         rvm:
         - 2.2         #see before_install for getting RVM stable.
         
