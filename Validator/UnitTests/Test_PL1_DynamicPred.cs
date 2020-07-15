@@ -18,9 +18,9 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                new WorldObject(new List<string> { "a" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, null),
-                new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM }, null),
-                new WorldObject(new List<string> { "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
+                new WorldObject(new List<string> { "a" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { "b" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM }, null),
+                new WorldObject(new List<string> { "c" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL }, null),
             };
 
             return new WorldParameter(worldObjects, null);
@@ -30,7 +30,7 @@ namespace UnitTests
         [TestInitialize]
         public void PL1_Setup()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = CreateBiggerParameter();
             world.Check(parameter);
 
@@ -44,9 +44,9 @@ namespace UnitTests
         [TestMethod]
         public void PL1_PredBigger_True()
         {
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.LARGER));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.LARGER));
 
-            List<List<string>> preds = _predDictionary[TarskiWorldDataFields.LARGER];
+            List<List<string>> preds = _predDictionary[BivalenceWorldDataFields.LARGER];
 
             Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u1"));
             Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u2"));
@@ -56,9 +56,9 @@ namespace UnitTests
         [TestMethod]
         public void PL1_PredSmaller_True()
         {
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.SMALLER));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.SMALLER));
 
-            List<List<string>> preds = _predDictionary[TarskiWorldDataFields.SMALLER];
+            List<List<string>> preds = _predDictionary[BivalenceWorldDataFields.SMALLER];
 
             Assert.IsTrue(preds.Any(x => x[0] == "u1" && x[1] == "u0"));
             Assert.IsTrue(preds.Any(x => x[0] == "u2" && x[1] == "u0"));

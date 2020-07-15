@@ -17,9 +17,9 @@ namespace Validator
                 WorldObject obj1 = obj[0];
                 WorldObject obj2 = obj[1];
 
-                if (obj1.CheckPredicate(obj2, TarskiWorldDataFields.MEDIUM, TarskiWorldDataFields.LARGE) ||
-                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.LARGE) ||
-                    obj1.CheckPredicate(obj2, TarskiWorldDataFields.SMALL, TarskiWorldDataFields.MEDIUM))
+                if (obj1.CheckPredicate(obj2, BivalenceWorldDataFields.MEDIUM, BivalenceWorldDataFields.LARGE) ||
+                    obj1.CheckPredicate(obj2, BivalenceWorldDataFields.SMALL, BivalenceWorldDataFields.LARGE) ||
+                    obj1.CheckPredicate(obj2, BivalenceWorldDataFields.SMALL, BivalenceWorldDataFields.MEDIUM))
                 {
                     return true;
                 }

@@ -7,7 +7,7 @@ using Validator.World;
 namespace UnitTests
 {
     [TestClass]
-    public class Test_TarskiWorld_EValidationResult
+    public class Test_BivalenceWorld_EValidationResult
     {
         private const string AllQuantum = "\u2200";
         private const string ExistQuantum = "\u2203";
@@ -28,7 +28,7 @@ namespace UnitTests
                     new WorldObject(new List<string>() { "a" }, new List<string>() {"Tet"}, new List<object>() )
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.ParserFailed);
             Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.ParserFailed);
@@ -49,7 +49,7 @@ namespace UnitTests
                     new WorldObject(new List<string>() { "a", "c" }, new List<string>() {"Tet", "Large"}, new List<object> {3,2} )
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.CanNotBeValidated);
             Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.CanNotBeValidated);

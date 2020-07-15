@@ -18,10 +18,10 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                new WorldObject(new List<string> { "a", "c" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, null),
-                new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
-                new WorldObject(new List<string> { "d" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, null),
-                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE }, null)
+                new WorldObject(new List<string> { "a", "c" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { "b" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL }, null),
+                new WorldObject(new List<string> { "d" }, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { }, new List<string> {BivalenceWorldDataFields.CUBE }, null)
             };
 
             return new WorldParameter(worldObjects, null);
@@ -31,7 +31,7 @@ namespace UnitTests
         [TestInitialize]
         public void PL1_Setup()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = CreateTestParmeter();
             world.Check(parameter);
 
@@ -45,7 +45,7 @@ namespace UnitTests
         [TestMethod]
         public void PL1_Constants_True()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = CreateTestParmeter();
 
             world.Check(parameter);
@@ -66,14 +66,14 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, null),
-                new WorldObject(new List<string> { "" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL }, null),
-                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE }, null),
-                new WorldObject(new List<string> { }, new List<string> {TarskiWorldDataFields.CUBE }, null)
+                new WorldObject(new List<string> { }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { "" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL }, null),
+                new WorldObject(new List<string> { }, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE }, null),
+                new WorldObject(new List<string> { }, new List<string> {BivalenceWorldDataFields.CUBE }, null)
             };
 
 
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             world.Check(new WorldParameter(worldObjects, null));
 
             PL1Structure structure = world.GetPl1Structure();
@@ -89,16 +89,16 @@ namespace UnitTests
         [TestMethod]
         public void PL1_Predicates_ContainsKey_True()
         {
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.TET));
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.LARGE));
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.SMALL));
-            Assert.IsTrue(_predDictionary.ContainsKey(TarskiWorldDataFields.CUBE));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.TET));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.LARGE));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.SMALL));
+            Assert.IsTrue(_predDictionary.ContainsKey(BivalenceWorldDataFields.CUBE));
         }
 
         [TestMethod]
         public void PL1_Predicates_ContainsValue_True()
         {
-            List<List<string>> consts = _predDictionary[TarskiWorldDataFields.TET];
+            List<List<string>> consts = _predDictionary[BivalenceWorldDataFields.TET];
 
             Assert.IsTrue(consts.Any(c => c.Contains("u0")));
             Assert.IsTrue(consts.Any(c => c.Contains("u1")));
