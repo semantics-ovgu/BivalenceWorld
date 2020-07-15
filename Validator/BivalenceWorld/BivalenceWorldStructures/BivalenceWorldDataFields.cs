@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    public static class TarskiWorldDataFields
+    public static class BivalenceWorldDataFields
     {
         public const string LARGE = "Large";
         public const string CUBE = "Cube";

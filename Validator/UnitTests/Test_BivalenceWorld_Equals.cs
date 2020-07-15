@@ -6,12 +6,12 @@ using Validator.World;
 namespace UnitTests
 {
     [TestClass]
-    public class Test_TarskiWorld_Equals
+    public class Test_BivalenceWorld_Equals
     {
         [TestMethod]
         public void TarskiWorld_Equals()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             List<string> sentences = new List<string>
             {
                 "  a  =  d ",
@@ -20,9 +20,9 @@ namespace UnitTests
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                new WorldObject(new List<string> { "a", "d" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
-                new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM }, new List<object> {4, 4 }),
-                new WorldObject(new List<string> { "c" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.MEDIUM }, new List<object> {2, 2 })
+                new WorldObject(new List<string> { "a", "d" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                new WorldObject(new List<string> { "b" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM }, new List<object> {4, 4 }),
+                new WorldObject(new List<string> { "c" }, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.MEDIUM }, new List<object> {2, 2 })
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
@@ -35,7 +35,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_NotEquals()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             List<string> sentences = new List<string>
             {
                     "  b  \u2260  d ",
@@ -44,9 +44,9 @@ namespace UnitTests
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> { "a", "d" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE }, new List<object> {3, 3 }),
-                    new WorldObject(new List<string> { "b" }, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM }, new List<object> {4, 4 }),
-                    new WorldObject(new List<string> { "c" }, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.MEDIUM }, new List<object> {2, 2 })
+                    new WorldObject(new List<string> { "a", "d" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE }, new List<object> {3, 3 }),
+                    new WorldObject(new List<string> { "b" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM }, new List<object> {4, 4 }),
+                    new WorldObject(new List<string> { "c" }, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.MEDIUM }, new List<object> {2, 2 })
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);

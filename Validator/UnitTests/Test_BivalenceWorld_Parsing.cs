@@ -6,12 +6,12 @@ using Validator.World;
 namespace UnitTests
 {
     [TestClass]
-    public class Test_TarskiWorld_Parsing
+    public class Test_BivalenceWorld_Parsing
     {
         [TestMethod]
         public void TarskiWorld_Atomar_Valid()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_Atomar());
             var result = world.Check(parameter);
             Assert.AreEqual(result.Result.Value.Count, 3);
@@ -23,7 +23,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_Conjunction_Valid()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_Conjunction());
             var result = world.Check(parameter);
             Assert.AreEqual(result.Result.Value.Count, 4);
@@ -36,7 +36,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_DisAndConjunction_Valid()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_DisAndConjunction());
             var result = world.Check(parameter);
             Assert.AreEqual(result.Result.Value.Count, 4);
@@ -49,7 +49,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_Disjunction_Valid()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_Disjunction());
             var result = world.Check(parameter);
             Assert.AreEqual(result.Result.Value.Count, 5);
@@ -63,7 +63,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_InvalidOperator()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             WorldParameter parameter = new WorldParameter(CreateWorldObject(), Sentences_InvalidOperator());
             var result = world.Check(parameter);
             Assert.AreEqual(result.Result.Value.Count, 2);
@@ -76,7 +76,7 @@ namespace UnitTests
         [TestMethod]
         public void TarskiWorld_EmptyConstant()
         {
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             List<string> stentences = new List<string>()
             {
                 "Tet()"
@@ -94,10 +94,10 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE}, new List<object> {1, 2}),
-                    new WorldObject(new List<string> {"b"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE}, new List<object> {1, 2}),
+                    new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {1, 4}),
-                    new WorldObject(new List<string> {"c"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL}, new List<object> {2, 4})
+                    new WorldObject(new List<string> {"c"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL}, new List<object> {2, 4})
             };
             return worldObjects;
         }

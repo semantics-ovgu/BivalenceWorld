@@ -6,7 +6,7 @@ using Validator.World;
 namespace UnitTests
 {
     [TestClass]
-    public class Test_TarskiWorld_IntegrationTests
+    public class Test_BivalenceWorld_IntegrationTests
     {
         private const string AllQuantum = "\u2200";
         private const string ExistQuantum = "\u2203";
@@ -23,7 +23,7 @@ namespace UnitTests
                     "(\u2203x Dodec(x)) \u2192 ((\u2200y (Tet(y) \u2192 Medium(y))) \u2227 Dodec(e))"
             };
             WorldParameter parameter = new WorldParameter(CreateWorld(), sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
             Assert.IsFalse(result.Result.Value[1].Value == EValidationResult.True);
@@ -38,11 +38,11 @@ namespace UnitTests
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.SMALL}, new List<object> {3, 3}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.DODEC, TarskiWorldDataFields.LARGE}, new List<object> {4, 4})
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL}, new List<object> {3, 3}),
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.DODEC, BivalenceWorldDataFields.LARGE}, new List<object> {4, 4})
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
         }
@@ -56,12 +56,12 @@ namespace UnitTests
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {3, 3}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.LARGE}, new List<object> {3, 3})
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.LARGE}, new List<object> {3, 3})
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
         }
@@ -77,14 +77,14 @@ namespace UnitTests
             };
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {3, 3}),
-                    new WorldObject(new List<string> {"b"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {3, 3}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM}, new List<object> {3, 3})
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM}, new List<object> {3, 3})
             };
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
         }
@@ -94,16 +94,16 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {3, 3}),
-                    new WorldObject(new List<string> {"b"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {5, 3}),
-                    new WorldObject(new List<string> {"c"}, new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.LARGE},
+                    new WorldObject(new List<string> {"c"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
                             new List<object> {4, 3}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM}, new List<object> {3, 5})
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM}, new List<object> {3, 5})
             };
             WorldParameter parameter = new WorldParameter(worldObjects, new List<string>());
-            TarskiWorld world = new TarskiWorld();
+            BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
             var representation = world.GetPl1Structure().GetModelRepresentation();
         }
@@ -112,18 +112,18 @@ namespace UnitTests
         {
             List<WorldObject> worldObjects = new List<WorldObject>
             {
-                    new WorldObject(new List<string> {"a"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {3, 3}),
-                    new WorldObject(new List<string> {"b"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {4, 4}),
-                    new WorldObject(new List<string> {"c"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string> {"c"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {2, 2}),
-                    new WorldObject(new List<string> {"d"}, new List<string> {TarskiWorldDataFields.TET, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string> {"d"}, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {2, 2}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.MEDIUM}, new List<object> {2, 2}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.MEDIUM}, new List<object> {2, 2}),
-                    new WorldObject(new List<string>(), new List<string> {TarskiWorldDataFields.CUBE, TarskiWorldDataFields.MEDIUM}, new List<object> {2, 2}),
-                    new WorldObject(new List<string> {"f"}, new List<string> {TarskiWorldDataFields.DODEC, TarskiWorldDataFields.MEDIUM},
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.MEDIUM}, new List<object> {2, 2}),
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.MEDIUM}, new List<object> {2, 2}),
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.MEDIUM}, new List<object> {2, 2}),
+                    new WorldObject(new List<string> {"f"}, new List<string> {BivalenceWorldDataFields.DODEC, BivalenceWorldDataFields.MEDIUM},
                             new List<object> {2, 2})
             };
             return worldObjects;
