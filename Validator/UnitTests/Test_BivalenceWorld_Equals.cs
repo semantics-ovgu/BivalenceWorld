@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Validator;
 using Validator.World;
+using Xunit;
 
 namespace UnitTests
 {
-    [TestClass]
     public class Test_BivalenceWorld_Equals
     {
-        [TestMethod]
+        [Fact]
         public void TarskiWorld_Equals()
         {
             BivalenceWorld world = new BivalenceWorld();
@@ -27,12 +26,12 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
-            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
-            Assert.IsFalse(result.Result.Value[2].Value == EValidationResult.True);
+            Assert.True(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.True(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.False(result.Result.Value[2].Value == EValidationResult.True);
         }
 
-        [TestMethod]
+        [Fact]
         public void TarskiWorld_NotEquals()
         {
             BivalenceWorld world = new BivalenceWorld();
@@ -51,9 +50,9 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             var result = world.Check(parameter);
 
-            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.True);
-            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.True);
-            Assert.IsFalse(result.Result.Value[2].Value == EValidationResult.True);
+            Assert.True(result.Result.Value[0].Value == EValidationResult.True);
+            Assert.True(result.Result.Value[1].Value == EValidationResult.True);
+            Assert.False(result.Result.Value[2].Value == EValidationResult.True);
         }
     }
 }
