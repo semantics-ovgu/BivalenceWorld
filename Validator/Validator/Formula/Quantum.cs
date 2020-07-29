@@ -7,9 +7,9 @@ namespace Validator
     public class Quantum : GenericFormula<Formula>, IFormulaValidate
     {
         private EQuantumType _type = EQuantumType.None;
-        private string _variable = "";
+        private Variable _variable = null;
 
-        public Quantum(EQuantumType type, Formula argument, string variable, string name, string rawFormula) : base(new List<Formula> { argument }, name,
+        public Quantum(EQuantumType type, Formula argument, Variable variable, string name, string rawFormula) : base(new List<Formula> { argument }, name,
                 rawFormula)
         {
             _type = type;
@@ -53,7 +53,7 @@ namespace Validator
             {
                 var dict = new Dictionary<string, string>(dictVariables)
                 {
-                        {_variable, identifier.Key}
+                        {_variable.RawFormula, identifier.Key}
                 };
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
@@ -79,7 +79,7 @@ namespace Validator
             {
                 var dict = new Dictionary<string, string>(dictVariables)
                 {
-                        {_variable, identifier.Key}
+                        {_variable.RawFormula, identifier.Key}
                 };
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
