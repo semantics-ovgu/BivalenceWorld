@@ -13,7 +13,7 @@ namespace Validator
             _formula = formula;
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (_formula != null && _formula is IFormulaValidate formulaValidate)
             {
@@ -22,11 +22,11 @@ namespace Validator
                 {
                     if (res.Value == EValidationResult.True)
                     {
-                        return Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+                        return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
                     }
                     else
                     {
-                        return Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
                     }
                 }
                 else
@@ -35,7 +35,7 @@ namespace Validator
                 }
             }
 
-            return Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
+            return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
         }
     }
 }

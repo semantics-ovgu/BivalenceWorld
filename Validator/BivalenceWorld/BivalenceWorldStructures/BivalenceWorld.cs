@@ -14,12 +14,16 @@ namespace Validator
                 "d",
                 "e",
                 "f",
-                "u",
-                "v",
-                "w",
-                "x",
-                "y",
-                "z"
+            };
+
+            List<string> variables = new List<string>()
+            {
+                    "u",
+                    "v",
+                    "w",
+                    "x",
+                    "y",
+                    "z"
             };
 
             List<(string, int)> predicates = new List<(string, int)>
@@ -53,7 +57,7 @@ namespace Validator
                 (BivalenceWorldDataFields.LEFTMOST, 1),
             };
 
-            return new Signature(consts, predicates, functions);
+            return new Signature(consts, variables, predicates, functions);
         }
 
         protected override Dictionary<string, IPredicateValidation> CreatePredicateDictionary()
