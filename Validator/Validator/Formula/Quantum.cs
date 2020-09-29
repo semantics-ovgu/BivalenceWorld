@@ -51,10 +51,13 @@ namespace Validator
             var result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
             foreach (var identifier in pL1Structure.GetPl1Structure().GetConsts())
             {
-                var dict = new Dictionary<string, string>(dictVariables)
+                var dict = new Dictionary<string, string>(dictVariables);
+                if (dict.ContainsKey(_variable.RawFormula))
                 {
-                        {_variable.RawFormula, identifier.Key}
+                    dict.Remove(_variable.RawFormula);
                 };
+                dict.Add(_variable.RawFormula, identifier.Key);
+
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
                 {
@@ -77,10 +80,13 @@ namespace Validator
             var result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             foreach (var identifier in pL1Structure.GetPl1Structure().GetConsts())
             {
-                var dict = new Dictionary<string, string>(dictVariables)
+                var dict = new Dictionary<string, string>(dictVariables);
+                if (dict.ContainsKey(_variable.RawFormula))
                 {
-                        {_variable.RawFormula, identifier.Key}
+                    dict.Remove(_variable.RawFormula);
                 };
+                dict.Add(_variable.RawFormula, identifier.Key);
+
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
                 {
