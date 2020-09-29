@@ -10,6 +10,9 @@ namespace Validator.World
         ParserFailed,
         CanNotBeValidated,
         False,
-        True
+        True,
+        ContainsFreeVariable,
+        ConstantNotUsed,
+        UnknownSymbol
     }
 }

@@ -7,6 +7,6 @@ namespace Validator
 {
     public interface IFormulaValidate
     {
-        Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
+        ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
     }
 }

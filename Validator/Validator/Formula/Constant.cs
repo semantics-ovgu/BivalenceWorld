@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Validator.World;
 
 namespace Validator
 {
@@ -11,16 +12,25 @@ namespace Validator
         {
         }
 
-        public override Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public override ResultSentence<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (pL1Structure.GetPl1Structure().GetConsts().ContainsKey(Name))
             {
-                return Result<string>.CreateResult(true, Name);
+                return ResultSentence<string>.CreateResult(true, Name);
             }
-            else
+            if (pL1Structure is IWorldSignature worldSignature)
             {
-                return Result<string>.CreateResult(false, "");
+                if (worldSignature.GetSignature().Consts.Any(s => s == RawFormula))
+                {
+                    return ResultSentence<string>.CreateResult(EValidationResult.ConstantNotUsed, false, RawFormula, ErrorLogFields.VALIDATION_CONSTANTNOTINWORLD + $"[{RawFormula}]");
+                }
+                else
+                {
+                    return ResultSentence<string>.CreateResult(EValidationResult.UnknownSymbol, false, RawFormula, ErrorLogFields.VALIDATION_ARGUMENTUNKNOWN + $"[{RawFormula}]");
+                }
             }
+
+            return ResultSentence<string>.CreateResult(EValidationResult.UnexpectedResult, false, RawFormula, "Could not find the signature: \n" + Environment.StackTrace);
         }
     }
 }
