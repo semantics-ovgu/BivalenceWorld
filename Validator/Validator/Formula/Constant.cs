@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Validator.Game;
 
 namespace Validator
 {
     public class Constant : Argument
     {
-        public Constant(string name, string rawFormula) : base(new List<Argument>(), name, rawFormula)
+        public Constant(string name, string formattedFormula) : base(new List<Argument>(), name, formattedFormula)
         {
         }
 
@@ -21,6 +22,11 @@ namespace Validator
             {
                 return Result<string>.CreateResult(false, "");
             }
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new NotImplementedException();
         }
     }
 }

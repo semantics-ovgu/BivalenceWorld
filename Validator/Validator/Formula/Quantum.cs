@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
@@ -9,8 +10,8 @@ namespace Validator
         private EQuantumType _type = EQuantumType.None;
         private Variable _variable = null;
 
-        public Quantum(EQuantumType type, Formula argument, Variable variable, string name, string rawFormula) : base(new List<Formula> { argument }, name,
-                rawFormula)
+        public Quantum(EQuantumType type, Formula argument, Variable variable, string name, string formattedFormula) : base(new List<Formula> { argument }, name,
+                formattedFormula)
         {
             _type = type;
             _variable = variable;
@@ -53,7 +54,7 @@ namespace Validator
             {
                 var dict = new Dictionary<string, string>(dictVariables)
                 {
-                        {_variable.RawFormula, identifier.Key}
+                        {_variable.FormattedFormula, identifier.Key}
                 };
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
@@ -79,7 +80,7 @@ namespace Validator
             {
                 var dict = new Dictionary<string, string>(dictVariables)
                 {
-                        {_variable.RawFormula, identifier.Key}
+                        {_variable.FormattedFormula, identifier.Key}
                 };
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
@@ -95,6 +96,11 @@ namespace Validator
             }
 
             return result;
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

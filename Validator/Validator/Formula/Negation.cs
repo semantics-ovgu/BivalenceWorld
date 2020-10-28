@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
@@ -8,7 +9,7 @@ namespace Validator
         private Formula _formula = null;
 
 
-        public Negation(Formula formula) : base(formula.Name, formula.RawFormula)
+        public Negation(Formula formula) : base(formula.Name, formula.FormattedFormula)
         {
             _formula = formula;
         }
@@ -36,6 +37,11 @@ namespace Validator
             }
 
             return Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

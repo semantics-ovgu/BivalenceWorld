@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Validator.Game;
 
 namespace Validator
 {
     public class Function : Argument
     {
-        public Function(List<Argument> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
+        public Function(List<Argument> arguments, string name, string formattedFormula) : base(arguments, name, formattedFormula)
         {
         }
 
@@ -35,6 +36,11 @@ namespace Validator
 
             string result = listDict.TryGetValue(universeIdentifier.Value);
             return Result<string>.CreateResult(true, result);
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new NotImplementedException();
         }
     }
 }

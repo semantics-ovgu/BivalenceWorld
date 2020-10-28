@@ -6,7 +6,7 @@ namespace Validator
 {
     public abstract class Argument : GenericFormula<Argument>
     {
-        public Argument(List<Argument> arguments, string name, string rawFormula) : base(arguments, name, rawFormula)
+        public Argument(List<Argument> arguments, string name, string formattedFormula) : base(arguments, name, formattedFormula)
         {
 
         }
