@@ -4,23 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUI_TrashButton : MonoBehaviour
+public class GUI_TrashButton : GUI_Button
 {
-    [SerializeField]
-    private Button _targetButton = default;
 
-    private void OnValidate()
-    {
-        if (_targetButton == null)
-            _targetButton = GetComponent<Button>();
-    }
-
-    private void Awake()
-    {
-        _targetButton.onClick.AddListener(ButtonClickedListener);
-    }
-
-    private void ButtonClickedListener()
+    protected override void ButtonClickedListener()
     {
         GameManager.Instance.GetTextInputField().CurrentTextInputElement?.RemoveText();
     }

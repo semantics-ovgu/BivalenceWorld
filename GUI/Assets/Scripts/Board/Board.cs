@@ -28,6 +28,21 @@ public class Board : MonoBehaviour, IDebug
         CreateMap();
     }
 
+    public Field GetFieldFromCoord(int x, int z)
+    {
+	    Field field = null;
+
+        foreach (var item in _obj)
+	    {
+		    if(item.GetX() == x && item.GetZ() == z)
+		    {
+			    field = item;
+		    }
+	    }
+
+        return field;
+    }
+
     public IConstant GetBoardWithTargetConstant(string constant)
     {
         for (int i = 0; i < _obj.Count; i++)
@@ -52,7 +67,12 @@ public class Board : MonoBehaviour, IDebug
     {
         for (int i = _obj.Count - 1; i >= 0; i--)
         {
-            DestroyImmediate(_obj[i].gameObject);
+	        var field = _obj[i];
+	        if (field.HasPredicateInstance())
+	        {
+                Destroy(field.GetPredicateInstance().gameObject);
+	        }
+            DestroyImmediate(field.gameObject);
         }
         _obj = new List<Field>();
     }

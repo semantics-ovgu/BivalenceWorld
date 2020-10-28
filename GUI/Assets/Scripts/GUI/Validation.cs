@@ -46,7 +46,7 @@ public class Validation
 			resultSentences.Add(item.GetInputText());
 			DebugConsole(item.GetInputText());
 		}
-
+		
 		return resultSentences;
 	}
 
@@ -59,7 +59,7 @@ public class Validation
 	{
 		var board = GetGameManager().GetCurrentBoard();
 
-		var obj = board.GetFieldElements();
+		List<Field> obj = board.GetFieldElements();
 		List<WorldObject> worldObjs = new List<WorldObject>();
 		foreach (Field item in obj)
 		{

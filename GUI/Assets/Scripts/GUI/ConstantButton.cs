@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConstantButton : MonoBehaviour
+public class ConstantButton : GUI_Button
 {
-    [SerializeField]
-    private Button _targetButton = default;
     [SerializeField]
     private string _constant = "";
     [SerializeField]
@@ -33,37 +31,31 @@ public class ConstantButton : MonoBehaviour
 
 
         }
-        if (_targetButton)
-        {
-            _targetButton.onClick.AddListener(ButtonClicked);
-        }
-
     }
 
-
-    private void ButtonClicked()
+    protected override void ButtonClickedListener()
     {
-        if (_instance != null)
-        {
-            IConstant targetInstanceWithConstant = null;
-            if(((Field)_instance).HasPredicateInstance())
-            {
-                targetInstanceWithConstant = TryDeleteConstant();
-            }
+	    if (_instance != null)
+	    {
+		    IConstant targetInstanceWithConstant = null;
+		    if (((Field)_instance).HasPredicateInstance())
+		    {
+			    targetInstanceWithConstant = TryDeleteConstant();
+		    }
 
-            if(targetInstanceWithConstant == null)
-            {
-                _instance.AddConstant(_constant);
-            }
-            else if(targetInstanceWithConstant  != null && targetInstanceWithConstant != _instance)
-            {
-                _instance.AddConstant(_constant);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Instance is null");
-        }
+		    if (targetInstanceWithConstant == null)
+		    {
+			    _instance.AddConstant(_constant);
+		    }
+		    else if (targetInstanceWithConstant != null && targetInstanceWithConstant != _instance)
+		    {
+			    _instance.AddConstant(_constant);
+		    }
+	    }
+	    else
+	    {
+		    Debug.LogWarning("Instance is null");
+	    }
     }
 
     private IConstant TryDeleteConstant()
