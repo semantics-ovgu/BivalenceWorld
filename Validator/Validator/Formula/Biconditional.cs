@@ -11,13 +11,13 @@ namespace Validator
         {
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+            ResultSentence<EValidationResult> result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             var arguments = GetArgumentsOfType<IFormulaValidate>().ToList();
             if (arguments.Count != 2)
             {
-                result = Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult,
+                result = ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult,
                         "Biconditional has invalid amount of arguments " + arguments.Count);
             }
             else
@@ -28,11 +28,11 @@ namespace Validator
                 {
                     if (result1.Value == result2.Value)
                     {
-                        result = Result<EValidationResult>.CreateResult(EValidationResult.True);
+                        result = ResultSentence<EValidationResult>.CreateResult(EValidationResult.True);
                     }
                     else
                     {
-                        result = Result<EValidationResult>.CreateResult(EValidationResult.False);
+                        result = ResultSentence<EValidationResult>.CreateResult(EValidationResult.False);
                     }
                 }
                 else

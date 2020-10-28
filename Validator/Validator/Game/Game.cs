@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Validator.Game
 {
@@ -31,6 +32,8 @@ namespace Validator.Game
         }
 
         public bool Guess => _guess;
+
+        internal void SetGuess(bool guess) => _guess = guess;
 
         internal void SetNextMove(AMove move)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Pegasus.Common.Tracing;
 using Validator.Game;
 using Validator.World;
 
@@ -9,6 +10,7 @@ namespace Validator
     public class Disjunction : GenericFormula<Formula>, IFormulaValidate
     {
         private Formula _invalidFormula = null;
+        private Formula _validFormula = null;
 
         public Disjunction(List<Formula> arguments, string name, string formattedFormula) : base(arguments, name, formattedFormula)
         {
@@ -41,17 +43,18 @@ namespace Validator
             }
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+            ResultSentence<EValidationResult> result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             foreach (var conjunctionPart in GetArgumentsOfType<IFormulaValidate>())
             {
-                Result<EValidationResult> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
+                ResultSentence<EValidationResult> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
                 if (validate.IsValid)
                 {
                     if (validate.Value == EValidationResult.True)
                     {
-                        result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        _validFormula = conjunctionPart as Formula;
                     }
                     else
                     {
@@ -91,12 +94,16 @@ namespace Validator
             }
             else
             {
-                var invalidMove = Arguments[0].CreateNextMove(game, dictVariables);
+                AMove invalidMove = null;
                 if (result.Value == EValidationResult.False)
                 {
                     invalidMove = _invalidFormula.CreateNextMove(game, dictVariables);
                 }
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are false:{ArgumentsToString()}\n[Bivalence World will try to choose a false formula]", invalidMove);
+                else
+                {
+                    invalidMove = _validFormula.CreateNextMove(game, dictVariables);
+                }
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are false:{ArgumentsToString()}\n[Bivalence World will try to choose a true formula]", invalidMove);
                 return new InfoMessage(game, this, $"So you believe that\n{FormattedFormula}\nis false?", allTrueInfo);
             }
         }

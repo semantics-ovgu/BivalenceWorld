@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Validator.World;
 
 namespace Validator
 {
@@ -9,7 +10,7 @@ namespace Validator
         #region Variables & Getter
 
         private string _errorText = "";
-        public string Message => _errorText;
+        public string ErrorMessage => _errorText;
 
         private bool _isValid = true;
         public bool IsValid => _isValid;
@@ -22,9 +23,11 @@ namespace Validator
 
         #region Constructor
 
-        private Result()
+        protected Result(T value = default(T), bool isValid = true, string errorText = "")
         {
-
+            _errorText = errorText;
+            _isValid = isValid;
+            _value = value;
         }
 
         #endregion
@@ -43,9 +46,9 @@ namespace Validator
         {
             return new Result<T>
             {
-                    _errorText = errorText,
-                    _isValid = true,
-                    _value = value
+                _errorText = errorText,
+                _isValid = true,
+                _value = value
             };
         }
 

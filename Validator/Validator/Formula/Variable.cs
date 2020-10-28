@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Validator.Game;
+using Validator.World;
 
 namespace Validator
 {
@@ -12,20 +13,26 @@ namespace Validator
         {
         }
 
-        public override Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public override ResultSentence<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            if (dictVariables.ContainsKey(Name))
+            if (dictVariables.ContainsKey(FormattedFormula))
             {
-                return Result<string>.CreateResult(true, dictVariables[Name]);
+                return ResultSentence<string>.CreateResult(true, dictVariables[FormattedFormula]);
             }
-            else if (pL1Structure.GetPl1Structure().GetConsts().ContainsKey(Name))
+
+            if (pL1Structure is IWorldSignature worldSignature)
             {
-                return Result<string>.CreateResult(true, Name);
+                if (worldSignature.GetSignature().Variables.Any(s => s == FormattedFormula))
+                {
+                    return ResultSentence<string>.CreateResult(EValidationResult.ContainsFreeVariable, false, FormattedFormula, ErrorLogFields.VALIDATION_FREEVARIABLES + $"[{FormattedFormula}]");
+                }
+                else
+                {
+                    return ResultSentence<string>.CreateResult(EValidationResult.UnknownSymbol, false, FormattedFormula, ErrorLogFields.VALIDATION_ARGUMENTUNKNOWN + $"[{FormattedFormula}]");
+                }
             }
-            else
-            {
-                return Result<string>.CreateResult(false, "");
-            }
+
+            return ResultSentence<string>.CreateResult(EValidationResult.UnexpectedResult, false, FormattedFormula, "Could not find the signature: \n" + Environment.StackTrace);
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

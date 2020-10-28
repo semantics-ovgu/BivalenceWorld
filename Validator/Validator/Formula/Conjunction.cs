@@ -41,18 +41,18 @@ namespace Validator
             }
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+            ResultSentence<EValidationResult> result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
             foreach (var conjunctionPart in GetArgumentsOfType<IFormulaValidate>())
             {
-                Result<EValidationResult> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
+                ResultSentence<EValidationResult> validate = conjunctionPart.Validate(pL1Structure, dictVariables);
                 if (validate.IsValid)
                 {
                     if (validate.Value != EValidationResult.True)
                     {
                         _invalidFormula = conjunctionPart as Formula;
-                        result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+                        result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
                     }
                 }
                 else

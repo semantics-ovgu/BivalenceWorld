@@ -11,23 +11,23 @@ namespace Validator
 
         }
 
-        public abstract Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
+        public abstract ResultSentence<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables);
 
-        public static Result<List<string>> GetUniverseIdentifier(List<Argument> arguments, IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
+        public static ResultSentence<List<string>> GetUniverseIdentifier(List<Argument> arguments, IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
         {
-            Result<List<string>> universeArguments = Result<List<string>>.CreateResult(true, new List<string>());
+            ResultSentence<List<string>> universeArguments = ResultSentence<List<string>>.CreateResult(true, new List<string>());
             ConstDictionary constDict = pL1WorldStructure.GetPl1Structure().GetConsts();
 
             foreach (var item in arguments)
             {
-                Result<string> universeIdentifier = item.GetPL1UniverseIdentifier(pL1WorldStructure, dictVariables);
+                ResultSentence<string> universeIdentifier = item.GetPL1UniverseIdentifier(pL1WorldStructure, dictVariables);
                 if (universeIdentifier.IsValid)
                 {
                     universeArguments.Value.Add(constDict.TryGetValue(universeIdentifier.Value));
                 }
                 else
                 {
-                    universeArguments = Result<List<string>>.CreateResult(false, new List<string>() { universeIdentifier.Value });
+                    universeArguments = ResultSentence<List<string>>.CreateResult(universeIdentifier.ValidationResult, false, new List<string>() { universeIdentifier.Value }, universeIdentifier.ErrorMessage);
                     break;
                 };
             }

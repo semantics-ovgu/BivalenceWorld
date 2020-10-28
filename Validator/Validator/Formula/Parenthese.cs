@@ -13,14 +13,14 @@ namespace Validator
             _formula = formula;
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (_formula != null && _formula is IFormulaValidate formulaValidate)
             {
                 return formulaValidate.Validate(pL1Structure, dictVariables);
             }
 
-            return Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Parenthese");
+            return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Parenthese");
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

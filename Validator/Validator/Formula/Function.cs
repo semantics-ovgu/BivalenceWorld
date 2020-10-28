@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Validator.Game;
+using Validator.World;
 
 namespace Validator
 {
@@ -12,7 +13,7 @@ namespace Validator
         {
         }
 
-        public override Result<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
+        public override ResultSentence<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
         {
             PL1Structure pl1Structure = pL1WorldStructure.GetPl1Structure();
             ConstDictionary constDict = pl1Structure.GetConsts();
@@ -25,17 +26,17 @@ namespace Validator
                 Signature signature = worldSignature.GetSignature();
                 if (!signature.Functions.Any(elem => elem.Item1 == Name && elem.Item2 == Arguments.Count))
                 {
-                    return Result<string>.CreateResult(false, "", "Function " + Name + " not found in signature.");
+                    return ResultSentence<string>.CreateResult(EValidationResult.UnknownSymbol, false, "", "Function " + Name + " not found in signature.");
                 }
             }
 
             if (!universeIdentifier.IsValid)
             {
-                return Result<string>.CreateResult(false, universeIdentifier.Value.FirstOrDefault());
+                return ResultSentence<string>.CreateResult(false, universeIdentifier.Value.FirstOrDefault());
             }
 
             string result = listDict.TryGetValue(universeIdentifier.Value);
-            return Result<string>.CreateResult(true, result);
+            return ResultSentence<string>.CreateResult(true, result);
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

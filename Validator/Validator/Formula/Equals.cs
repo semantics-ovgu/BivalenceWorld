@@ -15,13 +15,13 @@ namespace Validator
         }
 
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<List<string>> universeIdentifier = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
+            ResultSentence<List<string>> universeIdentifier = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
 
             if (!universeIdentifier.IsValid)
             {
-                return Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
+                return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
             }
 
             string u1 = universeIdentifier.Value[0];
@@ -29,11 +29,11 @@ namespace Validator
 
             if (u1 == u2)
             {
-                return Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
             }
             else
             {
-                return Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+                return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             }
         }
 

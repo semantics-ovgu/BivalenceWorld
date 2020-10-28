@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Validator.Game;
 using Validator.World;
 
@@ -12,9 +13,11 @@ namespace Validator
         public Negation(Formula formula) : base(formula.Name, formula.FormattedFormula)
         {
             _formula = formula;
+
+            SetFormattedFormula("¬" + formula.FormattedFormula);
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             if (_formula != null && _formula is IFormulaValidate formulaValidate)
             {
@@ -23,11 +26,11 @@ namespace Validator
                 {
                     if (res.Value == EValidationResult.True)
                     {
-                        return Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+                        return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
                     }
                     else
                     {
-                        return Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
                     }
                 }
                 else
@@ -36,12 +39,23 @@ namespace Validator
                 }
             }
 
-            return Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
+            return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            throw new System.NotImplementedException();
+            var result = Validate(game.World, dictVariables);
+
+            if (game.Guess)
+            {
+                game.SetGuess(!game.Guess);
+                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is true", _formula.CreateNextMove(game, dictVariables));
+            }
+            else
+            {
+                game.SetGuess(!game.Guess);
+                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is false", _formula.CreateNextMove(game, dictVariables));
+            }
         }
     }
 }
