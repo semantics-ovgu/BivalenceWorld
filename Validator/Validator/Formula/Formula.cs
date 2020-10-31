@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Validator.Game;
 
 namespace Validator
 {
     public abstract class Formula
     {
         private string _name = "";
-        private string _rawFormula = "";
+        private string _formattedFormula = "";
 
 
-        public Formula(string name, string rawFormula)
+        public Formula(string name, string formattedFormula)
         {
             _name = name;
-            _rawFormula = rawFormula;
+            _formattedFormula = formattedFormula;
         }
 
         public string Name => _name;
-        public string RawFormula => _rawFormula;
+        public string FormattedFormula => _formattedFormula;
+
+        protected void SetFormattedFormula(string str) => _formattedFormula = str; 
+
+        public abstract AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables);
     }
 }

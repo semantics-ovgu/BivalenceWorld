@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
@@ -7,7 +8,7 @@ namespace Validator
     {
         private Formula _formula = null;
 
-        public Parenthese(Formula formula) : base(formula.Name, formula.RawFormula)
+        public Parenthese(Formula formula) : base(formula.Name, formula.FormattedFormula)
         {
             _formula = formula;
         }
@@ -20,6 +21,11 @@ namespace Validator
             }
 
             return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Parenthese");
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

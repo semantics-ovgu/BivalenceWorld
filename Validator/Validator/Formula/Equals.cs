@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
@@ -34,6 +35,11 @@ namespace Validator
             {
                 return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             }
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new NotImplementedException();
         }
     }
 }

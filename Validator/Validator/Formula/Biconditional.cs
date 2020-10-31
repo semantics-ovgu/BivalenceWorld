@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
 {
     public class Biconditional : GenericFormula<Formula>, IFormulaValidate
     {
-        public Biconditional(Formula first, Formula second, string name, string rawFormula) : base(new List<Formula> { first, second }, name, rawFormula)
+        public Biconditional(Formula first, Formula second, string name, string formattedFormula) : base(new List<Formula> { first, second }, name, formattedFormula)
         {
         }
 
@@ -48,6 +49,11 @@ namespace Validator
             }
 
             return result;
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Validator
     {
         private List<T> _arguments = new List<T>();
 
-        public GenericFormula(List<T> arguments, string name, string rawFormula) : base(name, rawFormula)
+        public GenericFormula(List<T> arguments, string name, string formattedFormula) : base(name, formattedFormula)
         {
             _arguments = arguments;
         }
@@ -19,6 +19,16 @@ namespace Validator
         {
             foreach (var item in Arguments)
                 yield return item as R;
+        }
+
+        protected virtual string ArgumentsToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (var argument in Arguments)
+            {
+                builder.AppendLine(argument.FormattedFormula);
+            }
+            return builder.ToString();
         }
     }
 }

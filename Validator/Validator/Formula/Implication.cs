@@ -1,13 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Validator.Game;
 using Validator.World;
 
 namespace Validator
 {
     public class Implication : GenericFormula<Formula>, IFormulaValidate
     {
-        public Implication(Formula first, Formula second, string name, string rawFormula) : base(new List<Formula> { first, second }, name, rawFormula)
+        private Formula _rewrittenFormula = null;
+
+        public Implication(Formula first, Formula second, string name, string formattedFormula) : base(new List<Formula> { first, second }, name, formattedFormula)
         {
+            var rewrittenArguments = new List<Formula>()
+            {
+                new Negation(first),
+                second
+            };
+            _rewrittenFormula = new Disjunction(rewrittenArguments, name, formattedFormula);
+
+            SetFormattedFormula(first.FormattedFormula + "\u2192" + second.FormattedFormula);
         }
 
         public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
@@ -48,6 +59,11 @@ namespace Validator
             }
 
             return result;
+        }
+
+        public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            return new InfoMessage(game, this, $"{FormattedFormula}\ncan be rewritten as\n{_rewrittenFormula.FormattedFormula}", _rewrittenFormula.CreateNextMove(game, dictVariables));
         }
     }
 }
