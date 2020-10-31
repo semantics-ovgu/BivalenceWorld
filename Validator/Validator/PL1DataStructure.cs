@@ -18,5 +18,12 @@
         public ConstDictionary Consts => _const;
         public PredicateDictionary Predicates => _predicates;
         public FunctionDictionary Functions => _functions;
+
+        public void Clear()
+        {
+            _const.Clear();
+            _predicates.Clear();
+            _functions.Clear();
+        }
     }
 }

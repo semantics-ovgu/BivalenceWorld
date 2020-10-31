@@ -61,9 +61,14 @@ namespace Validator
             return result;
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return Arguments[0].ReformatFormula(variables) + "\u2192" + Arguments[1].ReformatFormula(variables);
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            return new InfoMessage(game, this, $"{FormattedFormula}\ncan be rewritten as\n{_rewrittenFormula.FormattedFormula}", _rewrittenFormula.CreateNextMove(game, dictVariables));
+            return new InfoMessage(game, this, $"{ReformatFormula(dictVariables)}\ncan be rewritten as\n{_rewrittenFormula.ReformatFormula(dictVariables)}", _rewrittenFormula.CreateNextMove(game, dictVariables));
         }
     }
 }

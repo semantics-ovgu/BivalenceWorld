@@ -34,6 +34,11 @@ namespace Validator
             return ResultSentence<string>.CreateResult(EValidationResult.UnexpectedResult, false, FormattedFormula, "Could not find the signature: \n" + Environment.StackTrace);
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return Name;
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
             throw new NotImplementedException();

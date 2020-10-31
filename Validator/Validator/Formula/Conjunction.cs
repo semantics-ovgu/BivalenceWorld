@@ -76,6 +76,23 @@ namespace Validator
             return selection;
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (var argument in Arguments)
+            {
+                if (argument != Arguments.First())
+                    builder.Append(" ");
+
+                builder.Append(argument.ReformatFormula(variables));
+
+                if (argument != Arguments.Last())
+                    builder.Append(" ∧ ");
+            }
+
+            return builder.ToString();
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
             var result = Validate(game.World, dictVariables);
@@ -87,14 +104,14 @@ namespace Validator
                 {
                     invalidMove = _invalidFormula.CreateNextMove(game, dictVariables);
                 }
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are true:{ArgumentsToString()}\n[Bivalence World will try to choose a false formula]", invalidMove);
-                return new InfoMessage(game, this, $"So you believe that\n{FormattedFormula}\nis true?", allTrueInfo);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are true:\n{ArgumentsToString(dictVariables)}\n[Bivalence World will try to choose a false formula]", invalidMove);
+                return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis true?", allTrueInfo);
             }
             else
             {
                 var questionMessage = new Question(game, this, "Choose a formula that you believe to be false.", CreatePossibleSelection(dictVariables));
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:{ArgumentsToString()}\n[You will try to choose a false formula]", questionMessage);
-                return new InfoMessage(game, this, $"So you believe that\n{FormattedFormula}\nis false?", allTrueInfo);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:{ArgumentsToString(dictVariables)}\n[You will try to choose a false formula]", questionMessage);
+                return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis false?", allTrueInfo);
             }
         }
     }

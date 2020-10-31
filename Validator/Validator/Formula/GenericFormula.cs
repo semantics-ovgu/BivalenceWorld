@@ -21,12 +21,12 @@ namespace Validator
                 yield return item as R;
         }
 
-        protected virtual string ArgumentsToString()
+        protected virtual string ArgumentsToString(Dictionary<string, string> dictVariables)
         {
             StringBuilder builder = new StringBuilder();
             foreach (var argument in Arguments)
             {
-                builder.AppendLine(argument.FormattedFormula);
+                builder.AppendLine(argument.ReformatFormula(dictVariables));
             }
             return builder.ToString();
         }

@@ -9,7 +9,6 @@ namespace Validator
     {
         private Formula _formula = null;
 
-
         public Negation(Formula formula) : base(formula.Name, formula.FormattedFormula)
         {
             _formula = formula;
@@ -42,6 +41,11 @@ namespace Validator
             return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Negation");
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return "¬" + _formula.ReformatFormula(variables);
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
             var result = Validate(game.World, dictVariables);
@@ -49,12 +53,12 @@ namespace Validator
             if (game.Guess)
             {
                 game.SetGuess(!game.Guess);
-                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is true", _formula.CreateNextMove(game, dictVariables));
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", _formula.CreateNextMove(game, dictVariables));
             }
             else
             {
                 game.SetGuess(!game.Guess);
-                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is false", _formula.CreateNextMove(game, dictVariables));
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", _formula.CreateNextMove(game, dictVariables));
             }
         }
     }

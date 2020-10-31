@@ -5,8 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Validator.Game
 {
-    public class Game
+    public class Game : ICloneable
     {
+        private const string GENERIC_CONST_KEY = "n";
+
         private readonly Formula _formula;
         private bool _guess;
         private string _sentence;
@@ -14,7 +16,9 @@ namespace Validator.Game
         private List<AMove> _history = new List<AMove>();
         private AMove _currentMove = null;
         private Queue<AMove> _nextMoves = new Queue<AMove>();
-        private List<WorldObject> _worldObjects = new List<WorldObject>();
+
+        private List<string> _genericConsts = new List<string>();
+        private int _currentConstIndex = 1;
 
         public Game(string sentence, AWorld world, bool guess)
         {
@@ -32,7 +36,35 @@ namespace Validator.Game
             }
         }
 
-        public List<WorldObject> WorldObjects => _worldObjects;
+        internal string AddGenericConstString()
+        {
+            string key = GENERIC_CONST_KEY + _currentConstIndex;
+            _genericConsts.Add(key);
+            _currentConstIndex++;
+
+            return key;
+        }
+
+        internal void ReplaceWorldObject(WorldObject obj)
+        {
+            var list = new List<WorldObject>();
+
+            foreach (var worldObj in _world.WorldParameter.Data)
+            {
+                if (worldObj.Equals(obj))
+                {
+                    list.Add(obj);
+                }
+                else
+                {
+                    list.Add(worldObj);
+                }
+            }
+
+            _world.Check(new WorldParameter(list, new List<string>() { _sentence }));
+        }
+
+        public List<WorldObject> WorldObjects => _world.WorldParameter.Data;
 
         public bool Guess => _guess;
 
@@ -75,6 +107,15 @@ namespace Validator.Game
         private AMove Initialize()
         {
             return _currentMove = _formula.CreateNextMove(this, new Dictionary<string, string>());
+        }
+
+        public object Clone()
+        {
+
+            return new Game(_sentence, _world, _guess)
+            {
+                _history = _history
+            };
         }
     }
 }

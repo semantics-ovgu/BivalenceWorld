@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using Validator.Game;
 using Validator.World;
 
@@ -23,9 +24,14 @@ namespace Validator
             return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "No Formula in Parenthese");
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return _formula.ReformatFormula(variables);
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            throw new System.NotImplementedException();
+            return _formula.CreateNextMove(game, dictVariables);
         }
     }
 }

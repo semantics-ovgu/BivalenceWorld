@@ -6,8 +6,8 @@ namespace Validator
 {
     public struct WorldObject
     {
-        
-	    private List<string> _consts;
+
+        private List<string> _consts;
         private List<string> _predicates;
         private List<object> _tags;
 
@@ -23,20 +23,29 @@ namespace Validator
 
         public List<string> Consts
         {
-	        get => this._consts;
-	        set => _consts = value;
+            get => this._consts;
+            set => _consts = value;
         }
 
         public List<string> Predicates
         {
-	        get => this._predicates;
-	        set => _predicates = value;
+            get => this._predicates;
+            set => _predicates = value;
         }
 
         public List<object> Tags
         {
-	        get => this._tags;
-	        set => _tags = value;
+            get => this._tags;
+            set => _tags = value;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other is WorldObject otherObj)
+            {
+                return Tags.SequenceEqual(otherObj.Tags);
+            }
+            return base.Equals(other);
         }
     }
 }
