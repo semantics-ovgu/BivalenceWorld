@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUI_ValidateButton : MonoBehaviour, IDebug
+public class GUI_ValidateButton : GUI_Button, IDebug
 {
 	[SerializeField]
 	private Button _targetButton = default;
@@ -25,7 +25,7 @@ public class GUI_ValidateButton : MonoBehaviour, IDebug
 		return 3;
 	}
 
-	private void ButtonClickedListener()
+	protected override void ButtonClickedListener()
 	{
 		_validation.StartCalculator();
 	}

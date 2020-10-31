@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd791756edc594645bf1b2bfd1331ff4, type: 3}
+  m_Name: LocalizationDB
+  m_EditorClassIdentifier: 
+  _currentLanguage: 0
+  _oldLanguage: 0
+  _resourcesBasePath: LocaFiles/
+  _importSettings:
+    _rawFilesFolder: {fileID: 102900000, guid: f94ad07d8b05e1a409581f9fa2bfe809, type: 3}
+    _generatedFolder: {fileID: 102900000, guid: b8c017709f6caf543abb96b489ff3923,
+      type: 3}
+  _cachedGeneratedFolderPath: Assets/Loca/Resources/LocaFiles

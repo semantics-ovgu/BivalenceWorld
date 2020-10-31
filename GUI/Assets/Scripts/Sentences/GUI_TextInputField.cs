@@ -12,10 +12,6 @@ public class GUI_TextInputField : MonoBehaviour
     private GUI_TextInputElement _currentTextInputElement = default;
     public GUI_TextInputElement CurrentTextInputElement => _currentTextInputElement;
 
-    public List<GUI_TextInputElement> GetTextInputElement()
-    {
-        return _inputFields;
-    }
 
     private void Awake()
     {
@@ -23,6 +19,18 @@ public class GUI_TextInputField : MonoBehaviour
         {
             item.SelectedTextInputFieldElementeEvent.AddEventListener(SelectedListener);
         }
+    }
+
+    public void CleanAllText()
+    {
+	    foreach (var item in InputField)
+	    {
+		    if (!item.IsEmptyString())
+		    {
+			   item.RemoveText();
+
+		    }
+	    }
     }
 
     public List<string> GetInputFieldText()
@@ -71,4 +79,5 @@ public class GUI_TextInputField : MonoBehaviour
     {
         _inputFields = new List<GUI_TextInputElement>(GetComponentsInChildren<GUI_TextInputElement>());
     }
+
 }

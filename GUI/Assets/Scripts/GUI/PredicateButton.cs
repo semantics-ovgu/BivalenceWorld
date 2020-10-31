@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PredicateButton : MonoBehaviour
+public class PredicateButton : GUI_Button
 {
-    [SerializeField]
-    private Button _targetButton = default;
+
     [SerializeField]
     private Predicate _predicate = default;
     private IPredicate _instance = default;
@@ -21,15 +20,11 @@ public class PredicateButton : MonoBehaviour
             manager.GetSelectionManager().SelectionClickedEvent.AddEventListener(SelectionClickedListener);
             manager.GetSelectionManager().SelectionUnclickedEvent.AddEventListener(SelectionUnclickedListener);
         }
-        if (_targetButton)
-        {
-            _targetButton.onClick.AddListener(ButtonClicked);
-        }
     }
 
-    private void ButtonClicked()
+    protected override void ButtonClickedListener()
     {
-        _instance?.AddPredicate(_predicate);
+	    _instance?.AddPredicate(_predicate);
     }
 
     private void SelectionUnclickedListener(SelectionManager.EventArgs arg0)

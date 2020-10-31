@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Validator
 {
     public struct WorldObject
     {
-        private List<string> _consts;
+        
+	    private List<string> _consts;
         private List<string> _predicates;
         private List<object> _tags;
 
@@ -19,8 +21,22 @@ namespace Validator
         }
 
 
-        public List<string> Consts => _consts;
-        public List<string> Predicates => _predicates;
-        public List<object> Tags => _tags;
+        public List<string> Consts
+        {
+	        get => this._consts;
+	        set => _consts = value;
+        }
+
+        public List<string> Predicates
+        {
+	        get => this._predicates;
+	        set => _predicates = value;
+        }
+
+        public List<object> Tags
+        {
+	        get => this._tags;
+	        set => _tags = value;
+        }
     }
 }

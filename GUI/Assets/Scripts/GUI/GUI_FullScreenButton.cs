@@ -5,10 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUI_FullScreenButton : MonoBehaviour
+public class GUI_FullScreenButton : GUI_Button
 {
-	[SerializeField]
-	private Button _button = default;
+
 	[SerializeField]
 	private Image _buttonImage = default;
 	[SerializeField]
@@ -18,22 +17,21 @@ public class GUI_FullScreenButton : MonoBehaviour
 
 	private void Awake()
 	{
-		_button.onClick.AddListener(ButtonClickedListener);
 		SetSpriteToImage();
 	}
 
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
+		{
 			ButtonClickedListener();
+		}
 	}
 
-	private void ButtonClickedListener()
+	protected override void ButtonClickedListener()
 	{
 		Screen.fullScreen = !Screen.fullScreen;
-
 		SetSpriteToImage();
-
 	}
 
 	private void SetSpriteToImage()
