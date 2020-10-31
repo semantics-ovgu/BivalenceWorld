@@ -92,7 +92,7 @@ public class Validation
 
 	private void CheckValidationResult(List<WorldObject> worldObjs, List<string> resultSentences, List<GUI_TextInputElement> list)
 	{
-		TarskiWorld world = new TarskiWorld();
+		BivalenceWorld world = new BivalenceWorld();
 
 		WorldResult<EValidationResult> result = world.Check(new WorldParameter(worldObjs, resultSentences));
 
@@ -109,13 +109,12 @@ public class Validation
 
 	public void SetPresentationLayout()
 	{
-		TarskiWorld world = new TarskiWorld();
-;
-		WorldResult<EValidationResult> result = world.Check(new WorldParameter(CalculateWorldObjects(), new List<string>()));
+        BivalenceWorld world = new BivalenceWorld();
+        WorldResult<EValidationResult> result = world.Check(new WorldParameter(CalculateWorldObjects(), new List<string>()));
 		SetPresentationLayout(world);
 	}
 
-	private void SetPresentationLayout(TarskiWorld world)
+	private void SetPresentationLayout(BivalenceWorld world)
 	{
 		var presentationWorldTxt = world.GetPl1Structure().GetModelRepresentation();
 		GUI_GetModelPresentation presentation = GameManager.Instance.GetModelPresentation();
