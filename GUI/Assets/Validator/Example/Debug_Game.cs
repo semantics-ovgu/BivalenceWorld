@@ -28,12 +28,13 @@ public class Debug_Game : MonoBehaviour
 
         var move = game.Play();
 
-        move = game.Play();
+        move = game.Play(); //Information prefab
 
         move = game.Play();
 
-        var question = move as Question;
-        question.SetAnswers(question.PossibleAnswers[0]);
+        var question = move as Question; //andere Prefab spawnen bei Question
+        question.SetAnswers(question.PossibleAnswers[0]); //anpassen an auswahlten an Prefab 2 - n
+
 
         move = game.Play();
 
