@@ -12,9 +12,9 @@ namespace Validator
         {
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+            ResultSentence<EValidationResult> result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             ConstDictionary constDict = pL1Structure.GetPl1Structure().GetConsts();
             PredicateDictionary predDict = pL1Structure.GetPl1Structure().GetPredicates();
 
@@ -23,16 +23,16 @@ namespace Validator
                 Signature signature = worldSignature.GetSignature();
                 if (!signature.Predicates.Any(elem => elem.Item1 == Name && elem.Item2 == Arguments.Count))
                 {
-                    return Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated, "Predicate " + Name + " not found in signature.");
+                    return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnknownSymbol, "Predicate " + Name + " not found in signature.");
                 }
             }
 
-            Result<List<string>> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
+            ResultSentence<List<string>> universeArguments = Argument.GetUniverseIdentifier(Arguments, pL1Structure, dictVariables);
             List<List<string>> predicateList = predDict.TryGetValue(Name);
 
             if (!universeArguments.IsValid)
             {
-                result = Result<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
+                result = ResultSentence<EValidationResult>.CreateResult(false, universeArguments.ValidationResult, universeArguments.ErrorMessage);
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Validator
                 {
                     if (predElem.SequenceEqual(universeArguments.Value))
                     {
-                        result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+                        result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
                         break;
                     }
                 }

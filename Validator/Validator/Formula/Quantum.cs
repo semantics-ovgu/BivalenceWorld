@@ -16,18 +16,18 @@ namespace Validator
             _variable = variable;
         }
 
-        public Result<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
-            Result<EValidationResult> result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+            ResultSentence<EValidationResult> result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
             if (_type == EQuantumType.None)
             {
-                result = Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "Parser failed. Quantumtype not detected");
+                result = ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult, "Parser failed. Quantumtype not detected");
             }
 
             var arguments = GetArgumentsOfType<IFormulaValidate>().ToList();
             if (arguments.Count != 1)
             {
-                result = Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult,
+                result = ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult,
                         "Invalid amount of arguments in quantum : " + arguments.Count);
             }
             else
@@ -45,16 +45,19 @@ namespace Validator
             return result;
         }
 
-        private Result<EValidationResult> ValidateAllQuantum(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        private ResultSentence<EValidationResult> ValidateAllQuantum(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             var arguments = GetArgumentsOfType<IFormulaValidate>().First();
-            var result = Result<EValidationResult>.CreateResult(true, EValidationResult.True);
+            var result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.True);
             foreach (var identifier in pL1Structure.GetPl1Structure().GetConsts())
             {
-                var dict = new Dictionary<string, string>(dictVariables)
+                var dict = new Dictionary<string, string>(dictVariables);
+                if (dict.ContainsKey(_variable.RawFormula))
                 {
-                        {_variable.RawFormula, identifier.Key}
+                    dict.Remove(_variable.RawFormula);
                 };
+                dict.Add(_variable.RawFormula, identifier.Key);
+
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
                 {
@@ -71,16 +74,19 @@ namespace Validator
             return result;
         }
 
-        private Result<EValidationResult> ValidateExistQuantum(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
+        private ResultSentence<EValidationResult> ValidateExistQuantum(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
         {
             var arguments = GetArgumentsOfType<IFormulaValidate>().First();
-            var result = Result<EValidationResult>.CreateResult(true, EValidationResult.False);
+            var result = ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             foreach (var identifier in pL1Structure.GetPl1Structure().GetConsts())
             {
-                var dict = new Dictionary<string, string>(dictVariables)
+                var dict = new Dictionary<string, string>(dictVariables);
+                if (dict.ContainsKey(_variable.RawFormula))
                 {
-                        {_variable.RawFormula, identifier.Key}
+                    dict.Remove(_variable.RawFormula);
                 };
+                dict.Add(_variable.RawFormula, identifier.Key);
+
                 var helpResult = arguments.Validate(pL1Structure, dict);
                 if (!helpResult.IsValid)
                 {
