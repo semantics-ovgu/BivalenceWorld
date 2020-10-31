@@ -14,6 +14,7 @@ namespace Validator.Game
         private List<AMove> _history = new List<AMove>();
         private AMove _currentMove = null;
         private Queue<AMove> _nextMoves = new Queue<AMove>();
+        private List<WorldObject> _worldObjects = new List<WorldObject>();
 
         public Game(string sentence, AWorld world, bool guess)
         {
@@ -30,6 +31,8 @@ namespace Validator.Game
                 _formula = null;
             }
         }
+
+        public List<WorldObject> WorldObjects => _worldObjects;
 
         public bool Guess => _guess;
 
@@ -68,7 +71,7 @@ namespace Validator.Game
         {
             return _currentMove = _currentMove.NextMove(this);
         }
-        
+
         private AMove Initialize()
         {
             return _currentMove = _formula.CreateNextMove(this, new Dictionary<string, string>());

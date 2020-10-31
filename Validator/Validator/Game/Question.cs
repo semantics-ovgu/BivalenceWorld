@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
 
 namespace Validator.Game
 {
@@ -42,18 +44,42 @@ namespace Validator.Game
 
         public class Selection
         {
+            private WorldObject _worldObject;
+            public WorldObject WorldObject => _worldObject;
             private Formula _formula;
+            public Formula Formula => _formula;
             private Dictionary<string, string> _dictVariables;
+            private SelectionTypes _selectionType;
+            public SelectionTypes SelectionType => _selectionType;
+
+
+            public Selection(Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(formula, dictVariables)
+            {
+                _worldObject = obj;
+                _selectionType = SelectionTypes.WorldObject;
+            }
 
             public Selection(Formula formula, Dictionary<string, string> dictVariables)
             {
                 _formula = formula;
-                _dictVariables = dictVariables;
+                _selectionType = SelectionTypes.Formula;
+                _dictVariables = new Dictionary<string, string>();
+
+                foreach (KeyValuePair<string, string> valuePair in dictVariables)
+                {
+                    _dictVariables.Add(valuePair.Key, valuePair.Value);
+                }
             }
 
             internal AMove GetNextMove(Game game)
             {
                 return _formula.CreateNextMove(game, _dictVariables);
+            }
+
+            public enum SelectionTypes
+            {
+                Formula,
+                WorldObject
             }
         }
     }

@@ -15,6 +15,10 @@ namespace Validator
         {
             _type = type;
             _variable = variable;
+
+            string quantum = _type == EQuantumType.All ? "\u2200x" : "\u2203";
+
+            SetFormattedFormula(quantum + variable.FormattedFormula + argument.FormattedFormula);
         }
 
         public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
@@ -111,9 +115,41 @@ namespace Validator
             return result;
         }
 
+        private List<Question.Selection> CreatePossibleSelection(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            var selection = new List<Question.Selection>();
+            foreach (var combination in game.WorldObjects)
+            {
+                selection.Add(new Question.Selection(Arguments[0], dictVariables, combination, _variable.Name));
+            }
+
+            return selection;
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            throw new System.NotImplementedException();
+            var result = Validate(game.World, dictVariables);
+
+            if (game.Guess)
+            {
+                var endMessage = new EndMessage(game, this, "You win:\n" + FormattedFormula + "\n is true in this world", true);
+                if (result.Value == EValidationResult.False)
+                {
+                    endMessage = new EndMessage(game, this, "You lose:\n" + FormattedFormula + "\n is false, not true, in this world", false);
+                }
+                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].FormattedFormula}", CreatePossibleSelection(game, dictVariables));
+                var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.FormattedFormula}] satisfies\n{Arguments[0].FormattedFormula}\nYou will try to find an instance", endMessage);
+                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is true", infoVariable);
+            }
+            else
+            {
+                var endMessage = new EndMessage(game, this, "You win:\n" + FormattedFormula + "\n is false in this world", true);
+                if (result.Value == EValidationResult.True)
+                {
+                    endMessage = new EndMessage(game, this, "You lose:\n" + FormattedFormula + "\n is true, not false, in this world", false);
+                }
+                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is false", endMessage);
+            }
         }
     }
 }
