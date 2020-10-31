@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 5082146367687001476}
   - component: {fileID: 5082146367687001479}
   - component: {fileID: 5082146367687001478}
+  - component: {fileID: 9049125443507533968}
   m_Layer: 5
   m_Name: GUI_PredicateButton
   m_TagString: Untagged
@@ -204,5 +205,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32573c510e2d6c14d987e18411fa5caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetButton: {fileID: 5082146367687001479}
+  _button: {fileID: 0}
   _predicate: {fileID: 11400000, guid: f78fa6273d430a84fae5b91c5dc6fa87, type: 2}
+--- !u!114 &9049125443507533968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5082146367687001496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97721849f46878e4bbbe4374ad9c7a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tooltipText:
+    _path: Global
+    _key: 
+  _timer: 1
