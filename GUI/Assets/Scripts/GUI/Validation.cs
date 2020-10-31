@@ -38,13 +38,13 @@ public class Validation
 		CheckValidationResult(worldObjs, sentences, textputElement);
 	}
 
-	private List<string> CalculateResultSentences(GameManager manager, List<GUI_TextInputElement> list)
+	public static List<string> CalculateResultSentences(GameManager manager, List<GUI_TextInputElement> list)
 	{
 		var resultSentences = new List<string>();
 		foreach (GUI_TextInputElement item in list)
 		{
 			resultSentences.Add(item.GetInputText());
-			DebugConsole(item.GetInputText());
+			//DebugConsole(item.GetInputText());
 		}
 		
 		return resultSentences;
@@ -55,9 +55,9 @@ public class Validation
 		return GameManager.Instance;
 	}
 
-	private List<WorldObject> CalculateWorldObjects()
+	public static List<WorldObject> CalculateWorldObjects()
 	{
-		var board = GetGameManager().GetCurrentBoard();
+		var board = GameManager.Instance.GetCurrentBoard();
 
 		List<Field> obj = board.GetFieldElements();
 		List<WorldObject> worldObjs = new List<WorldObject>();
@@ -65,20 +65,18 @@ public class Validation
 		{
 			if (item.HasPredicateInstance())
 			{
-				DebugConsole("--- New Element --- ");
 				List<Predicate> predicates = item.GetPredicatesList();
 				var constant = item.GetConstantsList();
 				List<string> worldPredicates = new List<string>();
 				foreach (var pred in predicates)
 				{
-					DebugConsole(pred.PredicateIdentifier);
 					worldPredicates.Add(pred.PredicateIdentifier);
 				}
 
-				foreach (var co in constant)
-				{
-					DebugConsole(co);
-				}
+				//foreach (var co in constant)
+				//{
+				//	DebugConsole(co);
+				//}
 
 				List<object> coord = new List<object>();
 				coord.Add(item.GetX());
