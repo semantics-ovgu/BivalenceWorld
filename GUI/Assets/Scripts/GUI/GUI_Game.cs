@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Security.Authentication.ExtendedProtection.Configuration;
 using UnityEngine;
+using UnityEngine.UI;
 using Validator;
 using Validator.Game;
 
-public class GUI_Game : GUI_Button
+public class GUI_Game : ATextPanel
 {
 
 	[SerializeField]
@@ -28,9 +29,23 @@ public class GUI_Game : GUI_Button
 	private string _currentSentence = "";
 	private BivalenceWorld _world = default;
 
-	protected override void ButtonClickedListener()
+	[SerializeField]
+	protected Button _button = default;
+
+	private void OnValidate()
 	{
-		base.ButtonClickedListener();
+		if (_button == null)
+			this.gameObject.GetComponent<Button>();
+	}
+
+	private void Awake()
+	{
+		_button.onClick.AddListener(ButtonClickedListener);
+	}
+
+
+	private void ButtonClickedListener()
+	{
 
 
 		_world = new BivalenceWorld();

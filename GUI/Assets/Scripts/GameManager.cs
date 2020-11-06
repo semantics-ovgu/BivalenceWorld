@@ -31,8 +31,9 @@ public class GameManager : ASingleton<GameManager>
 
 	public Validation GetValidation() => _validation;
 
-
-
+	[SerializeField]
+	private GUI_Navigation_Text _navigationText = default;
+	public GUI_Navigation_Text NavigationText => _navigationText;
 
 
 	private void Start()

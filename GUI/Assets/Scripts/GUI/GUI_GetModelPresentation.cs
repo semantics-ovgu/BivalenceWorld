@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUI_GetModelPresentation : MonoBehaviour
+public class GUI_GetModelPresentation : ATextPanel
 {
 	[SerializeField]
 	private TMPro.TextMeshProUGUI _text = default;

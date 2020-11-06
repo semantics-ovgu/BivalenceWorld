@@ -10,7 +10,7 @@ public class Field_CustomEditor : Editor
         base.OnInspectorGUI();
 
         GUILayout.BeginHorizontal();
-        //if (GUILayout.Button("AddText"))
+        //if (GUILayout.Button("CreateTextInstance"))
         //{
         //    ((Field)target).SpawnText(param);
         //}

@@ -15,6 +15,8 @@ public class GUI_LoadGame : GUI_Button
 
 	[SerializeField]
 	private List<Predicate> _predicates;
+	[SerializeField]
+	private Toggle _openNewTabToggle;
 
 	protected override void ButtonClickedListener()
 	{
@@ -54,14 +56,31 @@ public class GUI_LoadGame : GUI_Button
 					return;
 				}
 
-				manager.GetTextInputField().CleanAllText();
-				List<GUI_TextInputElement> list = manager.GetTextInputField().InputField;
-				for (var i = 0; i < list.Count; i++)
+				if (_openNewTabToggle.isOn)
 				{
-					var item = list[i];
-					if (i < deserializedObj.Count)
+					List<string> txt = new List<string>();
+					List<GUI_TextInputElement> list = manager.GetTextInputField().InputField;
+					for (var i = 0; i < list.Count; i++)
 					{
-						list[i].AddText(deserializedObj[i]);
+						var item = list[i];
+						if (i < deserializedObj.Count)
+						{
+							txt.Add(deserializedObj[i]);
+						}
+					}
+					manager.NavigationText.CreateTextInstance(txt);
+				}
+				else
+				{
+					manager.GetTextInputField().CleanAllText();
+					List<GUI_TextInputElement> list = manager.GetTextInputField().InputField;
+					for (var i = 0; i < list.Count; i++)
+					{
+						var item = list[i];
+						if (i < deserializedObj.Count)
+						{
+							list[i].AddText(deserializedObj[i]);
+						}
 					}
 				}
 			}
