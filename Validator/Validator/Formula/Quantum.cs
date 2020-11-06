@@ -9,6 +9,8 @@ namespace Validator
     {
         private EQuantumType _type = EQuantumType.None;
         private Variable _variable = null;
+        private KeyValuePair<string, string> _invalidConstPair = new KeyValuePair<string, string>();
+        private KeyValuePair<string, string> _validConstPair = new KeyValuePair<string, string>();
 
         public Quantum(EQuantumType type, Formula argument, Variable variable, string name, string formattedFormula) : base(new List<Formula> { argument }, name,
                 formattedFormula)
@@ -16,7 +18,7 @@ namespace Validator
             _type = type;
             _variable = variable;
 
-            string quantum = _type == EQuantumType.All ? "\u2200x" : "\u2203";
+            string quantum = _type == EQuantumType.All ? "\u2200" : "\u2203";
 
             SetFormattedFormula(quantum + variable.FormattedFormula + argument.FormattedFormula);
         }
@@ -76,6 +78,11 @@ namespace Validator
                 if (helpResult.Value != EValidationResult.True)
                 {
                     result = helpResult;
+                    _invalidConstPair = new KeyValuePair<string, string>(_variable.Name, identifier.Key);
+                }
+                else
+                {
+                    _validConstPair = new KeyValuePair<string, string>(_variable.Name, identifier.Key);
                 }
             }
 
@@ -108,7 +115,12 @@ namespace Validator
                 if (helpResult.Value == EValidationResult.True)
                 {
                     result = helpResult;
+                    _validConstPair = new KeyValuePair<string, string>(_variable.Name, identifier.Key);
                     break;
+                }
+                else
+                {
+                    _invalidConstPair = new KeyValuePair<string, string>(_variable.Name, identifier.Key);
                 }
             }
 
@@ -118,38 +130,96 @@ namespace Validator
         private List<Question.Selection> CreatePossibleSelection(Game.Game game, Dictionary<string, string> dictVariables)
         {
             var selection = new List<Question.Selection>();
-            foreach (var combination in game.WorldObjects)
+            foreach (var worldObject in game.WorldObjects)
             {
-                selection.Add(new Question.Selection(Arguments[0], dictVariables, combination, _variable.Name));
+                selection.Add(new Question.Selection(Arguments[0], dictVariables, worldObject, _variable.Name));
             }
 
             return selection;
         }
 
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            string quantum = _type == EQuantumType.All ? "\u2200" : "\u2203";
+
+            return quantum + _variable.FormattedFormula + Arguments[0].ReformatFormula(variables);
+        }
+
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            if (_type == EQuantumType.Exist)
+            {
+                return CreateMoveExistQuantum(game, dictVariables);
+            }
+            else
+            {
+                return CreateMoveAllQuantum(game, dictVariables);
+            }
+        }
+
+        private AMove CreateMoveExistQuantum(Game.Game game, Dictionary<string, string> dictVariables)
         {
             var result = Validate(game.World, dictVariables);
 
             if (game.Guess)
             {
-                var endMessage = new EndMessage(game, this, "You win:\n" + FormattedFormula + "\n is true in this world", true);
-                if (result.Value == EValidationResult.False)
-                {
-                    endMessage = new EndMessage(game, this, "You lose:\n" + FormattedFormula + "\n is false, not true, in this world", false);
-                }
-                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].FormattedFormula}", CreatePossibleSelection(game, dictVariables));
-                var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.FormattedFormula}] satisfies\n{Arguments[0].FormattedFormula}\nYou will try to find an instance", endMessage);
-                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is true", infoVariable);
+                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(game, dictVariables));
+                var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nYou will try to find an instance", questionMessage);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
             }
             else
             {
-                var endMessage = new EndMessage(game, this, "You win:\n" + FormattedFormula + "\n is false in this world", true);
-                if (result.Value == EValidationResult.True)
-                {
-                    endMessage = new EndMessage(game, this, "You lose:\n" + FormattedFormula + "\n is true, not false, in this world", false);
-                }
-                return new InfoMessage(game, this, $"So you believe that \n{FormattedFormula}\n is false", endMessage);
+                var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nBivalence World will try to find a counterexample", Arguments[0].CreateNextMove(game, SetResultVariableConstValue(result.Value, dictVariables)));
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
             }
+        }
+
+        private AMove CreateMoveAllQuantum(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            var result = Validate(game.World, dictVariables);
+
+            if (game.Guess)
+            {
+                var infoVariable = new InfoMessage(game, this, $"So you believe that every object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nBivalence World will try to find a counterexample", Arguments[0].CreateNextMove(game, SetResultVariableConstValue(result.Value, dictVariables)));
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
+            }
+            else
+            {
+                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(game, dictVariables));
+                var infoVariable = new InfoMessage(game, this, $"So you believe that every object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nYou will try to find an instance", questionMessage);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
+            }
+        }
+
+        private Dictionary<string, string> SetResultVariableConstValue(EValidationResult result, Dictionary<string, string> dictVariables)
+        {
+            Dictionary<string, string> newDictionary = new Dictionary<string, string>();
+
+            var keyValue = new KeyValuePair<string, string>();
+            if (result == EValidationResult.True)
+            {
+                keyValue = _validConstPair;
+            }
+            else
+            {
+                keyValue = _invalidConstPair;
+            }
+
+            foreach (KeyValuePair<string, string> pair in dictVariables)
+            {
+                newDictionary.Add(pair.Key, pair.Value);
+            }
+
+            if (newDictionary.ContainsKey(keyValue.Key))
+            {
+                newDictionary[keyValue.Key] = keyValue.Value;
+            }
+            else
+            {
+                newDictionary.Add(keyValue.Key, keyValue.Value);
+            }
+
+            return newDictionary;
         }
     }
 }

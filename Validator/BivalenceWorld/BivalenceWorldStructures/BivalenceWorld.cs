@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Validator
 {
@@ -58,6 +59,14 @@ namespace Validator
             };
 
             return new Signature(consts, variables, predicates, functions);
+        }
+
+        protected override AWorld CloneWorld()
+        {
+            return new BivalenceWorld()
+            {
+                
+            };
         }
 
         protected override Dictionary<string, IPredicateValidation> CreatePredicateDictionary()

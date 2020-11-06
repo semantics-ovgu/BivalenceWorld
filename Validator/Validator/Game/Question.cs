@@ -51,11 +51,12 @@ namespace Validator.Game
             private Dictionary<string, string> _dictVariables;
             private SelectionTypes _selectionType;
             public SelectionTypes SelectionType => _selectionType;
-
+            private string _variable = "";
 
             public Selection(Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(formula, dictVariables)
             {
                 _worldObject = obj;
+                _variable = variable;
                 _selectionType = SelectionTypes.WorldObject;
             }
 
@@ -71,8 +72,35 @@ namespace Validator.Game
                 }
             }
 
+            private void ChangeWorldObjects(Game game)
+            {
+                if (_worldObject.Consts.Any())
+                {
+                    if (_dictVariables.ContainsKey(_variable))
+                    {
+                        _dictVariables[_variable] = _worldObject.Consts[0];
+                    }
+                    else
+                    {
+                        _dictVariables.Add(_variable, _worldObject.Consts[0]);
+                    }
+                }
+                else
+                {
+                    var value = game.AddGenericConstString();
+                    _dictVariables.Add(_variable, value);
+
+                    game.ReplaceWorldObject(_worldObject);
+                }
+            }
+
             internal AMove GetNextMove(Game game)
             {
+                if (_selectionType == SelectionTypes.WorldObject)
+                {
+                    ChangeWorldObjects(game);
+                }
+
                 return _formula.CreateNextMove(game, _dictVariables);
             }
 

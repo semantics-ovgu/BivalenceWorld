@@ -20,7 +20,9 @@ namespace Validator
         public string Name => _name;
         public string FormattedFormula => _formattedFormula;
 
-        protected void SetFormattedFormula(string str) => _formattedFormula = str; 
+        public abstract string ReformatFormula(Dictionary<string, string> variables);
+
+        protected void SetFormattedFormula(string str) => _formattedFormula = str;
 
         public abstract AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables);
     }

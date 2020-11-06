@@ -27,6 +27,12 @@ namespace Validator
 
         public PredicateDictionary GetPredicates() => _modelDataStructure.Predicates;
 
+        public void Clear()
+        {
+            _modelDataStructure.Clear();
+            _universe.Clear();
+        }
+
         public string GetModelRepresentation()
         {
             StringBuilder builder = new StringBuilder();

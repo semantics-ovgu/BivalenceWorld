@@ -11,6 +11,21 @@ namespace Validator
     {
         public Function(List<Argument> arguments, string name, string formattedFormula) : base(arguments, name, formattedFormula)
         {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(formattedFormula + "(");
+            foreach (var argument in arguments)
+            {
+                if (argument != arguments.First())
+                    builder.Append(" ");
+
+                builder.Append(argument.FormattedFormula);
+
+                if (argument != arguments.Last())
+                    builder.Append(",");
+            }
+
+            builder.Append(")");
+            SetFormattedFormula(builder.ToString());
         }
 
         public override ResultSentence<string> GetPL1UniverseIdentifier(IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
@@ -37,6 +52,26 @@ namespace Validator
 
             string result = listDict.TryGetValue(universeIdentifier.Value);
             return ResultSentence<string>.CreateResult(true, result);
+        }
+
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Name + "(");
+            foreach (var argument in Arguments)
+            {
+                if (argument != Arguments.First())
+                    builder.Append(" ");
+
+                builder.Append(argument.ReformatFormula(variables));
+
+                if (argument != Arguments.Last())
+                    builder.Append(",");
+            }
+
+            builder.Append(")");
+
+            return builder.ToString();
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

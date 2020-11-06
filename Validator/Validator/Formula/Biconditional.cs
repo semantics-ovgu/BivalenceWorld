@@ -9,6 +9,7 @@ namespace Validator
     {
         public Biconditional(Formula first, Formula second, string name, string formattedFormula) : base(new List<Formula> { first, second }, name, formattedFormula)
         {
+            SetFormattedFormula(first.FormattedFormula + "\u2194" + second.FormattedFormula);
         }
 
         public ResultSentence<EValidationResult> Validate(IWorldPL1Structure pL1Structure, Dictionary<string, string> dictVariables)
@@ -49,6 +50,11 @@ namespace Validator
             }
 
             return result;
+        }
+
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return Arguments[0].ReformatFormula(variables) + "\u2194" + Arguments[1].ReformatFormula(variables);
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

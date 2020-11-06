@@ -12,6 +12,7 @@ namespace Validator
     {
         public Equals(Argument first, Argument second) : base(new List<Argument>() { first, second }, "", "")
         {
+            SetFormattedFormula(first.FormattedFormula + "=" + second.FormattedFormula);
         }
 
 
@@ -35,6 +36,11 @@ namespace Validator
             {
                 return ResultSentence<EValidationResult>.CreateResult(true, EValidationResult.False);
             }
+        }
+
+        public override string ReformatFormula(Dictionary<string, string> variables)
+        {
+            return Arguments[0].ReformatFormula(variables) + "=" + Arguments[1].ReformatFormula(variables);
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)

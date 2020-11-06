@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Validator.World;
 
 namespace Validator
 {
-    public abstract class AWorld : IWorldPL1Structure, IWorldSignature
+    public abstract class AWorld : IWorldPL1Structure, IWorldSignature, ICloneable
     {
         private Dictionary<string, IFunctionValidation> _funcValidation = new Dictionary<string, IFunctionValidation>();
         private PL1Structure _pl1Structure = new PL1Structure();
         private Dictionary<string, IPredicateValidation> _predValidation = new Dictionary<string, IPredicateValidation>();
         private Signature _signature = new Signature();
+        private WorldParameter _worldParameter = new WorldParameter();
 
         public AWorld()
         {
@@ -21,6 +23,9 @@ namespace Validator
 
         public WorldResult<EValidationResult> Check(WorldParameter parameter)
         {
+            _worldParameter = parameter;
+            _pl1Structure.Clear();
+
             WorldResult<EValidationResult> worldResult =
                     new WorldResult<EValidationResult>(Result<List<Result<EValidationResult>>>.CreateResult(true, new List<Result<EValidationResult>>()));
             try
@@ -39,7 +44,7 @@ namespace Validator
                                 foreach (var con in data.Consts)
                                 {
                                     _pl1Structure.AddConst(con, keyUniverseIdentifier);
-                                    _pl1Structure.AddPredicate(pred, new List<string> {con});
+                                    _pl1Structure.AddPredicate(pred, new List<string> { con });
                                 }
                             }
                             else
@@ -54,7 +59,7 @@ namespace Validator
                                 }
 
                                 _pl1Structure.AddConst(keyUniverseIdentifier, keyUniverseIdentifier);
-                                _pl1Structure.AddPredicate(pred, new List<string> {keyUniverseIdentifier});
+                                _pl1Structure.AddPredicate(pred, new List<string> { keyUniverseIdentifier });
                                 removeKeyUniverse = false;
                             }
                         }
@@ -112,7 +117,7 @@ namespace Validator
             catch (Exception e)
             {
                 worldResult = new WorldResult<EValidationResult>(
-                        Result<List<Result<EValidationResult>>>.CreateResult(false, new List<Result<EValidationResult>>() { Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult)}, e.Message));
+                        Result<List<Result<EValidationResult>>>.CreateResult(false, new List<Result<EValidationResult>>() { Result<EValidationResult>.CreateResult(false, EValidationResult.UnexpectedResult) }, e.Message));
             }
 
             if (worldResult.Result.IsValid && parameter.Sentences != null)
@@ -168,18 +173,18 @@ namespace Validator
             if (length > 1)
             {
                 foreach (var objList in AllConstCombinations(worldObjects, length - 1))
-                foreach (var obj in worldObjects)
-                {
-                    List<string> result = new List<string> {obj};
-                    result.AddRange(objList);
-                    yield return result;
-                }
+                    foreach (var obj in worldObjects)
+                    {
+                        List<string> result = new List<string> { obj };
+                        result.AddRange(objList);
+                        yield return result;
+                    }
             }
             else
             {
                 foreach (var obj in worldObjects)
                 {
-                    yield return new List<string> {obj};
+                    yield return new List<string> { obj };
                 }
             }
         }
@@ -200,7 +205,7 @@ namespace Validator
                 }
                 else
                 {
-                    yield return new List<string> {con};
+                    yield return new List<string> { con };
                 }
             }
         }
@@ -210,20 +215,31 @@ namespace Validator
             if (length > 1)
             {
                 foreach (var objList in AllWorldObjectsCombinations(worldObjects, length - 1))
-                foreach (var obj in worldObjects)
-                {
-                    List<WorldObject> result = new List<WorldObject> {obj};
-                    result.AddRange(objList);
-                    yield return result;
-                }
+                    foreach (var obj in worldObjects)
+                    {
+                        List<WorldObject> result = new List<WorldObject> { obj };
+                        result.AddRange(objList);
+                        yield return result;
+                    }
             }
             else
             {
                 foreach (var obj in worldObjects)
                 {
-                    yield return new List<WorldObject> {obj};
+                    yield return new List<WorldObject> { obj };
                 }
             }
+        }
+
+        public WorldParameter WorldParameter => _worldParameter;
+
+        protected abstract AWorld CloneWorld();
+
+        public object Clone()
+        {
+            var world = CloneWorld();
+
+            return world;
         }
     }
 }
