@@ -110,7 +110,7 @@ namespace Validator
             else
             {
                 var questionMessage = new Question(game, this, "Choose a formula that you believe to be false.", CreatePossibleSelection(dictVariables));
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:{ArgumentsToString(dictVariables)}\n[You will try to choose a false formula]", questionMessage);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:\n{ArgumentsToString(dictVariables)}\n[You will try to choose a false formula]", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis false?", allTrueInfo);
             }
         }

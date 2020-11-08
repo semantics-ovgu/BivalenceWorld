@@ -45,7 +45,30 @@ namespace Validator
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            throw new NotImplementedException();
+            var result = Validate(game.World, dictVariables);
+
+            if (game.Guess)
+            {
+                if (result.Value == EValidationResult.True)
+                {
+                    return new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis true in this world.", true);
+                }
+                else
+                {
+                    return new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis false, not true, in this world.", false);
+                }
+            }
+            else
+            {
+                if (result.Value == EValidationResult.True)
+                {
+                    return new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis true, not false, in this world.", false);
+                }
+                else
+                {
+                    return new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis false in this world.", true);
+                }
+            }
         }
     }
 }

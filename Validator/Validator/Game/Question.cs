@@ -52,6 +52,7 @@ namespace Validator.Game
             private SelectionTypes _selectionType;
             public SelectionTypes SelectionType => _selectionType;
             private string _variable = "";
+            public string Message => _formula.ReformatFormula(_dictVariables);
 
             public Selection(Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(formula, dictVariables)
             {

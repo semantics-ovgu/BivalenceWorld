@@ -7,8 +7,17 @@ namespace Validator
 {
     public class Biconditional : GenericFormula<Formula>, IFormulaValidate
     {
+        private Formula _rewrittenFormula = null;
+
+
         public Biconditional(Formula first, Formula second, string name, string formattedFormula) : base(new List<Formula> { first, second }, name, formattedFormula)
         {
+            var rewrittenArguments = new List<Formula>()
+            {
+                    new Conjunction(new List<Formula>{new Implication(first, second, name, FormattedFormula), new Implication(second, first, name, formattedFormula)  },name, formattedFormula )
+            };
+            _rewrittenFormula = new Disjunction(rewrittenArguments, name, formattedFormula);
+
             SetFormattedFormula(first.FormattedFormula + "\u2194" + second.FormattedFormula);
         }
 
@@ -59,7 +68,7 @@ namespace Validator
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
-            throw new System.NotImplementedException();
+            return new InfoMessage(game, this, $"{ReformatFormula(dictVariables)}\ncan be rewritten as\n{_rewrittenFormula.ReformatFormula(dictVariables)}", _rewrittenFormula.CreateNextMove(game, dictVariables));
         }
     }
 }

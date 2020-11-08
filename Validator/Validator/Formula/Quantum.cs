@@ -170,7 +170,7 @@ namespace Validator
             else
             {
                 var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nBivalence World will try to find a counterexample", Arguments[0].CreateNextMove(game, SetResultVariableConstValue(result.Value, dictVariables)));
-                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoVariable);
             }
         }
 
@@ -187,7 +187,7 @@ namespace Validator
             {
                 var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(game, dictVariables));
                 var infoVariable = new InfoMessage(game, this, $"So you believe that every object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nYou will try to find an instance", questionMessage);
-                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoVariable);
             }
         }
 

@@ -26,7 +26,7 @@ namespace Validator
 
         public override string ReformatFormula(Dictionary<string, string> variables)
         {
-            return _formula.ReformatFormula(variables);
+            return "(" + _formula.ReformatFormula(variables) + ")";
         }
 
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
