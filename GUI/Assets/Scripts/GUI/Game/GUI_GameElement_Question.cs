@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.UI;
+using Validator;
 using Validator.Game;
 
 public class GUI_GameElement_Question : GUI_AGameElement
@@ -15,6 +17,7 @@ public class GUI_GameElement_Question : GUI_AGameElement
 
 
     private Question _question = default;
+    public Question Question => _question;
     [SerializeField]
     private Button _button = default;
     [SerializeField]
@@ -31,15 +34,18 @@ public class GUI_GameElement_Question : GUI_AGameElement
             _question = question;
             foreach (var item in question.PossibleAnswers)
             {
-                var instance = Instantiate(_spawnObj, _spawnPos);
-                var toggle = instance.GetComponent<Toggle>();
-                if (toggle)
+                if (item.SelectionType == Question.Selection.SelectionTypes.Formula)
                 {
-                    toggle.group = _group;
-                    _toggleObjs.Add(toggle);
-                }
+                    var instance = Instantiate(_spawnObj, _spawnPos);
+                    var toggle = instance.GetComponent<Toggle>();
+                    if (toggle)
+                    {
+                        toggle.group = _group;
+                        _toggleObjs.Add(toggle);
+                    }
 
-                instance.GetComponentInChildren<Text>().text = item.Message;
+                    instance.GetComponentInChildren<Text>().text = item.Message;
+                }
             }
         }
         else
@@ -49,19 +55,34 @@ public class GUI_GameElement_Question : GUI_AGameElement
 
     }
 
+    public void SetWorldObjSelection(WorldObject worldObject)
+    {
+        var answer = _question.PossibleAnswers.Find(s => s.WorldObject.Equals(worldObject));
+        if (answer != null)
+        {
+            _question.SetAnswers(answer);
+        }
+    }
+
     private void ContinueButtonClickedListener()
     {
-        for (var i = 0; i < _toggleObjs.Count; i++)
+        if (_toggleObjs.Any())
         {
-            var item = _toggleObjs[i];
-            if (item.isOn)
+            for (var i = 0; i < _toggleObjs.Count; i++)
             {
-                _question.SetAnswers(_question.PossibleAnswers[i]);
+                var item = _toggleObjs[i];
+                if (item.isOn)
+                {
+                    _question.SetAnswers(_question.PossibleAnswers[i]);
+                }
             }
         }
 
-        OnFinishedMoveEvent(null);
-        _button.interactable = false;
+        if (_question.Answer != null)
+        {
+            OnFinishedMoveEvent(null);
+            _button.interactable = false;
+        }
     }
 
 }
