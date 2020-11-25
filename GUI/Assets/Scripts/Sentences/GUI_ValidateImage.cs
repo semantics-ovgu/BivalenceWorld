@@ -11,6 +11,13 @@ public class GUI_ValidateImage : MonoBehaviour
     private Image _targetImage = default;
     [SerializeField]
     private List<Container> _list = default;
+    [SerializeField]
+    private ShowTooltip _tooltip = default;
+
+    private void Start()
+    {
+	    _tooltip.ResetToolTipText();
+    }
 
     public void SetColor(EValidationResult validateResult)
     {
@@ -20,6 +27,7 @@ public class GUI_ValidateImage : MonoBehaviour
         if (obj != null)
         {
             SetSpriteToImage(obj.Sprite);
+            _tooltip.SetToolTipTextKey(obj.TooltipText);
         }
         else
         {
@@ -30,6 +38,10 @@ public class GUI_ValidateImage : MonoBehaviour
     public void ActivateImage(bool isActiv)
     {
         _targetImage.gameObject.SetActive(isActiv);
+        if (isActiv)
+        {
+	        _tooltip.ResetToolTipText();
+        }
     }
 
     private void SetSpriteToImage(Sprite sprite)
@@ -42,5 +54,6 @@ public class GUI_ValidateImage : MonoBehaviour
     {
 	    public EValidationResult Type;
 	    public Sprite Sprite;
+	    public LocalizedString TooltipText = default;
     }
 }

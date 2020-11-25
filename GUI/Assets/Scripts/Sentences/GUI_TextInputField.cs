@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUI_TextInputField : ATextPanel
+public class GUI_TextInputField : APage
 {
 	[SerializeField]
 	List<GUI_TextInputElement> _inputFields = default;

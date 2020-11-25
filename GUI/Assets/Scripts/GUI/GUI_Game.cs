@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Validator;
 using Validator.Game;
 
-public class GUI_Game : ATextPanel
+public class GUI_Game : APage
 {
 
 	[SerializeField]

@@ -16,7 +16,7 @@ public class ShowTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	private void Update()
 	{
-		if (_isHovered)
+		if (_isHovered && _tooltipText != null)
 		{
 			_internTimer += Time.deltaTime;
 
@@ -26,6 +26,17 @@ public class ShowTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 				_isHovered = false;
 			}
 		}
+	}
+
+	public void SetToolTipTextKey(LocalizedString stringKey)
+	{
+		_tooltipText = stringKey;
+	}
+
+	public void ResetToolTipText()
+	{
+		_tooltipText = null;
+		TooltipScreenSpaceUI.HideTooltip_Static();
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)

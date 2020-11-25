@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUI_GetModelPresentation : ATextPanel
+public class GUI_GetModelPresentation : APage
 {
 	[SerializeField]
 	private TMPro.TextMeshProUGUI _text = default;
@@ -13,6 +13,15 @@ public class GUI_GetModelPresentation : ATextPanel
 	{
 
 		_text.SetText(txt);
+	}
 
+	private void Awake()
+	{
+		GameManager.Instance.SetModelPresentation(this);
+	}
+
+	private void OnDestroy()
+	{
+		GameManager.Instance.RemoveModelPresentation(this);
 	}
 }

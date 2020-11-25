@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ATextPanel: MonoBehaviour
+public class APage: MonoBehaviour
 {
 	[SerializeField]
-	protected GUI_Navigation_Text.EType _type = default;
+	protected GUI_TabNavigation.EType _type = default;
 
-	public GUI_Navigation_Text.EType GetType() => _type;
+	public GUI_TabNavigation.EType GetType() => _type;
 
 	public virtual void ActivatePanel()
 	{

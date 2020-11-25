@@ -25,7 +25,6 @@ public class TooltipScreenSpaceUI : MonoBehaviour
 	}
 	private void SetText(string tooltipText)
 	{
-
 		_textMeshPro.SetText(tooltipText);
 		_textMeshPro.ForceMeshUpdate();
 

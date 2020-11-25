@@ -31,6 +31,11 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         SpawnTextIntern("X: " + x + "\nZ: " + z);
     }
 
+    private void Start()
+    {
+	    GameManager.Instance.CreateNewInstanceFromModelPresentationEvent.AddEventListener(ModelPresentationCreationListener);
+    }
+
     public void SetMaterial(Material material)
     {
         _meshRenderer.material = material;
@@ -124,6 +129,15 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 		    manager.GetValidation().SetPresentationLayout();
             manager.GetTextInputField().ResetValidationOnTexts();
         }
+    }
+
+    private void ModelPresentationCreationListener(GUI_GetModelPresentation arg0)
+    {
+	    var manager = GameManager.Instance;
+	    if (manager != null)
+	    {
+		    manager.GetValidation().SetPresentationLayout();
+	    }
     }
 
     public void RemoveConstant(string constant)

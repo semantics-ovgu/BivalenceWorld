@@ -1,8 +1,8 @@
-ConstantA { Benennt ein Objekt mit der ausgewählten Konstante. \nKann nur einmal in der Welt vorkommen.}
-ConstantB { Benennt ein Objekt mit der ausgewählten Konstante. \nKann nur einmal in der Welt vorkommen. }
-ConstantC { Benennt ein Objekt mit der ausgewählten Konstante. \nKann nur einmal in der Welt vorkommen.}
-ConstantD { Benennt ein Objekt mit der ausgewählten Konstante. \nKann nur einmal in der Welt vorkommen.}
-ConstantE { Benennt ein Objekt mit der ausgewählten Konstante. \nKann nur einmal in der Welt vorkommen.}
+ConstantA { Benennt ein Objekt mit der ausgewählten Konstante.<n>Kann nur einmal in der Welt vorkommen.}
+ConstantB { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen. }
+ConstantC { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
+ConstantD { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
+ConstantE { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
 
 Cube { Würfel}
 Tet { Tet}
@@ -11,3 +11,12 @@ Medium { Normal}
 Large { Groß}
 
 ChangeDimension {Wechselt die Ansicht zwischen 2D und 3D.}
+
+UnexpectedResult { UnexpectedResult}
+ParserFailed { ParserFailed}
+CanNotBeValidated { Klein}
+False { False}
+True { True}
+ContainsFreeVariable { ContainsFreeVariable}
+ConstantNotUsed { ConstantNotUsed}
+UnknownSymbol { UnknownSymbol}

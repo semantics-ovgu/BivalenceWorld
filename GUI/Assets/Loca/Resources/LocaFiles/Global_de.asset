@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
   - Key: ConstantA
-    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante. \\nKann nur einmal
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<n>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
   - Key: ConstantB
-    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante. \\nKann nur einmal
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
   - Key: ConstantC
-    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante. \\nKann nur einmal
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
   - Key: ConstantD
-    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante. \\nKann nur einmal
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
   - Key: ConstantE
-    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante. \\nKann nur einmal
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
   - Key: Cube
@@ -50,5 +50,29 @@ MonoBehaviour:
     Tags: []
   - Key: ChangeDimension
     Value: Wechselt die Ansicht zwischen 2D und 3D.
+    Tags: []
+  - Key: UnexpectedResult
+    Value: UnexpectedResult
+    Tags: []
+  - Key: ParserFailed
+    Value: ParserFailed
+    Tags: []
+  - Key: CanNotBeValidated
+    Value: Klein
+    Tags: []
+  - Key: False
+    Value: False
+    Tags: []
+  - Key: True
+    Value: True
+    Tags: []
+  - Key: ContainsFreeVariable
+    Value: ContainsFreeVariable
+    Tags: []
+  - Key: ConstantNotUsed
+    Value: ConstantNotUsed
+    Tags: []
+  - Key: UnknownSymbol
+    Value: UnknownSymbol
     Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_de.loc

@@ -14,8 +14,24 @@ public class GameManager : ASingleton<GameManager>
 	[SerializeField]
 	private GUI_TextInputField _textInputField = default;
 	[SerializeField]
-	private GUI_GetModelPresentation _modelPResentation = default;
-	public GUI_GetModelPresentation GetModelPresentation() => _modelPResentation;
+	private List<GUI_GetModelPresentation> _modelPResentation = default;
+	public List<GUI_GetModelPresentation> GetModelPresentation() => _modelPResentation;
+	public void SetModelPresentation(GUI_GetModelPresentation guiGetModelPresentation)
+	{
+
+		_modelPResentation.Add(guiGetModelPresentation);
+		CreateNewInstanceFromModelPresentationEvent.InvokeEvent(guiGetModelPresentation);
+	}
+
+	public void RemoveModelPresentation(GUI_GetModelPresentation instance)
+	{
+		if (_modelPResentation.Contains(instance))
+		{
+			_modelPResentation.Remove(instance);
+		}
+	}
+
+	public GenericEvent<GUI_GetModelPresentation> CreateNewInstanceFromModelPresentationEvent = new GenericEvent<GUI_GetModelPresentation>();
 
 	private Board _currentBoard = default;
 
@@ -105,4 +121,6 @@ public class GameManager : ASingleton<GameManager>
 	{
 		CheckDebugList(arg0.NewValue);
 	}
+
+
 }

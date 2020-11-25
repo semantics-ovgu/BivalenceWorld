@@ -50,11 +50,6 @@ public class Validation
 		return resultSentences;
 	}
 
-	public GameManager GetGameManager()
-	{
-		return GameManager.Instance;
-	}
-
 	public static List<WorldObject> CalculateWorldObjects()
 	{
 		var board = GameManager.Instance.GetCurrentBoard();
@@ -115,10 +110,13 @@ public class Validation
 	private void SetPresentationLayout(BivalenceWorld world)
 	{
 		var presentationWorldTxt = world.GetPl1Structure().GetModelRepresentation();
-		GUI_GetModelPresentation presentation = GameManager.Instance.GetModelPresentation();
-		if (presentation != null)
+		var presentation = GameManager.Instance.GetModelPresentation();
+		if (presentation != null && presentation.Count > 0)
 		{
-			presentation.SetText(presentationWorldTxt);
+			foreach (var item in presentation)
+			{
+				item.SetText(presentationWorldTxt);	
+			}
 		}
 	}
 
