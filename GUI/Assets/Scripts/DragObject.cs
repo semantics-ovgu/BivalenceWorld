@@ -34,7 +34,25 @@ public class DragObject : MonoBehaviour
                 if (questionElement.Question.PossibleAnswers.Any(s => s.SelectionType == Question.Selection.SelectionTypes.WorldObject))
                 {
                     var currentWorldObject = new WorldObject(new List<string>(), new List<string>(), new List<object> { _predicate.GetField().GetX(), _predicate.GetField().GetZ() });
-                    questionElement.SetWorldObjSelection(currentWorldObject);
+                    var selection = questionElement.SetWorldObjSelection(currentWorldObject);
+
+                    if (selection != null)
+                    {
+                        var element = GameManager.Instance.GetSelectionManager().TargetHoveredElement;
+                        if (element is SelectableObject selectable)
+                        {
+                            foreach (var field in GameManager.Instance.GetCurrentBoard().GetFieldElements())
+                            {
+                                field.RemoveTemporaryConstants();
+                            }
+                            var selectedFIeld = selectable.GetRootObj().GetComponent<Field>();
+                            if (selectedFIeld != null && !selectedFIeld.GetConstantsList().Any())
+                            {
+                                selectedFIeld.AddTemporaryConstant(selection.WorldObject.Consts.First());
+                            }
+                            GameManager.Instance.GetValidation().SetPresentationLayout();
+                        }
+                    }
                 }
             }
         }

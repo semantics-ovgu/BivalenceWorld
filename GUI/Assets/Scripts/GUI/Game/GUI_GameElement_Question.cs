@@ -55,12 +55,17 @@ public class GUI_GameElement_Question : GUI_AGameElement
 
     }
 
-    public void SetWorldObjSelection(WorldObject worldObject)
+    public Question.Selection SetWorldObjSelection(WorldObject worldObject)
     {
         var answer = _question.PossibleAnswers.Find(s => s.WorldObject.Equals(worldObject));
         if (answer != null)
         {
             _question.SetAnswers(answer);
+            return answer;
+        }
+        else
+        {
+            return null;
         }
     }
 

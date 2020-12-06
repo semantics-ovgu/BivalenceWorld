@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Field : MonoBehaviour, IPredicate, IConstant
@@ -21,7 +22,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     private int _z;
 
     private PredicateObj _predicateInstance = default;
-	public PredicateObj GetPredicateInstance() => _predicateInstance;
+    public PredicateObj GetPredicateInstance() => _predicateInstance;
 
 
     public void Init(int x, int z)
@@ -33,7 +34,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     private void Start()
     {
-	    GameManager.Instance.CreateNewInstanceFromModelPresentationEvent.AddEventListener(ModelPresentationCreationListener);
+        GameManager.Instance.CreateNewInstanceFromModelPresentationEvent.AddEventListener(ModelPresentationCreationListener);
     }
 
     public void SetMaterial(Material material)
@@ -52,7 +53,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     public List<Predicate> GetPredicatesList()
     {
-        if(_predicateInstance != null)
+        if (_predicateInstance != null)
         {
             var tmpPredicateList = new List<Predicate>();
             tmpPredicateList.Add(_predicateInstance.GetInitialPredicate());
@@ -70,22 +71,22 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
     }
 
-	public void AddPredicateObj(PredicateObj obj)
-	{
-		if (obj == null)
-			Debug.Log("NULL");
-		_predicateInstance = obj;
-		_predicateInstance.gameObject.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-		_predicateInstance.SetField(this);
-		WorldChanged();
+    public void AddPredicateObj(PredicateObj obj)
+    {
+        if (obj == null)
+            Debug.Log("NULL");
+        _predicateInstance = obj;
+        _predicateInstance.gameObject.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+        _predicateInstance.SetField(this);
+        WorldChanged();
     }
 
-	internal void ResetPredicate()
-	{
-		_predicateInstance = null;
-	}
+    internal void ResetPredicate()
+    {
+        _predicateInstance = null;
+    }
 
-	public void AddPredicate(Predicate predicate)
+    public void AddPredicate(Predicate predicate)
     {
         var obj = predicate.Prefab.GetComponent<PredicateObj>();
         if (obj != null)
@@ -107,9 +108,31 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         WorldChanged();
     }
 
+    public void RemoveTemporaryConstants()
+    {
+        if (_predicateInstance)
+            _predicateInstance.RemoveTemporaryConstants();
+    }
+
     public List<string> GetConstantsList()
     {
-        return _predicateInstance?.GetConstant();
+        if (_predicateInstance != null)
+        {
+            return _predicateInstance.GetConstant();
+        }
+        else
+        {
+            return new List<string>();
+        }
+    }
+
+    public void AddTemporaryConstant(string constant)
+    {
+        if (_predicateInstance != null)
+        {
+            _predicateInstance.AddTemporaryConstant(constant);
+            WorldChanged();
+        }
     }
 
     public void AddConstant(string constant)
@@ -123,21 +146,21 @@ public class Field : MonoBehaviour, IPredicate, IConstant
 
     private void WorldChanged()
     {
-	    var manager = GameManager.Instance;
-	    if (manager != null)
-	    {
-		    manager.GetValidation().SetPresentationLayout();
+        var manager = GameManager.Instance;
+        if (manager != null)
+        {
+            manager.GetValidation().SetPresentationLayout();
             manager.GetTextInputField().ResetValidationOnTexts();
         }
     }
 
     private void ModelPresentationCreationListener(GUI_GetModelPresentation arg0)
     {
-	    var manager = GameManager.Instance;
-	    if (manager != null)
-	    {
-		    manager.GetValidation().SetPresentationLayout();
-	    }
+        var manager = GameManager.Instance;
+        if (manager != null)
+        {
+            manager.GetValidation().SetPresentationLayout();
+        }
     }
 
     public void RemoveConstant(string constant)
@@ -159,7 +182,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         }
         _predicateInstance = instance;
         _predicateInstance.Init(predicate);
-		_predicateInstance.SetField(this);
+        _predicateInstance.SetField(this);
     }
 
     private void TryCreatePredicate(Predicate predicate)
@@ -168,7 +191,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         {
             CreatePredicate(predicate);
         }
-        else if(_predicateInstance != null && _predicateInstance.GetInitialPredicate() != predicate)
+        else if (_predicateInstance != null && _predicateInstance.GetInitialPredicate() != predicate)
         {
             List<string> constants = _predicateInstance.GetConstant();
             DestroyPredicateObj();

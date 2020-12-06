@@ -7,13 +7,12 @@ namespace Validator
 {
     public class PL1Structure
     {
-        private string _genericIdentifier = "n";
+        public const string GENERIC_IDENTIFIER = "n";
         private int _genericIndex = 0;
         private PL1DataStructure _modelDataStructure;
 
         private List<string> _universe = new List<string>();
         private string _universeIdentifier = "u";
-
 
         public PL1Structure()
         {
@@ -33,84 +32,90 @@ namespace Validator
             _universe.Clear();
         }
 
-        public string GetModelRepresentation()
+        public string GetModelRepresentation(List<string> sentences, bool showGenericIdentifier = false)
         {
             StringBuilder builder = new StringBuilder();
             const int padding = 10;
 
             builder.AppendLine("---Universe---");
-            builder.Append("Universe -> {");
+            builder.Append("Universe -|> {");
             builder.Append(string.Join(",", _universe));
             builder.AppendLine("}");
 
             builder.AppendLine("---Constants---");
             foreach (var constValue in GetConsts())
             {
-                if (!constValue.Key.StartsWith(_genericIdentifier))
+                if (showGenericIdentifier || !constValue.Key.StartsWith(GENERIC_IDENTIFIER))
                 {
-                    builder.AppendLine($"{constValue.Key.PadRight(5)} -> {constValue.Value}");
+                    builder.AppendLine($"{constValue.Key.PadRight(5)} -|> {constValue.Value}");
                 }
             }
 
             builder.AppendLine("---Predicates---");
             foreach (var predicateValuePair in GetPredicates())
             {
-                builder.Append($"{predicateValuePair.Key.PadRight(padding)} -> ");
-                for (var i = 0; i < predicateValuePair.Value.Count; i++)
+                if (sentences.Any(s => s.Contains(predicateValuePair.Key)))
                 {
-                    var predicateValue = predicateValuePair.Value[i];
-                    if (i != 0)
+                    builder.Append($"{predicateValuePair.Key.PadRight(padding)} -|> ");
+                    for (var i = 0; i < predicateValuePair.Value.Count; i++)
                     {
-                        builder.AppendFormat($"{{0,{padding + 4}}}", " ");
-                    }
-                    else
-                    {
-                        builder.Append("{");
+                        var predicateValue = predicateValuePair.Value[i];
+                        if (i != 0)
+                        {
+                            builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                        }
+                        else
+                        {
+                            builder.Append("{");
+                        }
+
+                        if (i < predicateValuePair.Value.Count - 1)
+                        {
+                            builder.AppendLine($"({string.Join(",", predicateValue)}),");
+                        }
+                        else
+                        {
+                            builder.AppendLine($"({string.Join(",", predicateValue)})}}");
+                        }
                     }
 
-                    if (i < predicateValuePair.Value.Count - 1)
-                    {
-                        builder.AppendLine($"({string.Join(",", predicateValue)}),");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"({string.Join(",", predicateValue)})}}");
-                    }
+                    builder.AppendLine();
                 }
-
-                builder.AppendLine();
             }
 
             builder.AppendLine("---Functions---");
             foreach (var functionValuePair in GetFunctions())
             {
-                builder.Append($"{functionValuePair.Key.PadRight(padding)} -> ");
-                int index = 0;
-                int maxIndex = functionValuePair.Value.Count;
-                foreach (var arguments in functionValuePair.Value)
+                if (sentences.Any(s => s.Contains(functionValuePair.Key)))
                 {
-                    if (index != 0)
+                    builder.Append($"{functionValuePair.Key.PadRight(padding)} -|> ");
+                    int index = 0;
+                    int maxIndex = functionValuePair.Value.Count;
+                    foreach (var arguments in functionValuePair.Value)
                     {
-                        builder.AppendFormat($"{{0,{padding + 4}}}", " ");
-                    }
-                    else
-                    {
-                        builder.Append("{");
+                        if (index != 0)
+                        {
+                            builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                        }
+                        else
+                        {
+                            builder.Append("{");
+                        }
+
+                        if (index < maxIndex - 1)
+                        {
+                            builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value},");
+                        }
+                        else
+                        {
+                            builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value}}}");
+                        }
+
+                        index++;
                     }
 
-                    if (index < maxIndex - 1)
-                    {
-                        builder.AppendLine($"({string.Join(",", arguments.Key)}) -> {arguments.Value},");
-                    }
-                    else
-                    {
-                        builder.AppendLine($"({string.Join(",", arguments.Key)}) -> {arguments.Value}}}");
-                    }
-
-                    index++;
+                    builder.AppendLine();
                 }
-
-                builder.AppendLine();
             }
 
             return builder.ToString();
@@ -165,7 +170,7 @@ namespace Validator
         internal string AddConst()
         {
             ConstDictionary consts = _modelDataStructure.Consts;
-            string key = _genericIdentifier + _genericIndex;
+            string key = GENERIC_IDENTIFIER + _genericIndex;
             _genericIndex++;
             string uni = _universeIdentifier + consts.CurrIndex++;
             consts.Add(key, uni);

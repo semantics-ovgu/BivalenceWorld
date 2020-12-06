@@ -29,8 +29,8 @@ public class GUI_TextInputElement : MonoBehaviour
 
     private void ButtonClickedListener()
     {
-        List<string> _sentences = new List<string>{_inputFields.text};
-        List<GUI_TextInputElement> inputFields = new List<GUI_TextInputElement>{this};
+        List<string> _sentences = new List<string> { _inputFields.text };
+        List<GUI_TextInputElement> inputFields = new List<GUI_TextInputElement> { this };
         GameManager.Instance.GetValidation().StartCalculator(inputFields, _sentences);
     }
 
@@ -47,7 +47,7 @@ public class GUI_TextInputElement : MonoBehaviour
         int carePos = _inputFields.caretPosition;
         string newText = char.ConvertFromUtf32(unicodeId);
         var text = _inputFields.text.Insert(carePos, newText);
-        SetInputFieldText(text, carePos + newText.Length);;
+        SetInputFieldText(text, carePos + newText.Length); ;
     }
 
     public void RemoveText()
@@ -72,7 +72,7 @@ public class GUI_TextInputElement : MonoBehaviour
 
     private void SetInputFieldText(string txt, int caretPosition)
     {
-   
+
         _inputFields.text = txt;
         SetCaretPosition(caretPosition);
     }
@@ -95,7 +95,7 @@ public class GUI_TextInputElement : MonoBehaviour
 
     private void EndEdit(string arg0)
     {
-	    ResetValidation();
+        ResetValidation();
         if (string.IsNullOrEmpty(arg0))
         {
             SetInteractableButton(false);
@@ -104,6 +104,8 @@ public class GUI_TextInputElement : MonoBehaviour
         {
             SetInteractableButton(true);
         }
+
+        GameManager.Instance.GetValidation().SetPresentationLayout();
     }
 
     private void SetInteractableButton(bool isInteractable)
@@ -113,6 +115,6 @@ public class GUI_TextInputElement : MonoBehaviour
 
     public void ResetValidation()
     {
-	    _validateImage.ActivateImage(false);
+        _validateImage.ActivateImage(false);
     }
 }

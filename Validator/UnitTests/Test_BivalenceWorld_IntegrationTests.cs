@@ -105,7 +105,7 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, new List<string>());
             BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
-            var representation = world.GetPl1Structure().GetModelRepresentation();
+            var representation = world.GetPl1Structure().GetModelRepresentation(new List<string> { "Tet(a)" });
         }
 
         private List<WorldObject> CreateWorld()

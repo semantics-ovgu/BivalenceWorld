@@ -20,6 +20,17 @@ namespace Validator
             _tags = tags;
         }
 
+        public WorldObject(WorldObject other)
+        {
+            _consts = new List<string>();
+            _predicates = new List<string>();
+            _tags = new List<object>();
+
+            _consts.AddRange(other.Consts);
+            _predicates.AddRange(other._predicates);
+            _tags.AddRange(other._tags);
+        }
+
 
         public List<string> Consts
         {

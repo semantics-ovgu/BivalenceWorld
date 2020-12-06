@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,7 +48,7 @@ public class GUI_Game : APage
     {
         get
         {
-            if (_history.Any())
+            if (_history.Any(s => s != null))
             {
                 return _history.Last().GetComponent<GUI_GameElement_End>() == null;
             }
@@ -62,6 +63,11 @@ public class GUI_Game : APage
             this.gameObject.GetComponent<Button>();
     }
 
+    private void OnDestroy()
+    {
+        ClearTemporaryConstants();
+    }
+
     private void Awake()
     {
         _button.onClick.AddListener(ButtonClickedListener);
@@ -70,8 +76,6 @@ public class GUI_Game : APage
 
     private void ButtonClickedListener()
     {
-
-
         _world = new BivalenceWorld();
 
         var manager = GameManager.Instance;
@@ -88,7 +92,6 @@ public class GUI_Game : APage
         }
 
 
-
         //List<string> sentences = Validation.CalculateResultSentences(manager, list);
         List<WorldObject> worldObjects = Validation.CalculateWorldObjects();
 
@@ -99,6 +102,7 @@ public class GUI_Game : APage
         var result = _world.Check(parameter);
 
         CleanUpHistory();
+        ClearTemporaryConstants();
         var startInstance = Instantiate(_startPrefab, _anchor);
         startInstance.StartButtonClickedEvent.AddEventListener(StartGame);
         _history.Add(startInstance.gameObject);
@@ -112,6 +116,14 @@ public class GUI_Game : APage
         else
         {
             startInstance.Init(result.Result.Value[0].ErrorMessage, false);
+        }
+    }
+
+    private void ClearTemporaryConstants()
+    {
+        foreach (var field in GameManager.Instance.GetCurrentBoard().GetFieldElements())
+        {
+            field.RemoveTemporaryConstants();
         }
     }
 

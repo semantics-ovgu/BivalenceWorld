@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PredicateObj : MonoBehaviour
@@ -20,6 +21,9 @@ public class PredicateObj : MonoBehaviour
     public List<string> GetConstant() => _constant;
     private List<string> _constant = new List<string>();
 
+    public List<string> GetTemporaryConstants() => _temporaryConstants;
+    private List<string> _temporaryConstants = new List<string>();
+
     public List<Predicate> GetPredicates() => _predicateList;
     private List<Predicate> _predicateList = new List<Predicate>();
 
@@ -27,24 +31,24 @@ public class PredicateObj : MonoBehaviour
     private Predicate _initialPredicate = default;
     [SerializeField]
     private Predicate _sizePredicate;
-	private Field _currentField = default;
-	public Field CurrentField => _currentField;
+    private Field _currentField = default;
+    public Field CurrentField => _currentField;
 
     public void Init(Predicate predicate)
     {
-		_initialPredicate = predicate;
+        _initialPredicate = predicate;
         _predicateList.Add(_sizePredicate);
     }
 
-	public void SetField(Field field)
-	{
-		_currentField = field;
-	}
+    public void SetField(Field field)
+    {
+        _currentField = field;
+    }
 
-	public Field GetField()
-	{
-		return _currentField;
-	}
+    public Field GetField()
+    {
+        return _currentField;
+    }
 
     public void AddConstant(string constant)
     {
@@ -53,11 +57,26 @@ public class PredicateObj : MonoBehaviour
             _constant.Remove(constant);
             SpawnText();
         }
-        else 
+        else
         {
             _constant.Add(constant);
             SpawnText();
         }
+    }
+
+    public void AddTemporaryConstant(string constant)
+    {
+        if (!_temporaryConstants.Contains(constant))
+        {
+            _temporaryConstants.Add(constant);
+            SpawnText();
+        }
+    }
+
+    public void RemoveTemporaryConstants()
+    {
+        _temporaryConstants.Clear();
+        SpawnText();
     }
 
     public void RemoveConstant(string constant)
@@ -75,9 +94,10 @@ public class PredicateObj : MonoBehaviour
 
     public void SpawnText()
     {
-        if (_constant.Count == 0 && _worldCanvasInstance != null)
+        if (!GetConstant().Any() && !GetTemporaryConstants().Any() && _worldCanvasInstance != null)
         {
             Destroy(_worldCanvasInstance.gameObject);
+            _worldCanvasInstance = null;
         }
         else if (_worldCanvasInstance == null)
         {
@@ -88,17 +108,17 @@ public class PredicateObj : MonoBehaviour
         }
         else if (_worldCanvasInstance != null)
         {
-	        SetConstantStringToWorldCanvas();
+            SetConstantStringToWorldCanvas();
         }
     }
 
     private void SetConstantStringToWorldCanvas()
     {
-	    var textElement = _worldCanvasInstance.GetComponent<GUI_ConstantDisplay>();
-	    if (textElement != null)
-	    {
-		    textElement.SetText(GetConstantString());
-	    }
+        var textElement = _worldCanvasInstance.GetComponent<GUI_ConstantDisplay>();
+        if (textElement != null)
+        {
+            textElement.SetText(GetConstantString());
+        }
     }
 
     private string GetConstantString()
@@ -108,6 +128,11 @@ public class PredicateObj : MonoBehaviour
         {
             finalString += item + " ";
 
+        }
+
+        foreach (var item in _temporaryConstants)
+        {
+            finalString += item + " ";
         }
         return finalString;
     }
@@ -141,7 +166,7 @@ public class PredicateObj : MonoBehaviour
 
     public void RemoveAllModifier()
     {
-        for (int i = _predicateList.Count -1; i >= 0; i--)
+        for (int i = _predicateList.Count - 1; i >= 0; i--)
         {
             var instance = _predicateList[i];
             instance.Prefab.GetComponent<PredicateBhvr>().Undo();

@@ -56,7 +56,7 @@ namespace Validator.Game
 
             public Selection(Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(formula, dictVariables)
             {
-                _worldObject = obj;
+                _worldObject = new WorldObject(obj);
                 _variable = variable;
                 _selectionType = SelectionTypes.WorldObject;
             }
