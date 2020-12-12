@@ -100,11 +100,18 @@ public class Validation
 
     }
 
-    public void SetPresentationLayout()
+    public void SetPresentationLayout(bool hardResetGame = false)
     {
         BivalenceWorld world = new BivalenceWorld();
         WorldResult<EValidationResult> result = world.Check(new WorldParameter(CalculateWorldObjects(), new List<string>()));
-        SetPresentationLayout(world, GameManager.Instance.GUIGame?.IsGameRunning ?? false);
+        if (hardResetGame)
+        {
+            SetPresentationLayout(world, false);
+        }
+        else
+        {
+            SetPresentationLayout(world, GameManager.Instance.GUIGame != null);
+        }
     }
 
     private void SetPresentationLayout(BivalenceWorld world, bool showGenericConstants = false)

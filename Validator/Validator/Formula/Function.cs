@@ -47,11 +47,32 @@ namespace Validator
 
             if (!universeIdentifier.IsValid)
             {
-                return ResultSentence<string>.CreateResult(false, universeIdentifier.Value.FirstOrDefault());
+                return ResultSentence<string>.CreateResult(false, universeIdentifier.Value.FirstOrDefault(), universeIdentifier.ErrorMessage);
             }
 
             string result = listDict.TryGetValue(universeIdentifier.Value);
             return ResultSentence<string>.CreateResult(true, result);
+        }
+
+        public string GetWorldConstant(IWorldPL1Structure pL1WorldStructure, Dictionary<string, string> dictVariables)
+        {
+            PL1Structure pl1Structure = pL1WorldStructure.GetPl1Structure();
+            ConstDictionary constDict = pl1Structure.GetConsts();
+            FunctionDictionary funcDict = pl1Structure.GetFunctions();
+            Result<List<string>> universeIdentifier = GetUniverseIdentifier(Arguments, pL1WorldStructure, dictVariables);
+            ListDictionary listDict = funcDict.TryGetValue(Name);
+
+            string result = listDict.TryGetValue(universeIdentifier.Value);
+
+            foreach (KeyValuePair<string, string> valuePair in constDict)
+            {
+                if (result == valuePair.Value)
+                {
+                    return valuePair.Key;
+                }
+            }
+
+            return "WorldConstant not found";
         }
 
         public override string ReformatFormula(Dictionary<string, string> variables)

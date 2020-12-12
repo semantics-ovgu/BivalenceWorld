@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Text;
 
 namespace Validator
@@ -32,6 +33,26 @@ namespace Validator
                 };
             }
             return universeArguments;
+        }
+
+        public Argument CreateArgumentWithoutFunctions(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            if (this is Function function)
+            {
+                var worldConstant = function.GetWorldConstant(game.World, dictVariables);
+                var worldObject = game.WorldObjects.Find(obj => obj.Consts.Contains(worldConstant));
+                if (worldObject.Tags != null)
+                {
+                    worldObject.Consts.Add(worldConstant);
+                }
+                game.AddTemporaryWorldObject(worldObject);
+
+                return new Constant(worldConstant, worldConstant);
+            }
+            else
+            {
+                return this;
+            }
         }
     }
 }

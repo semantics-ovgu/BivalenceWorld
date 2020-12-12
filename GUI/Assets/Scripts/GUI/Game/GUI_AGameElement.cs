@@ -10,7 +10,8 @@ public class GUI_AGameElement : MonoBehaviour
 
     protected virtual void OnFinishedMoveEvent(EventArgs args)
     {
-	    FinishedMoveEvent.InvokeEvent(args);
+        FinishedMoveEvent.InvokeEvent(args);
+        GameManager.Instance.GetValidation().SetPresentationLayout();
     }
 
 
@@ -22,6 +23,6 @@ public class GUI_AGameElement : MonoBehaviour
 
     public virtual void Init(AMove move)
     {
-	    _move = move;
+        _move = move;
     }
 }

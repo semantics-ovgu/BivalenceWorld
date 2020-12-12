@@ -16,6 +16,7 @@ namespace Validator.Game
         private List<AMove> _history = new List<AMove>();
         private AMove _currentMove = null;
         private Queue<AMove> _nextMoves = new Queue<AMove>();
+        private List<WorldObject> _temporaryWorldObjects = new List<WorldObject>();
 
         private List<string> _genericConsts = new List<string>();
         private int _currentConstIndex = 1;
@@ -36,6 +37,8 @@ namespace Validator.Game
             }
         }
 
+        public List<WorldObject> TemporaryWorldObjects => _temporaryWorldObjects;
+
         internal string AddGenericConstString()
         {
             string key = GENERIC_CONST_KEY + _currentConstIndex;
@@ -43,6 +46,11 @@ namespace Validator.Game
             _currentConstIndex++;
 
             return key;
+        }
+
+        internal void AddTemporaryWorldObject(WorldObject obj)
+        {
+            _temporaryWorldObjects.Add(obj);
         }
 
         internal void ReplaceWorldObject(WorldObject obj)

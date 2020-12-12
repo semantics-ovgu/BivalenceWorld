@@ -50,7 +50,6 @@ public class DragObject : MonoBehaviour
                             {
                                 selectedFIeld.AddTemporaryConstant(selection.WorldObject.Consts.First());
                             }
-                            GameManager.Instance.GetValidation().SetPresentationLayout();
                         }
                     }
                 }

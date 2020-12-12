@@ -22,7 +22,7 @@ namespace Validator
 
             if (!universeIdentifier.IsValid)
             {
-                return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated);
+                return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated, universeIdentifier.ErrorMessage);
             }
 
             string u1 = universeIdentifier.Value[0];
@@ -46,28 +46,89 @@ namespace Validator
         public override AMove CreateNextMove(Game.Game game, Dictionary<string, string> dictVariables)
         {
             var result = Validate(game.World, dictVariables);
+            var withoutFunctionFormula = CreateFormulaWithoutFunctions(game, dictVariables);
 
             if (game.Guess)
             {
                 if (result.Value == EValidationResult.True)
                 {
-                    return new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis true in this world.", true);
+                    if (withoutFunctionFormula != null)
+                    {
+                        var endMessage = new EndMessage(game, this, $"You win:\n{withoutFunctionFormula.ReformatFormula(dictVariables)}\nis true in this world.", true);
+                        var infoFunctionFormula = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{withoutFunctionFormula.ReformatFormula(dictVariables)}\n is true", endMessage);
+                        var infoMessage = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoFunctionFormula);
+                        return infoMessage;
+                    }
+                    else
+                    {
+                        var endMessage = new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis true in this world.", true);
+                        var infoMessage = new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", endMessage);
+                        return infoMessage;
+                    }
                 }
                 else
                 {
-                    return new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis false, not true, in this world.", false);
+                    if (withoutFunctionFormula != null)
+                    {
+                        var endMessage = new EndMessage(game, this, $"You lose:\n{withoutFunctionFormula.ReformatFormula(dictVariables)}\nis false, not true, in this world.", false);
+                        var infoFunctionFormula = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{withoutFunctionFormula.ReformatFormula(dictVariables)}\n is true", endMessage);
+                        var infoMessage = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoFunctionFormula);
+                        return infoMessage;
+                    }
+                    else
+                    {
+                        var endMessage = new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis false, not true, in this world.", false);
+                        var infoMessage = new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", endMessage);
+                        return infoMessage;
+                    }
                 }
             }
             else
             {
                 if (result.Value == EValidationResult.True)
                 {
-                    return new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis true, not false, in this world.", false);
+                    if (withoutFunctionFormula != null)
+                    {
+                        var endMessage = new EndMessage(game, this, $"You lose:\n{withoutFunctionFormula.ReformatFormula(dictVariables)}\nis true, not false, in this world.", false);
+                        var infoFunctionFormula = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{withoutFunctionFormula.ReformatFormula(dictVariables)}\n is false", endMessage);
+                        var infoMessage = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoFunctionFormula);
+                        return infoMessage;
+                    }
+                    else
+                    {
+                        var endMessage = new EndMessage(game, this, $"You lose:\n{ReformatFormula(dictVariables)}\nis true, not false, in this world.", false);
+                        var infoMessage = new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", endMessage);
+                        return infoMessage;
+                    }
                 }
                 else
                 {
-                    return new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis false in this world.", true);
+                    if (withoutFunctionFormula != null)
+                    {
+                        var endMessage = new EndMessage(game, this, $"You win:\n{withoutFunctionFormula.ReformatFormula(dictVariables)}\nis false in this world.", true);
+                        var infoFunctionFormula = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{withoutFunctionFormula.ReformatFormula(dictVariables)}\n is false", endMessage);
+                        var infoMessage = new InfoMessage(game, withoutFunctionFormula, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoFunctionFormula);
+                        return infoMessage;
+                    }
+                    else
+                    {
+                        var endMessage = new EndMessage(game, this, $"You win:\n{ReformatFormula(dictVariables)}\nis false in this world.", true);
+                        var infoMessage = new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", endMessage);
+                        return infoMessage;
+                    }
                 }
+            }
+        }
+
+        private Formula CreateFormulaWithoutFunctions(Game.Game game, Dictionary<string, string> dictVariables)
+        {
+            if (Arguments.Any(a => a is Function))
+            {
+                return new Equals(Arguments[0].CreateArgumentWithoutFunctions(game, dictVariables), Arguments[1].CreateArgumentWithoutFunctions(game, dictVariables));
+            }
+            else
+            {
+                return null;
             }
         }
     }

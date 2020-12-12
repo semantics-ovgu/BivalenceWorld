@@ -66,6 +66,7 @@ public class GUI_Game : APage
     private void OnDestroy()
     {
         ClearTemporaryConstants();
+        GameManager.Instance.GetValidation().SetPresentationLayout(true);
     }
 
     private void Awake()
@@ -111,7 +112,7 @@ public class GUI_Game : APage
         {
             _currentSentence = sentence;
             startInstance.Init(_currentSentence, true);
-
+            _button.gameObject.SetActive(false);
         }
         else
         {
@@ -130,7 +131,6 @@ public class GUI_Game : APage
 
     private void StartGame(bool startValue)
     {
-
         _game = new Game(_currentSentence, _world, startValue);
         NewMove(null);
     }

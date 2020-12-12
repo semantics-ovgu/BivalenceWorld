@@ -9,6 +9,29 @@ namespace UnitTests
     public class Test_BivalenceWorld_Parsing
     {
         [TestMethod]
+        public void TarskiWorld_ConstantNotInWorld_Valid()
+        {
+            List<WorldObject> worldObjects = new List<WorldObject>
+            {
+                    new WorldObject(new List<string> { "a" }, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE }, new List<object> { 1, 1 }),
+                    new WorldObject(new List<string> { "d" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM }, new List<object> { 2, 1 }),
+                    new WorldObject(new List<string> { "c" }, new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.SMALL }, new List<object> { 2, 4 }),
+            };
+
+            List<string> sentences = new List<string>()
+            {
+                    "Cube(lm(b))"
+            };
+
+
+            BivalenceWorld world = new BivalenceWorld();
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+            var result = world.Check(parameter);
+
+            Assert.IsFalse(result.Result.Value[0].IsValid);
+        }
+
+        [TestMethod]
         public void TarskiWorld_Atomar_Valid()
         {
             BivalenceWorld world = new BivalenceWorld();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Validator
 {
-    internal static class Extensions
+    public static class Extensions
     {
         public static Result<(int X, int Y)> TryGetPosition(this WorldObject obj)
         {

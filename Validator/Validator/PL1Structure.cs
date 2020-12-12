@@ -62,7 +62,7 @@ namespace Validator
                         var predicateValue = predicateValuePair.Value[i];
                         if (i != 0)
                         {
-                            builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                            //builder.AppendFormat($"{{0,{padding + 4}}}", " ");
                         }
                         else
                         {
@@ -71,11 +71,25 @@ namespace Validator
 
                         if (i < predicateValuePair.Value.Count - 1)
                         {
-                            builder.AppendLine($"({string.Join(",", predicateValue)}),");
+                            if (predicateValue.Count > 1)
+                            {
+                                builder.Append($"({string.Join(",", predicateValue)}),");
+                            }
+                            else
+                            {
+                                builder.Append($"{string.Join(",", predicateValue)},");
+                            }
                         }
                         else
                         {
-                            builder.AppendLine($"({string.Join(",", predicateValue)})}}");
+                            if (predicateValue.Count > 1)
+                            {
+                                builder.Append($"({string.Join(",", predicateValue)})}}");
+                            }
+                            else
+                            {
+                                builder.Append($"{string.Join(",", predicateValue)}}}");
+                            }
                         }
                     }
 
@@ -95,7 +109,7 @@ namespace Validator
                     {
                         if (index != 0)
                         {
-                            builder.AppendFormat($"{{0,{padding + 4}}}", " ");
+                            builder.AppendFormat($"{{0,{padding + 6}}}", " ");
                         }
                         else
                         {
@@ -104,11 +118,25 @@ namespace Validator
 
                         if (index < maxIndex - 1)
                         {
-                            builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value},");
+                            if (arguments.Key.Count > 1)
+                            {
+                                builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value},");
+                            }
+                            else
+                            {
+                                builder.AppendLine($"{string.Join(",", arguments.Key)} -|> {arguments.Value},");
+                            }
                         }
                         else
                         {
-                            builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value}}}");
+                            if (arguments.Key.Count > 1)
+                            {
+                                builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value}}}");
+                            }
+                            else
+                            {
+                                builder.AppendLine($"{string.Join(",", arguments.Key)} -|> {arguments.Value}}}");
+                            }
                         }
 
                         index++;
