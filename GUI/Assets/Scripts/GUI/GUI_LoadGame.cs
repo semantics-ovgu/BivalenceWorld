@@ -14,7 +14,7 @@ public class GUI_LoadGame : GUI_Button
 	[SerializeField]
 	private TMP_InputField _inputField = default;
 	public SmartFileExplorer fileExplorer = new SmartFileExplorer();
-	private bool readText = false;
+	//private bool readText = false;
 
 	[SerializeField]
 	private List<Predicate> _predicates;
@@ -23,36 +23,33 @@ public class GUI_LoadGame : GUI_Button
 
 	void Update()
 	{
-		if (fileExplorer.resultOK && readText)
-		{
-			ReadText(fileExplorer.fileName);
-			readText = false;
-		}
+		//if (fileExplorer.resultOK && readText)
+		//{
+		//	ReadText(fileExplorer.fileName);
+		//	readText = false;
+		//}
 
 	}
 
-	void ShowExplorer()
-	{
-		string initialDir = @"C:\";
-		bool restoreDir = true;
-		string title = "Open a jsonWld or jsonSen File";
-		string defExt = "txt";
-		string filter = "jsonSen files (*.jsonSen)|*.jsonSen |jsonWld files (*.jsonWld) | *.jsonWld";
+	//void ShowExplorer()
+	//{
+	//	string initialDir = @"C:\";
+	//	bool restoreDir = true;
+	//	string title = "Open a jsonWld or jsonSen File";
+	//	string defExt = "txt";
+	//	string filter = "jsonSen files (*.jsonSen)|*.jsonSen |jsonWld files (*.jsonWld) | *.jsonWld";
 
-		fileExplorer.OpenExplorer(initialDir, restoreDir, title, defExt, filter);
-		readText = true;
-	}
+	//	fileExplorer.OpenExplorer(initialDir, restoreDir, title, defExt, filter);
+	//	readText = true;
+	//}
 
-	void ReadText(string path)
-	{
-		//File.ReadAllText(path);
-		LoadSentences(path);
-	}
+
 
 	protected override void ButtonClickedListener()
 	{
-		//LoadWorldObj();
-		ShowExplorer();
+		LoadWorldObj();
+		LoadSentences();
+		//ShowExplorer();
 	}
 
 	private bool ExistsPath(string endString)
@@ -74,11 +71,11 @@ public class GUI_LoadGame : GUI_Button
 		return File.ReadAllText(path);
 	}
 
-	private void LoadSentences(string loadPath)
+	private void LoadSentences()
 	{
-		if (File.Exists(loadPath))
+		if (ExistsPath(GUI_SaveCurrentGame.SENTENCES))
 		{
-			var jsonStringBack = File.ReadAllText(loadPath);
+			var jsonStringBack = Load(GUI_SaveCurrentGame.SENTENCES);
 			var deserializedObj = JsonConvert.DeserializeObject<List<string>>(jsonStringBack);
 
 			if (deserializedObj != null)
@@ -151,7 +148,6 @@ public class GUI_LoadGame : GUI_Button
 					int z = int.Parse(zRaw);
 
 					var field = board.GetFieldFromCoord(x, z);
-					Debug.Log(field);
 					if (field != null)
 					{
 						foreach (var predicates in item.Predicates)
