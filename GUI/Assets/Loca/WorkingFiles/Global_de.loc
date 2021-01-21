@@ -11,6 +11,55 @@ Medium { Normal}
 Large { Groß}
 
 ChangeDimension {Wechselt die Ansicht zwischen 2D und 3D.}
+Pl1StructureView {ToDO ENG}
+GameView {ToDO ENG}
+
+CheckAllButton {ToDO ENG}
+DeleteOneButton {ToDO ENG}
+CreateNewSentences {ToDO ENG}
+
+TetPredicate        {ToDO ENG}
+SmallPredicate      {ToDO ENG}
+LeftOfPredicate     {ToDO ENG}
+SameColPredicate    {ToDO ENG}
+SmallerPredicate    {ToDO ENG}
+CubePredicate       {ToDO ENG}
+MediumPredicate     {ToDO ENG}
+RightOfPredicate    {ToDO ENG}
+SameRowPredicate    {ToDO ENG}
+LargerPredicate     {ToDO ENG}
+DodecPredicate      {ToDO ENG}
+LargePredicate      {ToDO ENG}
+FrontOfPredicate    {ToDO ENG}
+BetweenPredicate    {ToDO ENG}
+SameSizePredicate   {ToDO ENG}
+SameShape           {ToDO ENG}
+BackOf              {ToDO ENG}
+Adjoins             {ToDO ENG}
+
+lmFunction          {ToDO ENG}
+rmFunction          {ToDO ENG}
+fmFunction          {ToDO ENG}
+bmFunction          {ToDO ENG}
+
+andOperator          {ToDO ENG}
+orOperator          {ToDO ENG}
+negateOperator          {ToDO ENG}
+impliesOperator          {ToDO ENG}
+isequivalentOperator          {ToDO ENG}
+falsumOperator          {ToDO ENG}
+
+allQuantum          {ToDO ENG}
+existQuantum          {ToDO ENG}
+equalsOperator          {ToDO ENG}
+doesNotEqualOperator          {ToDO ENG}
+leftParanthesisOperator          {ToDO ENG}
+rightParanthesisOperator          {ToDO ENG}
+constant          {ToDO ENG}
+variable          {ToDO ENG}
+
+
+
 
 UnexpectedResult { UnexpectedResult}
 ParserFailed { ParserFailed}

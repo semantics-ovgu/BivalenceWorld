@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 8539324962788173575}
   - component: {fileID: 9046397058488076337}
   - component: {fileID: 1737577237167203345}
+  - component: {fileID: 8072974358780228531}
   m_Layer: 5
   m_Name: GUI_SentenceButton
   m_TagString: Untagged
@@ -294,6 +295,22 @@ MonoBehaviour:
   _spaceBeforeText: 0
   _spaceAfterText: 0
   _sentence: Tet
+--- !u!114 &8072974358780228531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610328039987798062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97721849f46878e4bbbe4374ad9c7a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tooltipText:
+    _path: Global
+    _key: 
+  _timer: 1
 --- !u!1 &9202964921358072637
 GameObject:
   m_ObjectHideFlags: 0
