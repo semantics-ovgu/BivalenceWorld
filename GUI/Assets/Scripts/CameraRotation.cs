@@ -38,7 +38,6 @@ public class CameraRotation : MonoBehaviour
         _orthoCamera.gameObject.SetActive(true);
         _currentCamera = _orthoCamera;
         CameraChangedEvent.InvokeEvent(_orthoCamera);
-
     }
 
     private void SetCamera(Vector3 pos, Vector3 rot)

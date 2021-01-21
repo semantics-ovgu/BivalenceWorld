@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe4f02c96329b74cb5df8978e5fc7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSize: 1.25
+  _defaultSize: 2
   _visual: {fileID: 5343236820793226006}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}
@@ -127,7 +127,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a5d09e59540786748b146f973db33b53,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a5d09e59540786748b146f973db33b53,
         type: 3}

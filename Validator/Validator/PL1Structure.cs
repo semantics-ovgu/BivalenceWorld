@@ -38,7 +38,7 @@ namespace Validator
             const int padding = 10;
 
             builder.AppendLine("---Universe---");
-            builder.Append("Universe -|> {");
+            builder.Append("Universe |-> {");
             builder.Append(string.Join(",", _universe));
             builder.AppendLine("}");
 
@@ -47,7 +47,7 @@ namespace Validator
             {
                 if (showGenericIdentifier || !constValue.Key.StartsWith(GENERIC_IDENTIFIER))
                 {
-                    builder.AppendLine($"{constValue.Key.PadRight(5)} -|> {constValue.Value}");
+                    builder.AppendLine($"{constValue.Key.PadRight(5)} |-> {constValue.Value}");
                 }
             }
 
@@ -56,7 +56,7 @@ namespace Validator
             {
                 if (sentences.Any(s => s.Contains(predicateValuePair.Key)))
                 {
-                    builder.Append($"{predicateValuePair.Key.PadRight(padding)} -|> ");
+                    builder.Append($"{predicateValuePair.Key.PadRight(padding)} |-> ");
                     for (var i = 0; i < predicateValuePair.Value.Count; i++)
                     {
                         var predicateValue = predicateValuePair.Value[i];
@@ -102,7 +102,7 @@ namespace Validator
             {
                 if (sentences.Any(s => s.Contains(functionValuePair.Key)))
                 {
-                    builder.Append($"{functionValuePair.Key.PadRight(padding)} -|> ");
+                    builder.Append($"{functionValuePair.Key.PadRight(padding)} |-> ");
                     int index = 0;
                     int maxIndex = functionValuePair.Value.Count;
                     foreach (var arguments in functionValuePair.Value)
@@ -120,22 +120,22 @@ namespace Validator
                         {
                             if (arguments.Key.Count > 1)
                             {
-                                builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value},");
+                                builder.AppendLine($"({string.Join(",", arguments.Key)}) |-> {arguments.Value},");
                             }
                             else
                             {
-                                builder.AppendLine($"{string.Join(",", arguments.Key)} -|> {arguments.Value},");
+                                builder.AppendLine($"{string.Join(",", arguments.Key)} |-> {arguments.Value},");
                             }
                         }
                         else
                         {
                             if (arguments.Key.Count > 1)
                             {
-                                builder.AppendLine($"({string.Join(",", arguments.Key)}) -|> {arguments.Value}}}");
+                                builder.AppendLine($"({string.Join(",", arguments.Key)}) |-> {arguments.Value}}}");
                             }
                             else
                             {
-                                builder.AppendLine($"{string.Join(",", arguments.Key)} -|> {arguments.Value}}}");
+                                builder.AppendLine($"{string.Join(",", arguments.Key)} |-> {arguments.Value}}}");
                             }
                         }
 
