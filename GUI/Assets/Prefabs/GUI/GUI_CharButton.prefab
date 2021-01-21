@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 5035272301102373908}
   - component: {fileID: 5035272301102373911}
   - component: {fileID: 5035272301102373906}
+  - component: {fileID: 1562430190788891685}
   m_Layer: 5
   m_Name: GUI_CharButton
   m_TagString: Untagged
@@ -294,3 +295,19 @@ MonoBehaviour:
   _spaceBeforeText: 0
   _spaceAfterText: 0
   _uniCodeIndex: 8743
+--- !u!114 &1562430190788891685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035272301102374121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97721849f46878e4bbbe4374ad9c7a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tooltipText:
+    _path: Global
+    _key: 
+  _timer: 1

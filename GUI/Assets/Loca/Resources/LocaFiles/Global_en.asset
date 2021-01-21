@@ -34,6 +34,9 @@ MonoBehaviour:
   - Key: Tet
     Value: ToDO ENG
     Tags: []
+  - Key: Dodec
+    Value: ToDO ENG
+    Tags: []
   - Key: Small
     Value: ToDO ENG
     Tags: []
@@ -45,5 +48,152 @@ MonoBehaviour:
     Tags: []
   - Key: ChangeDimension
     Value: ToDO ENG
+    Tags: []
+  - Key: Pl1StructureView
+    Value: ToDO ENG
+    Tags: []
+  - Key: GameView
+    Value: ToDO ENG
+    Tags: []
+  - Key: CheckAllButton
+    Value: ToDO ENG
+    Tags: []
+  - Key: DeleteOneButton
+    Value: ToDO ENG
+    Tags: []
+  - Key: CreateNewSentences
+    Value: ToDO ENG
+    Tags: []
+  - Key: TetPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SmallPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: LeftOfPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SameColPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SmallerPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: CubePredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: MediumPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: RightOfPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SameRowPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: LargerPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: DodecPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: LargePredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: FrontOfPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: BetweenPredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SameSizePredicate
+    Value: ToDO ENG
+    Tags: []
+  - Key: SameShape
+    Value: ToDO ENG
+    Tags: []
+  - Key: BackOf
+    Value: ToDO ENG
+    Tags: []
+  - Key: Adjoins
+    Value: ToDO ENG
+    Tags: []
+  - Key: lmFunction
+    Value: ToDO ENG
+    Tags: []
+  - Key: rmFunction
+    Value: ToDO ENG
+    Tags: []
+  - Key: fmFunction
+    Value: ToDO ENG
+    Tags: []
+  - Key: bmFunction
+    Value: ToDO ENG
+    Tags: []
+  - Key: andOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: orOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: negateOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: impliesOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: isequivalentOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: falsumOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: allQuantum
+    Value: ToDO ENG
+    Tags: []
+  - Key: existQuantum
+    Value: ToDO ENG
+    Tags: []
+  - Key: equalsOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: doesNotEqualOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: leftParanthesisOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: rightParanthesisOperator
+    Value: ToDO ENG
+    Tags: []
+  - Key: constant
+    Value: ToDO ENG
+    Tags: []
+  - Key: variable
+    Value: ToDO ENG
+    Tags: []
+  - Key: UnexpectedResult
+    Value: UnexpectedResult
+    Tags: []
+  - Key: ParserFailed
+    Value: ParserFailed
+    Tags: []
+  - Key: CanNotBeValidated
+    Value: Klein
+    Tags: []
+  - Key: False
+    Value: False
+    Tags: []
+  - Key: True
+    Value: True
+    Tags: []
+  - Key: ContainsFreeVariable
+    Value: ContainsFreeVariable
+    Tags: []
+  - Key: ConstantNotUsed
+    Value: ConstantNotUsed
+    Tags: []
+  - Key: UnknownSymbol
+    Value: UnknownSymbol
     Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_en.loc
