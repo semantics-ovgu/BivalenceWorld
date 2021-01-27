@@ -82,10 +82,22 @@ public class GUI_SaveCurrentGame : GUI_Button
 	private void SaveData(string data, string endString)
 	{
 		Debug.Log(data);
+
 		var path = _inputField.text;
-		File.WriteAllText(Application.dataPath + "/"+ FOLDER + "/" + path + ".json" + endString, data);
-		var jsonStringBack = File.ReadAllText(Application.dataPath + "/"+ FOLDER + "/" + path + ".json" + endString);
-		Debug.Log(jsonStringBack);
+		var asd = Application.persistentDataPath + "/" +  FOLDER + "/" + path + ".json" + endString;
+
+		Directory.CreateDirectory(Application.persistentDataPath + "/" + FOLDER);
+		File.WriteAllText(asd, data);
+
+		//Beim laden dann machen
+		//if (File.Exists(asd))
+		//{
+		//	File.WriteAllText(asd, data);
+		//	var jsonStringBack = File.ReadAllText(asd);
+		//	Debug.Log(jsonStringBack);
+		//}
+
+
 	}
 }
 
