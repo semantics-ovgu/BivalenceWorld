@@ -102,7 +102,8 @@ public class PredicateObj : MonoBehaviour
         else if (_worldCanvasInstance == null)
         {
             _worldCanvasInstance = Instantiate(_worldCanvasPrefab, this.transform.position, Quaternion.identity, this.transform);
-            _worldCanvasInstance.transform.localPosition = new Vector3(-2f, 1f, 0f);
+            if(GameManager.Instance)
+            _worldCanvasInstance.transform.localPosition = new Vector3(-2.5f, 1f, 0f);
             _worldCanvasPrefab.transform.localScale = Vector3.one * 1f;
             SetConstantStringToWorldCanvas();
         }

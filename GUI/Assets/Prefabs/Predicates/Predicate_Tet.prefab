@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797820815284349821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2618620816668691878}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe4f02c96329b74cb5df8978e5fc7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSize: 1.25
+  _defaultSize: 1
   _visual: {fileID: 6333657477820169212}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}
@@ -126,7 +126,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a4f02b1bf928867459268f63afcd307f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.697
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a4f02b1bf928867459268f63afcd307f,
         type: 3}

@@ -17,6 +17,7 @@ public class DragObject : MonoBehaviour
     [SerializeField]
     private PredicateObj _predicate = default;
     private Vector3 _startPos = default;
+    private Vector3 _dragOffset = default;
     [SerializeField]
     private Transform _rootObj = default;
 
@@ -55,7 +56,13 @@ public class DragObject : MonoBehaviour
                 }
             }
         }
+
+        var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
         _startPos = _rootObj.position;
+        if (asd.Any())
+        {
+            _dragOffset = asd[0].point - _rootObj.position;
+        }
         _mZCoord = GameManager.Instance.GetCameraManager().GetCurrentCamera().WorldToScreenPoint(gameObject.transform.position).z;
     }
 
@@ -78,8 +85,9 @@ public class DragObject : MonoBehaviour
                 if (asd[i].collider.gameObject.layer == LayerMask.NameToLayer("Selectable"))
                 {
                     var pos = asd[i].point;
+
                     //Anhand der größe offseten
-                    _rootObj.position = new Vector3(pos.x, pos.y, pos.z);
+                    _rootObj.position = new Vector3(pos.x, pos.y, pos.z) + _dragOffset / 2;
                 }
             }
         }

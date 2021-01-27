@@ -28,8 +28,6 @@ public class ConstantButton : GUI_Button
         {
             manager.GetSelectionManager().SelectionClickedEvent.AddEventListener(SelectionClickedListener);
             manager.GetSelectionManager().SelectionUnclickedEvent.AddEventListener(SelectionUnclickedListener);
-
-
         }
     }
 
