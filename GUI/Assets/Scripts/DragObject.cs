@@ -104,13 +104,15 @@ public class DragObject : MonoBehaviour
 
             if (CheckIfFieldIsEmpty(field))
             {
-                if (_predicate.GetField() != field)
-                {
-                    selection.SelectObj();
-                }
+                bool changeField = _predicate.GetField() != field;
 
                 _predicate.GetField().ResetPredicate();
                 field.AddPredicateObj(_predicate);
+
+                if (changeField)
+                {
+                    selection.SelectObj();
+                }
             }
             else
             {

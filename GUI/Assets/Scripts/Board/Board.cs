@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour, IDebug
@@ -30,15 +31,15 @@ public class Board : MonoBehaviour, IDebug
 
     public Field GetFieldFromCoord(int x, int z)
     {
-	    Field field = null;
+        Field field = null;
 
         foreach (var item in _obj)
-	    {
-		    if(item.GetX() == x && item.GetZ() == z)
-		    {
-			    field = item;
-		    }
-	    }
+        {
+            if (item.GetX() == x && item.GetZ() == z)
+            {
+                field = item;
+            }
+        }
 
         return field;
     }
@@ -67,11 +68,11 @@ public class Board : MonoBehaviour, IDebug
     {
         for (int i = _obj.Count - 1; i >= 0; i--)
         {
-	        var field = _obj[i];
-	        if (field.HasPredicateInstance())
-	        {
+            var field = _obj[i];
+            if (field.HasPredicateInstance())
+            {
                 Destroy(field.GetPredicateInstance().gameObject);
-	        }
+            }
             DestroyImmediate(field.gameObject);
         }
         _obj = new List<Field>();
@@ -82,11 +83,15 @@ public class Board : MonoBehaviour, IDebug
         return 1;
     }
 
+    public bool IsConstantUsed(string constant)
+    {
+        return _obj.Any(o => o?.GetPredicateInstance()?.GetConstant().Contains(constant) ?? false);
+    }
+
     public void DebugModeChanged(bool isDebug)
     {
         SetDebugModeForField(isDebug);
     }
-
 
     private void SetDebugModeForField(bool value)
     {
@@ -102,17 +107,17 @@ public class Board : MonoBehaviour, IDebug
         {
             for (int x = 0; x < _width; x++)
             {
-                Field instance =  Instantiate(_prefab, new Vector3(z * 5, 0, x * -5), Quaternion.identity, _anchor);
+                Field instance = Instantiate(_prefab, new Vector3(z * 5, 0, x * -5), Quaternion.identity, _anchor);
                 _obj.Add(instance);
                 instance.Init(x, z);
 
-                if(GameManager.Instance != null)
+                if (GameManager.Instance != null)
                 {
                     instance.SetDebugMode(GameManager.Instance.IsDebugMode(GetDebugID()));
                 }
-   
 
-                if(x % 2 == 0 && z % 2 != 0)
+
+                if (x % 2 == 0 && z % 2 != 0)
                 {
                     instance.SetMaterial(_blackMaterial);
                 }

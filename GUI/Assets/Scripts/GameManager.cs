@@ -35,6 +35,7 @@ public class GameManager : ASingleton<GameManager>
     }
 
     public GenericEvent<GUI_GetModelPresentation> CreateNewInstanceFromModelPresentationEvent = new GenericEvent<GUI_GetModelPresentation>();
+    public GenericEvent<string> ConstantChangedEvent = new GenericEvent<string>();
 
     private Board _currentBoard = default;
 

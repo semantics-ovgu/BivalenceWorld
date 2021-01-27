@@ -5,30 +5,29 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour, IDebug
 {
-	private Camera _targetCamera = default;
+    private Camera _targetCamera = default;
     private ISelectable _targetSelectable = default;
     private ISelectable _clickedElemente = default;
 
-	public ISelectable TargetHoveredElement => _targetSelectable;
-	private bool _isDebugModeActive = false;
+    public ISelectable TargetHoveredElement => _targetSelectable;
+    private bool _isDebugModeActive = false;
 
-	[SerializeField]
-	private LayerMask _layerMask = default;
+    [SerializeField]
+    private LayerMask _layerMask = default;
 
     public GenericEvent<EventArgs> SelectionClickedEvent = new GenericEvent<EventArgs>();
     public GenericEvent<EventArgs> SelectionUnclickedEvent = new GenericEvent<EventArgs>();
 
     private void Start()
     {
-
-	        _targetCamera = GameManager.Instance.GetMainCamera();
-            GameManager.Instance.GetCameraManager().CameraChangedEvent.AddEventListener(CameraChangedListener);
-            GameManager.Instance?.AddObjToDebugList(this);
+        _targetCamera = GameManager.Instance.GetMainCamera();
+        GameManager.Instance.GetCameraManager().CameraChangedEvent.AddEventListener(CameraChangedListener);
+        GameManager.Instance?.AddObjToDebugList(this);
     }
 
     private void CameraChangedListener(Camera arg0)
     {
-	    _targetCamera = arg0;
+        _targetCamera = arg0;
     }
 
     private void Update()
@@ -54,15 +53,15 @@ public class SelectionManager : MonoBehaviour, IDebug
         }
     }
 
-	internal void SelectObj()
-	{
-		TryDeselectLastClickedObj();
+    internal void SelectObj()
+    {
+        TryDeselectLastClickedObj();
         _targetSelectable.Selectable();
-		_clickedElemente = _targetSelectable;
-		SelectionClickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
-	}
+        _clickedElemente = _targetSelectable;
+        SelectionClickedEvent.InvokeEvent(new EventArgs(_clickedElemente));
+    }
 
-	private void TryDeselectLastClickedObj()
+    private void TryDeselectLastClickedObj()
     {
         if (_clickedElemente != null)// && _clickedElemente != _targetSelectable)
         {
@@ -74,11 +73,11 @@ public class SelectionManager : MonoBehaviour, IDebug
 
     private void CalculateRayCast()
     {
-		RaycastHit[] elements = Physics.RaycastAll(_targetCamera.ScreenPointToRay(Input.mousePosition), 150f, _layerMask.value);
-		if (elements != null && elements.Length > 0)
+        RaycastHit[] elements = Physics.RaycastAll(_targetCamera.ScreenPointToRay(Input.mousePosition), 150f, _layerMask.value);
+        if (elements != null && elements.Length > 0)
         {
-			Transform selection = elements[0].transform;
-			CheckRayCastTarget(selection);
+            Transform selection = elements[0].transform;
+            CheckRayCastTarget(selection);
 
         }
         else
@@ -109,7 +108,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         {
             if (_targetSelectable != null)
             {
-				_targetSelectable.EndHover();
+                _targetSelectable.EndHover();
             }
 
             SaveAsNewInstance(targetInterface);
@@ -132,7 +131,7 @@ public class SelectionManager : MonoBehaviour, IDebug
         if (_targetSelectable != null)
         {
             _targetSelectable.EndHover();
-			_targetSelectable = null;
+            _targetSelectable = null;
         }
     }
 

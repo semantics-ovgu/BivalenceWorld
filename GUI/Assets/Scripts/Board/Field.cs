@@ -141,6 +141,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         {
             _predicateInstance.AddConstant(constant);
             WorldChanged();
+            GameManager.Instance.ConstantChangedEvent.InvokeEvent(constant);
         }
     }
 
@@ -169,6 +170,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         {
             _predicateInstance.RemoveConstant(constant);
             WorldChanged();
+            GameManager.Instance.ConstantChangedEvent.InvokeEvent(constant);
         }
     }
 

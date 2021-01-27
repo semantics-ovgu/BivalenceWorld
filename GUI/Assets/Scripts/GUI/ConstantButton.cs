@@ -14,7 +14,7 @@ public class ConstantButton : GUI_Button
 
     private void OnValidate()
     {
-        if(_targetText != null)
+        if (_targetText != null)
         {
             _targetText.text = _constant;
         }
@@ -33,27 +33,27 @@ public class ConstantButton : GUI_Button
 
     protected override void ButtonClickedListener()
     {
-	    if (_instance != null)
-	    {
-		    IConstant targetInstanceWithConstant = null;
-		    if (((Field)_instance).HasPredicateInstance())
-		    {
-			    targetInstanceWithConstant = TryDeleteConstant();
-		    }
+        if (_instance != null)
+        {
+            IConstant targetInstanceWithConstant = null;
+            if (((Field)_instance).HasPredicateInstance())
+            {
+                targetInstanceWithConstant = TryDeleteConstant();
+            }
 
-		    if (targetInstanceWithConstant == null)
-		    {
-			    _instance.AddConstant(_constant);
-		    }
-		    else if (targetInstanceWithConstant != null && targetInstanceWithConstant != _instance)
-		    {
-			    _instance.AddConstant(_constant);
-		    }
-	    }
-	    else
-	    {
-		    Debug.LogWarning("Instance is null");
-	    }
+            if (targetInstanceWithConstant == null)
+            {
+                _instance.AddConstant(_constant);
+            }
+            else if (targetInstanceWithConstant != null && targetInstanceWithConstant != _instance)
+            {
+                _instance.AddConstant(_constant);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Instance is null");
+        }
     }
 
     private IConstant TryDeleteConstant()
@@ -78,10 +78,20 @@ public class ConstantButton : GUI_Button
 
     private void SelectionClickedListener(SelectionManager.EventArgs arg0)
     {
+        var board = GameManager.Instance.GetCurrentBoard();
         var element = arg0.CurrentSelectedElement.GetRootObj().GetComponent<IConstant>();
         if (element != null)
         {
             _instance = element;
+        }
+
+        if (board.IsConstantUsed(_constant) && !element.GetConstantsList().Contains(_constant))
+        {
+            _button.interactable = false;
+        }
+        else
+        {
+            _button.interactable = true;
         }
     }
 }
