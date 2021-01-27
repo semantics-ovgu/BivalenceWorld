@@ -21,7 +21,7 @@ public class GUI_TextInputElement : MonoBehaviour
         SetInteractableButton(false);
         _validateImage.ActivateImage(false);
         //_inputFields.onEndEdit.AddListener(EndEdit);
-        _inputFields.onValueChanged.AddListener(EndEdit);
+        _inputFields.onValueChanged.AddListener(OnValueChangedEventListener);
         _inputFields.onSelect.AddListener(Selected);
         _inputFields.onDeselect.AddListener(Deselected);
         _singleValidateButton.onClick.AddListener(ButtonClickedListener);
@@ -93,7 +93,7 @@ public class GUI_TextInputElement : MonoBehaviour
         SelectedTextInputFieldElementeEvent.InvokeEvent(this);
     }
 
-    private void EndEdit(string arg0)
+    private void OnValueChangedEventListener(string arg0)
     {
         ResetValidation();
         if (string.IsNullOrEmpty(arg0))
@@ -105,7 +105,25 @@ public class GUI_TextInputElement : MonoBehaviour
             SetInteractableButton(true);
         }
 
+        _inputFields.text = ReplaceShortcutElements(arg0);
+
         GameManager.Instance.GetValidation().SetPresentationLayout();
+    }
+
+    private string ReplaceShortcutElements(string txt)
+    {
+        string result = txt;
+
+        result = result.Replace("~", "¬");
+        result = result.Replace("&", "∧");
+        result = result.Replace("$", "→");
+        result = result.Replace("@", "∀");
+        result = result.Replace("#", "≠");
+        result = result.Replace("|", "∨");
+        result = result.Replace("%", "↔");
+        result = result.Replace("/", "∃");
+
+        return result;
     }
 
     private void SetInteractableButton(bool isInteractable)
