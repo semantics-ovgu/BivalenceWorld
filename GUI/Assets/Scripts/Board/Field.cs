@@ -175,12 +175,15 @@ public class Field : MonoBehaviour, IPredicate, IConstant
     private void CreatePredicate(Predicate predicate)
     {
         var instance = Instantiate(predicate.Prefab, new Vector3(this.transform.position.x, 0, this.transform.position.z), Quaternion.identity, null).GetComponent<PredicateObj>();
+
         if (instance == null)
         {
             Debug.LogWarning("Wrong Mapping here: is no predicateObj");
             return;
         }
         _predicateInstance = instance;
+        var dragObj = _predicateInstance.GetComponentInChildren<DragObject>();
+        dragObj.transform.localScale = Vector3.one * instance.GetDefaultSize();
         _predicateInstance.Init(predicate);
         _predicateInstance.SetField(this);
     }
