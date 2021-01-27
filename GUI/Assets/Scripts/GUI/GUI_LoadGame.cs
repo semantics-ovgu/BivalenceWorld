@@ -14,47 +14,22 @@ public class GUI_LoadGame : GUI_Button
 	[SerializeField]
 	private TMP_InputField _inputField = default;
 	public SmartFileExplorer fileExplorer = new SmartFileExplorer();
-	//private bool readText = false;
 
 	[SerializeField]
 	private List<Predicate> _predicates;
 	[SerializeField]
 	private Toggle _openNewTabToggle;
 
-	void Update()
-	{
-		//if (fileExplorer.resultOK && readText)
-		//{
-		//	ReadText(fileExplorer.fileName);
-		//	readText = false;
-		//}
-
-	}
-
-	//void ShowExplorer()
-	//{
-	//	string initialDir = @"C:\";
-	//	bool restoreDir = true;
-	//	string title = "Open a jsonWld or jsonSen File";
-	//	string defExt = "txt";
-	//	string filter = "jsonSen files (*.jsonSen)|*.jsonSen |jsonWld files (*.jsonWld) | *.jsonWld";
-
-	//	fileExplorer.OpenExplorer(initialDir, restoreDir, title, defExt, filter);
-	//	readText = true;
-	//}
-
-
 
 	protected override void ButtonClickedListener()
 	{
 		LoadWorldObj();
 		LoadSentences();
-		//ShowExplorer();
 	}
 
 	private bool ExistsPath(string endString)
 	{
-		string path = Application.dataPath + "/" + GUI_SaveCurrentGame.FOLDER + "/" + _inputField.text + ".json" + endString;
+		string path =  GUI_SaveCurrentGame.FOLDER + "/" + _inputField.text + ".json" + endString;
 		if (File.Exists(path))
 		{
 			return true;
@@ -67,8 +42,14 @@ public class GUI_LoadGame : GUI_Button
 
 	private string Load(string endString)
 	{
-		string path = Application.dataPath + "/" + GUI_SaveCurrentGame.FOLDER + "/" + _inputField.text + ".json" + endString;
-		return File.ReadAllText(path);
+		var path = GUI_SaveCurrentGame.FOLDER + "/" + _inputField.text + ".json" + endString;
+		if (File.Exists(path))
+		{
+			return File.ReadAllText(path);
+		}
+
+		return "";
+
 	}
 
 	private void LoadSentences()
@@ -76,6 +57,9 @@ public class GUI_LoadGame : GUI_Button
 		if (ExistsPath(GUI_SaveCurrentGame.SENTENCES))
 		{
 			var jsonStringBack = Load(GUI_SaveCurrentGame.SENTENCES);
+			if (jsonStringBack == "")
+				return;
+
 			var deserializedObj = JsonConvert.DeserializeObject<List<string>>(jsonStringBack);
 
 			if (deserializedObj != null)
@@ -128,6 +112,8 @@ public class GUI_LoadGame : GUI_Button
 		if (ExistsPath(GUI_SaveCurrentGame.WORLD))
 		{
 			var jsonStringBack = Load(GUI_SaveCurrentGame.WORLD);
+			if (jsonStringBack == "")
+				return;
 
 			WorldObject[] worldObjs = JsonConvert.DeserializeObject<WorldObject[]>(jsonStringBack);
 

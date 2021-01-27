@@ -75,18 +75,22 @@ public class GUI_SaveCurrentGame : GUI_Button
 			resultSentences.Add(item.GetInputText());
 		}
 
-		var jsonString = JsonConvert.SerializeObject(resultSentences);
-		SaveData(jsonString, SENTENCES);
+		//var jsonString = JsonConvert.SerializeObject(resultSentences);
+		string correctData = JsonConvert.SerializeObject(resultSentences, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+		SaveData(correctData, SENTENCES);
 	}
 
 	private void SaveData(string data, string endString)
 	{
+		Debug.Log("SaveData right now");
 		Debug.Log(data);
 
 		var path = _inputField.text;
-		var asd = Application.persistentDataPath + "/" +  FOLDER + "/" + path + ".json" + endString;
+		Directory.CreateDirectory(FOLDER);
+		var asd =  FOLDER + "/" + path + ".json" + endString;
+		Debug.Log("path: " + asd);
+		// Application.persistentDataPath + "/" +
 
-		Directory.CreateDirectory(Application.persistentDataPath + "/" + FOLDER);
 		File.WriteAllText(asd, data);
 
 		//Beim laden dann machen
