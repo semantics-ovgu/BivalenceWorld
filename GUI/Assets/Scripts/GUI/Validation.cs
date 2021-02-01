@@ -92,7 +92,7 @@ public class Validation
         for (int i = 0; i < result.Result.Value.Count; i++)
         {
             Result<EValidationResult> item = result.Result.Value[i];
-            list[i].Validate(item.Value);
+            list[i].Validate(item);
 
         }
 

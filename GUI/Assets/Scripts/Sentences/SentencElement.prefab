@@ -73,7 +73,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -142,14 +142,14 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5005621232450010518}
-    characterCount: 1
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 1
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
-    materialCount: 2
+    lineCount: 0
+    pageCount: 0
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -633,32 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 2613991524858602060}
-  _list:
-  - Type: 0
-    Sprite: {fileID: 21300000, guid: 894e3fc3cfb534e449c11b569d2bb630, type: 3}
-    TooltipText:
-      _path: Global
-      _key: UnexpectedResult
-  - Type: 1
-    Sprite: {fileID: 21300000, guid: f436115d262893143b73a4aca9bac9d9, type: 3}
-    TooltipText:
-      _path: Global
-      _key: ParserFailed
-  - Type: 2
-    Sprite: {fileID: 21300000, guid: 1b3d966bc91bc534597e1e741d02840b, type: 3}
-    TooltipText:
-      _path: Global
-      _key: CanNotBeValidated
-  - Type: 3
-    Sprite: {fileID: 21300000, guid: 1d0e02d6ed0e5af449aa1dccee77f4a7, type: 3}
-    TooltipText:
-      _path: Global
-      _key: False
-  - Type: 4
-    Sprite: {fileID: 21300000, guid: cda70ec22cdfa7d45af45bbf3da0cf75, type: 3}
-    TooltipText:
-      _path: Global
-      _key: True
+  _iconContainer: {fileID: 11400000, guid: 7225998c6c5f0114abaee3027afebf84, type: 2}
   _tooltip: {fileID: 7555297660926112560}
 --- !u!114 &7555297660926112560
 MonoBehaviour:

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6652c67fa48b4dd48ec1ef2f0b0312f6, type: 3}
+  m_Name: ValidationIconSettings
+  m_EditorClassIdentifier: 
+  _validationIconList:
+  - Type: 0
+    Sprite: {fileID: 21300000, guid: 894e3fc3cfb534e449c11b569d2bb630, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 1
+    Sprite: {fileID: 21300000, guid: b2edfc1bfeb29304a9f843f15a88b543, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 2
+    Sprite: {fileID: 21300000, guid: 894e3fc3cfb534e449c11b569d2bb630, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 3
+    Sprite: {fileID: 21300000, guid: 1d0e02d6ed0e5af449aa1dccee77f4a7, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 4
+    Sprite: {fileID: 21300000, guid: cda70ec22cdfa7d45af45bbf3da0cf75, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 5
+    Sprite: {fileID: 21300000, guid: cb5bfe5755ba87a4589a5761db80a85a, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 6
+    Sprite: {fileID: 21300000, guid: cb5bfe5755ba87a4589a5761db80a85a, type: 3}
+    TooltipText:
+      _path: 
+      _key: 
+  - Type: 7
+    Sprite: {fileID: 21300000, guid: cb5bfe5755ba87a4589a5761db80a85a, type: 3}
+    TooltipText:
+      _path: 
+      _key: 

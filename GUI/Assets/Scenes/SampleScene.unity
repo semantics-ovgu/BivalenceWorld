@@ -56777,6 +56777,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sentences
       objectReference: {fileID: 0}
+    - target: {fileID: 7488190722128239357, guid: 9036875ff53861c44950f3cd23c46a5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8345218646936529685, guid: 9036875ff53861c44950f3cd23c46a5f,
         type: 3}
       propertyPath: m_AnchoredPosition.y

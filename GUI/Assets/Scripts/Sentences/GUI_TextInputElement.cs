@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Validator;
 using Validator.World;
 
 public class GUI_TextInputElement : MonoBehaviour
@@ -64,9 +65,9 @@ public class GUI_TextInputElement : MonoBehaviour
         return _inputFields.text;
     }
 
-    public void Validate(EValidationResult v)
+    public void Validate(Result<EValidationResult> v)
     {
-        _validateImage.SetColor(v);
+        _validateImage.SetValidationResult(v);
     }
 
 
