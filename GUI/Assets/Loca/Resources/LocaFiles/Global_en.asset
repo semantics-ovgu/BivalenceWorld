@@ -14,186 +14,167 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data:
   - Key: ConstantA
-    Value: ToDO ENG
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
     Tags: []
   - Key: ConstantB
-    Value: ToDO ENG
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
     Tags: []
   - Key: ConstantC
-    Value: ToDO ENG
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
     Tags: []
   - Key: ConstantD
-    Value: ToDO ENG
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
     Tags: []
   - Key: ConstantE
-    Value: ToDO ENG
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
     Tags: []
   - Key: Cube
-    Value: ToDO ENG
+    Value: Cube
     Tags: []
   - Key: Tet
-    Value: ToDO ENG
+    Value: Tetraeder
     Tags: []
   - Key: Dodec
-    Value: ToDO ENG
+    Value: Dodecaeder
     Tags: []
   - Key: Small
-    Value: ToDO ENG
+    Value: Small
     Tags: []
   - Key: Medium
-    Value: ToDO ENG
+    Value: Medium
     Tags: []
   - Key: Large
-    Value: ToDO ENG
+    Value: Large
     Tags: []
   - Key: ChangeDimension
-    Value: ToDO ENG
+    Value: Change the perspective between 2D and 3D.
     Tags: []
   - Key: Pl1StructureView
-    Value: ToDO ENG
+    Value: Shows the model representation of the world.
     Tags: []
   - Key: GameView
-    Value: ToDO ENG
+    Value: Starts the game.
     Tags: []
   - Key: CheckAllButton
-    Value: ToDO ENG
+    Value: Validate all sentences.
     Tags: []
   - Key: DeleteOneButton
-    Value: ToDO ENG
+    Value: Delete one sentence.
     Tags: []
   - Key: CreateNewSentences
-    Value: ToDO ENG
+    Value: Create one sentence.
     Tags: []
   - Key: TetPredicate
-    Value: ToDO ENG
+    Value: 'Tet(a): The object a is a tetraeder.'
     Tags: []
   - Key: SmallPredicate
-    Value: ToDO ENG
+    Value: 'Small(a): The object a is small.'
     Tags: []
   - Key: LeftOfPredicate
-    Value: ToDO ENG
+    Value: 'LeftOf(a,b): The object a is left of object b.'
     Tags: []
   - Key: SameColPredicate
-    Value: ToDO ENG
+    Value: 'SameCol(a,b): The objects a and b are on the same column.'
     Tags: []
   - Key: SmallerPredicate
-    Value: ToDO ENG
+    Value: 'Smaller(a,b): The object a is smaller then object b.'
     Tags: []
   - Key: CubePredicate
-    Value: ToDO ENG
+    Value: 'Cube(a): The object a is a cube.'
     Tags: []
   - Key: MediumPredicate
-    Value: ToDO ENG
+    Value: 'Medium(a): The object a is of medium size.'
     Tags: []
   - Key: RightOfPredicate
-    Value: ToDO ENG
+    Value: 'RightOf(a,b): The object a is right of object b.'
     Tags: []
   - Key: SameRowPredicate
-    Value: ToDO ENG
+    Value: 'SameRow(a,b): The objects a and b are on the same row.'
     Tags: []
   - Key: LargerPredicate
-    Value: ToDO ENG
+    Value: 'Larger(a,b): The object a is larger then object b.'
     Tags: []
   - Key: DodecPredicate
-    Value: ToDO ENG
+    Value: 'Dodec(a): The object a is a dodecaeder.'
     Tags: []
   - Key: LargePredicate
-    Value: ToDO ENG
+    Value: 'Large(a): The object a is large.'
     Tags: []
   - Key: FrontOfPredicate
-    Value: ToDO ENG
+    Value: 'FrontOf(a,b): The object a is in front of object b.'
     Tags: []
   - Key: BetweenPredicate
-    Value: ToDO ENG
+    Value: 'Between(a,b,c): The object a is between object b and object c.'
     Tags: []
   - Key: SameSizePredicate
-    Value: ToDO ENG
+    Value: 'SameSize(a,b): The objects a and b have the same size.'
     Tags: []
   - Key: SameShape
-    Value: ToDO ENG
+    Value: 'SameShape(a,b): The objects a and b have the same shape.'
     Tags: []
   - Key: BackOf
-    Value: ToDO ENG
+    Value: 'BackOf(a,b): The object a is in back of object b.'
     Tags: []
   - Key: Adjoins
-    Value: ToDO ENG
+    Value: 'Adjoins(a,b): The objects a and b are neighbours.'
     Tags: []
   - Key: lmFunction
-    Value: ToDO ENG
+    Value: 'lm(a): Returns an object, which is leftmost of object a.'
     Tags: []
   - Key: rmFunction
-    Value: ToDO ENG
+    Value: 'rm(a): Returns an object, which is rightmost of object a.'
     Tags: []
   - Key: fmFunction
-    Value: ToDO ENG
+    Value: 'fm(a): Returns an object, which is frontmost of object a.'
     Tags: []
   - Key: bmFunction
-    Value: ToDO ENG
+    Value: 'bm(a): Returns an object, which is backmost of object a.'
     Tags: []
   - Key: andOperator
-    Value: ToDO ENG
+    Value: The conjunction.
     Tags: []
   - Key: orOperator
-    Value: ToDO ENG
+    Value: The disjunction.
     Tags: []
   - Key: negateOperator
-    Value: ToDO ENG
+    Value: The negation.
     Tags: []
   - Key: impliesOperator
-    Value: ToDO ENG
+    Value: The implication.
     Tags: []
   - Key: isequivalentOperator
-    Value: ToDO ENG
+    Value: The biconditional.
     Tags: []
   - Key: falsumOperator
-    Value: ToDO ENG
+    Value: False.
     Tags: []
   - Key: allQuantum
-    Value: ToDO ENG
+    Value: The allquantum.
     Tags: []
   - Key: existQuantum
-    Value: ToDO ENG
+    Value: The existquantom.
     Tags: []
   - Key: equalsOperator
-    Value: ToDO ENG
+    Value: Equivalent.
     Tags: []
   - Key: doesNotEqualOperator
-    Value: ToDO ENG
+    Value: The negation of equivalent.
     Tags: []
   - Key: leftParanthesisOperator
-    Value: ToDO ENG
+    Value: Open bracket.
     Tags: []
   - Key: rightParanthesisOperator
-    Value: ToDO ENG
+    Value: Closed bracket.
     Tags: []
   - Key: constant
-    Value: ToDO ENG
+    Value: A constant.
     Tags: []
   - Key: variable
-    Value: ToDO ENG
-    Tags: []
-  - Key: UnexpectedResult
-    Value: UnexpectedResult
-    Tags: []
-  - Key: ParserFailed
-    Value: ParserFailed
-    Tags: []
-  - Key: CanNotBeValidated
-    Value: Klein
-    Tags: []
-  - Key: False
-    Value: False
-    Tags: []
-  - Key: True
-    Value: True
-    Tags: []
-  - Key: ContainsFreeVariable
-    Value: ContainsFreeVariable
-    Tags: []
-  - Key: ConstantNotUsed
-    Value: ConstantNotUsed
-    Tags: []
-  - Key: UnknownSymbol
-    Value: UnknownSymbol
+    Value: A variable.
     Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_en.loc

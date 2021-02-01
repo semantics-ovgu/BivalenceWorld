@@ -1865,6 +1865,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8072974358780228531, guid: 37bffee184e26804cad557abb6221a5b,
+        type: 3}
+      propertyPath: _tooltipText._key
+      value: bmFunction
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37bffee184e26804cad557abb6221a5b, type: 3}
 --- !u!1 &94359743
@@ -8608,6 +8613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072974358780228531, guid: 37bffee184e26804cad557abb6221a5b,
+        type: 3}
+      propertyPath: _tooltipText._key
+      value: rmFunction
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37bffee184e26804cad557abb6221a5b, type: 3}
@@ -35695,6 +35705,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8072974358780228531, guid: 37bffee184e26804cad557abb6221a5b,
+        type: 3}
+      propertyPath: _tooltipText._key
+      value: lmFunction
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37bffee184e26804cad557abb6221a5b, type: 3}
 --- !u!1 &1421704232
@@ -46061,6 +46076,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8072974358780228531, guid: 37bffee184e26804cad557abb6221a5b,
+        type: 3}
+      propertyPath: _tooltipText._key
+      value: fmFunction
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37bffee184e26804cad557abb6221a5b, type: 3}
 --- !u!1 &1846274079
@@ -48335,6 +48355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049125443507533968, guid: 53b2fec6e99cba740bec71abaa96f756,
+        type: 3}
+      propertyPath: _tooltipText._key
+      value: Dodec
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53b2fec6e99cba740bec71abaa96f756, type: 3}

@@ -37,13 +37,16 @@ MonoBehaviour:
     Value: "W\xFCrfel"
     Tags: []
   - Key: Tet
-    Value: Tet
+    Value: Tetraeder
+    Tags: []
+  - Key: Dodec
+    Value: Dodekaeder
     Tags: []
   - Key: Small
     Value: Klein
     Tags: []
   - Key: Medium
-    Value: Normal
+    Value: "Mittlere Gr\xF6\xDFe"
     Tags: []
   - Key: Large
     Value: "Gro\xDF"
@@ -52,150 +55,131 @@ MonoBehaviour:
     Value: Wechselt die Ansicht zwischen 2D und 3D.
     Tags: []
   - Key: Pl1StructureView
-    Value: ToDO ENG
+    Value: Die modeltheoretische Struktur der Welt.
     Tags: []
   - Key: GameView
-    Value: ToDO ENG
+    Value: Startet das Spiel.
     Tags: []
   - Key: CheckAllButton
-    Value: ToDO ENG
+    Value: "\xDCberpr\xFCft alle S\xE4tze."
     Tags: []
   - Key: DeleteOneButton
-    Value: ToDO ENG
+    Value: "L\xF6scht den ausgew\xE4hlten Satz."
     Tags: []
   - Key: CreateNewSentences
-    Value: ToDO ENG
+    Value: Erstellt einen neuen Satz.
     Tags: []
   - Key: TetPredicate
-    Value: ToDO ENG
+    Value: 'Tet(a): Das Objekt a ist ein Tetraeder.'
     Tags: []
   - Key: SmallPredicate
-    Value: ToDO ENG
+    Value: 'Small(a): Das Objekt a ist klein.'
     Tags: []
   - Key: LeftOfPredicate
-    Value: ToDO ENG
+    Value: 'LeftOf(a,b): Das Objekt a befindet sich links von b.'
     Tags: []
   - Key: SameColPredicate
-    Value: ToDO ENG
+    Value: 'SameCol(a,b): Die Objekte a und b befinden sich auf der gleichen Spalte.'
     Tags: []
   - Key: SmallerPredicate
-    Value: ToDO ENG
+    Value: 'Smaller(a,b): Das Objekt a ist kleiner als Objekt b.'
     Tags: []
   - Key: CubePredicate
-    Value: ToDO ENG
+    Value: "Cube(a): Das Objekt a ist ein W\xFCrfel."
     Tags: []
   - Key: MediumPredicate
-    Value: ToDO ENG
+    Value: "Medium(a): Das Objekt a besitzt eine mittlere Gr\xF6\xDFe."
     Tags: []
   - Key: RightOfPredicate
-    Value: ToDO ENG
+    Value: 'RightOf(a,b): Das Objekt a befindet sich rechts von b.'
     Tags: []
   - Key: SameRowPredicate
-    Value: ToDO ENG
+    Value: 'SameRow(a,b): Die Objekte a und b befinden sich auf der gleichen Zeile.'
     Tags: []
   - Key: LargerPredicate
-    Value: ToDO ENG
+    Value: "Larger(a,b): Das Objekt a ist gr\xF6\xDFer als Objekt b."
     Tags: []
   - Key: DodecPredicate
-    Value: ToDO ENG
+    Value: 'Dodec(a): Das Objekt a ist ein Dodekaeder.'
     Tags: []
   - Key: LargePredicate
-    Value: ToDO ENG
+    Value: "Large(a): Das Objekt a ist gro\xDF."
     Tags: []
   - Key: FrontOfPredicate
-    Value: ToDO ENG
+    Value: 'FrontOf(a,b): Das Objekt a befindet sich vor Objekt b.'
     Tags: []
   - Key: BetweenPredicate
-    Value: ToDO ENG
+    Value: 'Between(a,b,c): Das Objekt a befindet sich rechts von Objekt b und links
+      von Objekt c.'
     Tags: []
   - Key: SameSizePredicate
-    Value: ToDO ENG
+    Value: "SameSize(a,b): Die Objekte a und b besitzen die gleiche Gr\xF6\xDFe."
     Tags: []
   - Key: SameShape
-    Value: ToDO ENG
+    Value: 'SameShape(a,b): Die Objekte a und b besitzen die gleiche Form.'
     Tags: []
   - Key: BackOf
-    Value: ToDO ENG
+    Value: 'BackOf(a,b): Das Objekt a befindet sich hinter Objekt b.'
     Tags: []
   - Key: Adjoins
-    Value: ToDO ENG
+    Value: 'Adjoins(a,b): Die Objekte a und b befinden sich auf benachbarten Felder.'
     Tags: []
   - Key: lmFunction
-    Value: ToDO ENG
+    Value: "lm(a): Gibt das Objekte zur\xFCck, welches sich am weitestens links von
+      a befindet."
     Tags: []
   - Key: rmFunction
-    Value: ToDO ENG
+    Value: "rm(a): Gibt das Objekt zur\xFCck, welches sich am weitestens rechts von
+      a befindet."
     Tags: []
   - Key: fmFunction
-    Value: ToDO ENG
+    Value: "fm(a): Gibt das Objekt zur\xFCck, welches sich am weitestens vorne von
+      a befindet."
     Tags: []
   - Key: bmFunction
-    Value: ToDO ENG
+    Value: "bm(a): Gibt das Objekt zur\xFCck, welches sich am weitestens hinten von
+      a befindet."
     Tags: []
   - Key: andOperator
-    Value: ToDO ENG
+    Value: Die logische Konjunktion.
     Tags: []
   - Key: orOperator
-    Value: ToDO ENG
+    Value: Die logische Disjunktion.
     Tags: []
   - Key: negateOperator
-    Value: ToDO ENG
+    Value: Die logische Negation.
     Tags: []
   - Key: impliesOperator
-    Value: ToDO ENG
+    Value: Die logische Implikation.
     Tags: []
   - Key: isequivalentOperator
-    Value: ToDO ENG
+    Value: Das logische Bikonditional.
     Tags: []
   - Key: falsumOperator
-    Value: ToDO ENG
+    Value: Die Wahrheitswert falsch.
     Tags: []
   - Key: allQuantum
-    Value: ToDO ENG
+    Value: Der Allquantor.
     Tags: []
   - Key: existQuantum
-    Value: ToDO ENG
+    Value: Der Existenzquantor.
     Tags: []
   - Key: equalsOperator
-    Value: ToDO ENG
+    Value: "Die logische \xC4quivalenz."
     Tags: []
   - Key: doesNotEqualOperator
-    Value: ToDO ENG
+    Value: "Die Negation der \xC4quivalenz."
     Tags: []
   - Key: leftParanthesisOperator
-    Value: ToDO ENG
+    Value: Offene Klammer.
     Tags: []
   - Key: rightParanthesisOperator
-    Value: ToDO ENG
+    Value: Geschlossene Klammer.
     Tags: []
   - Key: constant
-    Value: ToDO ENG
+    Value: Eine Konstante.
     Tags: []
   - Key: variable
-    Value: ToDO ENG
-    Tags: []
-  - Key: UnexpectedResult
-    Value: UnexpectedResult
-    Tags: []
-  - Key: ParserFailed
-    Value: ParserFailed
-    Tags: []
-  - Key: CanNotBeValidated
-    Value: Klein
-    Tags: []
-  - Key: False
-    Value: False
-    Tags: []
-  - Key: True
-    Value: True
-    Tags: []
-  - Key: ContainsFreeVariable
-    Value: ContainsFreeVariable
-    Tags: []
-  - Key: ConstantNotUsed
-    Value: ConstantNotUsed
-    Tags: []
-  - Key: UnknownSymbol
-    Value: UnknownSymbol
+    Value: Eine Variable.
     Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_de.loc
