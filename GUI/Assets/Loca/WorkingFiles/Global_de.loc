@@ -58,3 +58,6 @@ leftParanthesisOperator          {Offene Klammer.}
 rightParanthesisOperator          {Geschlossene Klammer.}
 constant          {Eine Konstante.}
 variable          {Eine Variable.}
+
+Save          {Speichert die World oder/und die Sätze}
+Load          {Lädt eine Welt oder Sätze.}

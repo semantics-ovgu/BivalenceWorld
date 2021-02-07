@@ -11,7 +11,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 	private Button _createNewTextButton = default;
 
 	[SerializeField]
-	protected GUI_TextFieldButton _textfieldButtonPrefab = default;
+	protected GUI_TextFieldCloseButton _textfieldButtonPrefab = default;
 	[SerializeField]
 	protected GUI_TextFieldButton _textFieldButtonDefault = default;
 	[SerializeField]
@@ -33,7 +33,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 	public void CreateTextInstance(List<string> text)
 	{
-		GUI_TextFieldButton instance = Instantiate(_textfieldButtonPrefab, _buttonAnchor);
+		GUI_TextFieldCloseButton instance = Instantiate(_textfieldButtonPrefab, _buttonAnchor);
 		var page = new Pair()
 		{
 				Button = instance,
@@ -43,7 +43,20 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 		_textPanelsInstances.Add(page);
 		instance.SetTexts(text);
 		instance.GetButton().onClick.AddListener(() => ButtonClickedListener(instance));
+		instance.DestroyObjectEvent.AddEventListener(RemoveTextInstance);
 		ButtonClickedListener(instance);
+	}
+
+	private void RemoveTextInstance(GUI_TextFieldCloseButton arg0)
+	{
+		var instance = _textPanelsInstances.Find(x => x.Button = arg0);
+		if (instance != null)
+		{
+			_textPanelsInstances.Remove(instance);
+			Destroy(instance.Button.gameObject);
+		}
+
+
 	}
 
 	private void CreateNewTextButtonListener()

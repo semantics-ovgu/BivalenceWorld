@@ -182,4 +182,10 @@ MonoBehaviour:
   - Key: variable
     Value: Eine Variable.
     Tags: []
+  - Key: Save
+    Value: "Speichert die World oder/und die S\xE4tze"
+    Tags: []
+  - Key: Load
+    Value: "L\xE4dt eine Welt oder S\xE4tze."
+    Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_de.loc

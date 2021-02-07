@@ -15,14 +15,14 @@ public class GUI_FullScreenButton : GUI_Button
 	[SerializeField]
 	private Sprite _windowScreenSprite = default;
 
-	private void Awake()
+	private void Start()
 	{
 		SetSpriteToImage();
 	}
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.J))
 		{
 			ButtonClickedListener();
 		}
@@ -30,7 +30,20 @@ public class GUI_FullScreenButton : GUI_Button
 
 	protected override void ButtonClickedListener()
 	{
-		Screen.fullScreen = !Screen.fullScreen;
+
+		if (Screen.fullScreen)
+		{
+			Screen.fullScreen = false;
+			Screen.fullScreenMode = FullScreenMode.Windowed;
+		}
+		else
+		{
+			Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.Windowed);
+			Screen.fullScreen = true;
+			Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+
+		}
+
 		SetSpriteToImage();
 	}
 
@@ -39,6 +52,7 @@ public class GUI_FullScreenButton : GUI_Button
 		if (Screen.fullScreen)
 		{
 			_buttonImage.sprite = _windowScreenSprite;
+			
 		}
 		else
 		{

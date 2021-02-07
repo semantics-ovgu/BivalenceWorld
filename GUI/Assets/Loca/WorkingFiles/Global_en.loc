@@ -58,3 +58,6 @@ leftParanthesisOperator          {Open bracket.}
 rightParanthesisOperator          {Closed bracket.}
 constant          {A constant.}
 variable          {A variable.}
+
+Save          {Saves the world or/and the sentences.}
+Load          {Loads a world or sentences.}

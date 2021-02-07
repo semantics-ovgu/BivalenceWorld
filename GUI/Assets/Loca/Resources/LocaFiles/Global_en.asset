@@ -177,4 +177,10 @@ MonoBehaviour:
   - Key: variable
     Value: A variable.
     Tags: []
+  - Key: Save
+    Value: Saves the world or/and the sentences.
+    Tags: []
+  - Key: Load
+    Value: Loads a world or sentences.
+    Tags: []
   _workingFileAssetPath: Assets/Loca/WorkingFiles/Global_en.loc
