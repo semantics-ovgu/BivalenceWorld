@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4301176564121332430}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_Children:
   - {fileID: 2928215634713255641}
   m_Father: {fileID: 8196542216851856993}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe4f02c96329b74cb5df8978e5fc7ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSize: 3
+  _defaultSize: 2.3
   _visual: {fileID: 4301176564121332430}
   _worldCanvasPrefab: {fileID: 1175253013238409874, guid: d35550507a2895747a748d215b350ddb,
     type: 3}

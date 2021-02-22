@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Validator;
@@ -13,6 +14,8 @@ public class GUI_TextInputElement : MonoBehaviour
     private GUI_ValidateImage _validateImage = default;
     [SerializeField]
     private TMPro.TMP_InputField _inputFields = default;
+
+    public TMP_InputField InputField => _inputFields;
 
     public Button ValidateButton => _singleValidateButton;
     public GenericEvent<GUI_TextInputElement> SelectedTextInputFieldElementeEvent = new GenericEvent<GUI_TextInputElement>();

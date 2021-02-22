@@ -26,13 +26,13 @@ SameColPredicate    {SameCol(a,b): Die Objekte a und b befinden sich auf der gle
 SmallerPredicate    {Smaller(a,b): Das Objekt a ist kleiner als Objekt b.}
 CubePredicate       {Cube(a): Das Objekt a ist ein Würfel.}
 MediumPredicate     {Medium(a): Das Objekt a besitzt eine mittlere Größe.}
-RightOfPredicate    {RightOf(a,b): Das Objekt a befindet sich rechts von b.}
+RightOfPredicate    {RightOf(a,b): Das Objekt a befindet sich rechts von Objekt b.}
 SameRowPredicate    {SameRow(a,b): Die Objekte a und b befinden sich auf der gleichen Zeile.}
 LargerPredicate     {Larger(a,b): Das Objekt a ist größer als Objekt b.}
 DodecPredicate      {Dodec(a): Das Objekt a ist ein Dodekaeder.}
 LargePredicate      {Large(a): Das Objekt a ist groß.}
 FrontOfPredicate    {FrontOf(a,b): Das Objekt a befindet sich vor Objekt b.}
-BetweenPredicate    {Between(a,b,c): Das Objekt a befindet sich rechts von Objekt b und links von Objekt c.}
+BetweenPredicate    {Between(a,b,c): Das Objekt a befindet sich zwischen Objekt b und c.}
 SameSizePredicate   {SameSize(a,b): Die Objekte a und b besitzen die gleiche Größe.}
 SameShape           {SameShape(a,b): Die Objekte a und b besitzen die gleiche Form.}
 BackOf              {BackOf(a,b): Das Objekt a befindet sich hinter Objekt b.}

@@ -29,20 +29,20 @@ public class RenderAsBillboard : MonoBehaviour
 
     private void Awake()
     {
-	    var manager = GameManager.Instance;
-	    if (manager != null)
-	    {
-		    var cameraManager = manager.GetCameraManager();
-		    if (cameraManager != null)
-		    {
+        var manager = GameManager.Instance;
+        if (manager != null)
+        {
+            var cameraManager = manager.GetCameraManager();
+            if (cameraManager != null)
+            {
                 cameraManager.CameraChangedEvent.AddEventListener(CameraChangedListener);
-		    }
-	    }
+            }
+        }
     }
 
-    private void CameraChangedListener(Camera arg0)
+    private void CameraChangedListener(CameraRotation.CameraArgs arg0)
     {
-	    _camera = arg0;
+        _camera = arg0.Camera;
     }
 
     //private void OnWillRenderObject()
@@ -57,9 +57,9 @@ public class RenderAsBillboard : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(_camera == null)
+        if (_camera == null)
         {
-	        _camera = GameManager.Instance.GetMainCamera();
+            _camera = GameManager.Instance.GetMainCamera();
         }
         else
         {

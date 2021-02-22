@@ -25,9 +25,9 @@ public class SelectionManager : MonoBehaviour, IDebug
         GameManager.Instance?.AddObjToDebugList(this);
     }
 
-    private void CameraChangedListener(Camera arg0)
+    private void CameraChangedListener(CameraRotation.CameraArgs cameraArgs)
     {
-        _targetCamera = arg0;
+        _targetCamera = cameraArgs.Camera;
     }
 
     private void Update()

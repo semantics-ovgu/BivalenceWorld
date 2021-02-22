@@ -91,7 +91,7 @@ MonoBehaviour:
     Value: "Medium(a): Das Objekt a besitzt eine mittlere Gr\xF6\xDFe."
     Tags: []
   - Key: RightOfPredicate
-    Value: 'RightOf(a,b): Das Objekt a befindet sich rechts von b.'
+    Value: 'RightOf(a,b): Das Objekt a befindet sich rechts von Objekt b.'
     Tags: []
   - Key: SameRowPredicate
     Value: 'SameRow(a,b): Die Objekte a und b befinden sich auf der gleichen Zeile.'
@@ -109,8 +109,7 @@ MonoBehaviour:
     Value: 'FrontOf(a,b): Das Objekt a befindet sich vor Objekt b.'
     Tags: []
   - Key: BetweenPredicate
-    Value: 'Between(a,b,c): Das Objekt a befindet sich rechts von Objekt b und links
-      von Objekt c.'
+    Value: 'Between(a,b,c): Das Objekt a befindet sich zwischen Objekt b und c.'
     Tags: []
   - Key: SameSizePredicate
     Value: "SameSize(a,b): Die Objekte a und b besitzen die gleiche Gr\xF6\xDFe."

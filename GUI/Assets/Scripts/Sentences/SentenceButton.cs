@@ -11,12 +11,41 @@ public class SentenceButton : ASentenceButton
     protected override void ButtonClickedListener()
     {
         SpaceBeforeText();
-        GameManager.Instance.GetTextInputField().CurrentTextInputElement?.AddText(GetDisplayString());
+
+        var inputTextField = GameManager.Instance.GetTextInputField().CurrentTextInputElement?.InputField;
+
+        if (inputTextField != null)
+        {
+            GameManager.Instance.GetTextInputField().CurrentTextInputElement?.AddText(GetInsertString());
+
+            var maxPosition = inputTextField.text.Length;
+            inputTextField.caretPosition = maxPosition - (_sentence.Length - ParantheseOpenCharPosition()) + 1;
+        }
+
         SpaceAfterText();
+    }
+
+    private int ParantheseOpenCharPosition()
+    {
+        var chars = _sentence.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (chars[i] == '(')
+            {
+                return i;
+            }
+        }
+
+        return _sentence.Length;
+    }
+
+    private string GetInsertString()
+    {
+        return _sentence;
     }
 
     protected override string GetDisplayString()
     {
-        return _sentence;
+        return _sentence.Split('(')[0];
     }
 }
