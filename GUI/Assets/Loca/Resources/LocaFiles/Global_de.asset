@@ -33,6 +33,10 @@ MonoBehaviour:
     Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
       in der Welt vorkommen."
     Tags: []
+  - Key: ConstantF
+    Value: "Benennt ein Objekt mit der ausgew\xE4hlten Konstante.<br>Kann nur einmal
+      in der Welt vorkommen."
+    Tags: []
   - Key: Cube
     Value: "W\xFCrfel"
     Tags: []

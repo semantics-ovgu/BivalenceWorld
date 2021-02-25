@@ -3,6 +3,7 @@ ConstantB { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einm
 ConstantC { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
 ConstantD { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
 ConstantE { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
+ConstantF { Benennt ein Objekt mit der ausgewählten Konstante.<br>Kann nur einmal in der Welt vorkommen.}
 
 Cube { Würfel}
 Tet { Tetraeder}

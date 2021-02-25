@@ -37,6 +37,6 @@ public class GUI_ConstantDisplay : MonoBehaviour
         //ToDo Resize
         _text.text = txt;
         Canvas.ForceUpdateCanvases();
-        _image.rectTransform.sizeDelta = new Vector2(_text.rectTransform.sizeDelta.x, _image.rectTransform.sizeDelta.y);
+        _image.rectTransform.sizeDelta = new Vector2(_text.rectTransform.sizeDelta.x + 2, _image.rectTransform.sizeDelta.y);
     }
 }

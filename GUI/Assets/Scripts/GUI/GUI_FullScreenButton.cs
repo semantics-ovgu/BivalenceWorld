@@ -22,7 +22,7 @@ public class GUI_FullScreenButton : GUI_Button
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.J))
+		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			ButtonClickedListener();
 		}

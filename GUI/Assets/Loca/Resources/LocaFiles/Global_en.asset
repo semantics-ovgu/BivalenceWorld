@@ -33,6 +33,10 @@ MonoBehaviour:
     Value: Names an object with the selected constant.<n>Can occur only once in the
       world.
     Tags: []
+  - Key: ConstantF
+    Value: Names an object with the selected constant.<n>Can occur only once in the
+      world.
+    Tags: []
   - Key: Cube
     Value: Cube
     Tags: []

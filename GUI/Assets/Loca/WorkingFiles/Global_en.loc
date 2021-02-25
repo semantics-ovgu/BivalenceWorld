@@ -3,6 +3,7 @@ ConstantB { Names an object with the selected constant.<n>Can occur only once in
 ConstantC { Names an object with the selected constant.<n>Can occur only once in the world.}
 ConstantD { Names an object with the selected constant.<n>Can occur only once in the world.}
 ConstantE { Names an object with the selected constant.<n>Can occur only once in the world.}
+ConstantF { Names an object with the selected constant.<n>Can occur only once in the world.}
 
 Cube { Cube}
 Tet { Tetraeder}
