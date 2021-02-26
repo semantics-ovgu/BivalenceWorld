@@ -44,7 +44,6 @@ public class Validation
         foreach (GUI_TextInputElement item in list)
         {
             resultSentences.Add(item.GetInputText());
-            Debug.Log(item.GetInputText());
         }
 
         return resultSentences;

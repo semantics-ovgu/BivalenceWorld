@@ -1,0 +1,337 @@
+fileFormatVersion: 2
+guid: 15b2175f7b0772949b26bfd15b37a721
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6198582837064351458
+    second: mathematics_0
+  - first:
+      213: -2155746360997455945
+    second: mathematics_1
+  - first:
+      213: -7030925316410416414
+    second: mathematics_2
+  - first:
+      213: -6349059596777440358
+    second: mathematics_3
+  - first:
+      213: -8986825164318271751
+    second: mathematics_4
+  - first:
+      213: -4860457692870942993
+    second: mathematics_5
+  - first:
+      213: 2208824252094049689
+    second: mathematics_6
+  - first:
+      213: -6500880345044523156
+    second: mathematics_7
+  - first:
+      213: -3440797177503107838
+    second: mathematics_8
+  - first:
+      213: -8885759941314273709
+    second: mathematics_9
+  - first:
+      213: -3382424696195973678
+    second: mathematics_10
+  - first:
+      213: -6374300397282966263
+    second: mathematics_11
+  - first:
+      213: -6519571235446886259
+    second: mathematics_12
+  - first:
+      213: -1720096040966306640
+    second: mathematics_13
+  - first:
+      213: 4031201834193971127
+    second: mathematics_14
+  - first:
+      213: 6648940442083604723
+    second: mathematics_15
+  - first:
+      213: -1671724723633460873
+    second: mathematics_16
+  - first:
+      213: -610319310822355154
+    second: mathematics_17
+  - first:
+      213: 3488819574899333582
+    second: mathematics_18
+  - first:
+      213: -3659127525696274645
+    second: mathematics_19
+  - first:
+      213: 6568060038930092754
+    second: mathematics_20
+  - first:
+      213: -3112102073434199835
+    second: mathematics_21
+  - first:
+      213: 2824718771526292891
+    second: mathematics_22
+  - first:
+      213: 2791078138203932802
+    second: mathematics_23
+  - first:
+      213: -8785417933783995921
+    second: mathematics_24
+  - first:
+      213: 7647488117495192296
+    second: mathematics_25
+  - first:
+      213: 7597576611288427755
+    second: mathematics_26
+  - first:
+      213: -2865288454345206213
+    second: mathematics_27
+  - first:
+      213: 2452945204615226659
+    second: mathematics_28
+  - first:
+      213: 1931477440172543389
+    second: mathematics_29
+  - first:
+      213: -1133493729535313309
+    second: mathematics_30
+  - first:
+      213: -5390172002715543264
+    second: mathematics_31
+  - first:
+      213: 8448285551331909539
+    second: mathematics_32
+  - first:
+      213: 220739646706957340
+    second: mathematics_33
+  - first:
+      213: 2459367716404585503
+    second: mathematics_34
+  - first:
+      213: -2380181693687214546
+    second: mathematics_35
+  - first:
+      213: -5032418642360890608
+    second: mathematics_36
+  - first:
+      213: -8361450855173610046
+    second: mathematics_37
+  - first:
+      213: 1889574851777540550
+    second: mathematics_38
+  - first:
+      213: 2024957104726454470
+    second: mathematics_39
+  - first:
+      213: -5646243691666383910
+    second: mathematics_40
+  - first:
+      213: 6305520849643638522
+    second: mathematics_41
+  - first:
+      213: -4850523821611502959
+    second: mathematics_42
+  - first:
+      213: 4721822595380885578
+    second: mathematics_43
+  - first:
+      213: 8968397855494105618
+    second: mathematics_44
+  - first:
+      213: -4884819393882624798
+    second: mathematics_45
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mathematics_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eebd02bf3ac50650800000000000000
+      internalID: 6198582837064351458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mathematics_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b7d7e63b104512e0800000000000000
+      internalID: -2155746360997455945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mathematics_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e26e091da22d6e90800000000000000
+      internalID: -7030925316410416414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mathematics_3
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9bbb4c7feb93e7a0800000000000000
+      internalID: -6349059596777440358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

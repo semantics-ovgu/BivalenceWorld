@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &9186895190682726329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018487535880657349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3f846a2da654246932b27805096fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1018487535880657351}
+  _buttonName: {fileID: 1018487536293745468}
+  _closeButton: {fileID: 2177713273827133428}
 --- !u!1 &3557863587419134418
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,21 +87,6 @@ MonoBehaviour:
   m_canvasRenderer: {fileID: 6078925565232908616}
   m_TextComponent: {fileID: 1281215101475236744}
   m_materialReferenceIndex: 1
---- !u!114 &9186895190682726329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018487535880657349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb3f846a2da654246932b27805096fab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 1018487535880657351}
-  _buttonName: {fileID: 1018487536293745468}
-  _closeButton: {fileID: 2177713273827133428}
 --- !u!1 &7008134150703617023
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 4956965484245348262, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4956965484245348262, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
@@ -397,7 +397,7 @@ PrefabInstance:
     - target: {fileID: 4956965484245348262, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
       propertyPath: m_firstOverflowCharacterIndex
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4956965484927329628, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
@@ -504,12 +504,28 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329629, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.98039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329629, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.6156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329629, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.20784314
+      objectReference: {fileID: 0}
     - target: {fileID: 4956965484927329631, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
       propertyPath: m_Name
-      value: TextFieldButtonClose
+      value: TextFieldButtonClose Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 753040402, guid: cf75b03a056e29d489ca74c9e4df1af7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cf75b03a056e29d489ca74c9e4df1af7, type: 3}
 --- !u!1 &1018487535880657349 stripped
 GameObject:

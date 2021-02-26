@@ -15,7 +15,7 @@ public class GUI_TabNavigation : MonoBehaviour
     [SerializeField]
     protected Transform _pageAnchor = default;
 
-    protected Pair _currentInstance = default;
+    protected Pair _currentPageInstance = default;
     protected List<Pair> _textPanelsInstances = new List<Pair>();
 
     private void Awake()
@@ -25,7 +25,7 @@ public class GUI_TabNavigation : MonoBehaviour
 
     protected virtual void OnAwake()
     {
-        _currentInstance = new Pair();
+        _currentPageInstance = new Pair();
     }
 
     protected void ActivatePanel(GUI_TabNavigation.EType type)
@@ -105,13 +105,13 @@ public class GUI_TabNavigation : MonoBehaviour
 
     private void ActivatePanel(APage panel)
     {
-        if (_currentInstance.Page != null)
+        if (_currentPageInstance.Page != null)
         {
-            _currentInstance.Page.DeactivatePanel();
+            _currentPageInstance.Page.DeactivatePanel();
         }
 
-        _currentInstance.Page = panel;
-        _currentInstance.Page.ActivatePanel();
+        _currentPageInstance.Page = panel;
+        _currentPageInstance.Page.ActivatePanel();
         if (panel is GUI_Game guiGame)
         {
             GameManager.Instance.SetGame(guiGame);

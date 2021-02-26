@@ -16,16 +16,23 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 	protected GUI_TextFieldButton _textFieldButtonDefault = default;
 	[SerializeField]
 	protected APage _page = default;
+	[SerializeField]
+	private GUI_TextInputField _field = default;
+
+	private Button _currentSelectedButton = default;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
+
 
 		_textPanelsInstances.Add(new Pair()
 		{
 				Button = _textFieldButtonDefault,
 				Page = _page
 		});
+		_textFieldButtonDefault.SetTexts(new List<string>());
+		_currentSelectedButton = _textFieldButtonDefault.GetButton();
 		_textFieldButtonDefault.GetButton().onClick.AddListener(() => ButtonClickedListener(_textFieldButtonDefault));
 		ButtonClickedListener(_textFieldButtonDefault);
 		_createNewTextButton.onClick.AddListener(CreateNewTextButtonListener);
@@ -42,6 +49,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 		_textPanelsInstances.Add(page);
 		instance.SetTexts(text);
+		_currentSelectedButton = instance.GetButton();
 		instance.GetButton().onClick.AddListener(() => ButtonClickedListener(instance));
 		instance.DestroyObjectEvent.AddEventListener(RemoveTextInstance);
 		ButtonClickedListener(instance);
@@ -55,36 +63,21 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 			_textPanelsInstances.Remove(instance);
 			Destroy(instance.Button.gameObject);
 		}
-
-
 	}
 
 	private void CreateNewTextButtonListener()
 	{
-		CreateTextInstance(new List<string>());
+		CreateTextInstance(new List<string>()
+		{
+				""
+		});
 	}
 
 	private void ButtonClickedListener(GUI_TabButton button)
 	{
-		if (_currentInstance != null && _currentInstance != null)
-		{
-			if (_currentInstance.Page is GUI_TextInputField field)
-			{
-				SaveText(_currentInstance.Button as GUI_TextFieldButton, field);
-				ActivatePanel(GUI_TabNavigation.EType.Sentences);
-				SetCurrentInstanceText(button as GUI_TextFieldButton);
-			}
-			else
-			{
-				ActivatePanel(GUI_TabNavigation.EType.Sentences);
-				SetCurrentInstanceText(button as GUI_TextFieldButton);
-			}
-		}
-		else
-		{
-			ActivatePanel(GUI_TabNavigation.EType.Sentences);
-			SetCurrentInstanceText(button as GUI_TextFieldButton);
-		}
+		SaveText(_currentPageInstance.Button as GUI_TextFieldButton, _field);
+		ActivatePanel(GUI_TabNavigation.EType.Sentences);
+		SetCurrentInstanceText(button as GUI_TextFieldButton);
 	}
 
 	private void SaveText(GUI_TextFieldButton button, GUI_TextInputField field)
@@ -97,27 +90,45 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 	private void SetCurrentInstanceText(GUI_TextFieldButton textfield)
 	{
-		_currentInstance.Button = textfield;
-		if (_currentInstance.Page is GUI_TextInputField field)
+		_currentPageInstance.Button = textfield;
+		if (_currentPageInstance.Page is GUI_TextInputField field)
 		{
+	
 			List<string> text = textfield.GetText();
+			field.DeleteSentencesTexts();
 
-			for (int i = 0; i < field.InputField.Count; i++)
+			if (text.Count > 0)
 			{
-				field.InputField[i].RemoveText();
-				if (i < text.Count)
+				field.AddNewTextToDefault(text[0]);
+			}
+
+			if (text.Count > 1)
+			{
+				for (int i = 1; i < text.Count; i++)
 				{
-					field.InputField[i].AddText(text[i]);
+					field.AddNewSentence(text[i]);
 				}
 			}
+
+	
+
+
+			//for (int i = 0; i < field.InputField.Count; i++)
+			//{
+			//	field.InputField[i].RemoveText();
+			//	if (i < text.Count)
+			//	{
+			//		field.InputField[i].AddText(text[i]);
+			//	}
+			//}
 		}
 	}
 
 	public override void CreateGame()
 	{
-		if (_currentInstance.Page is GUI_TextInputField field)
+		if (_currentPageInstance.Page is GUI_TextInputField field)
 		{
-			SaveText(_currentInstance.Button as GUI_TextFieldButton, field);
+			SaveText(_currentPageInstance.Button as GUI_TextFieldButton, field);
 		}
 
 		base.CreateGame();
@@ -125,9 +136,9 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 	public override void CreateModelRepresentation()
 	{
-		if (_currentInstance.Page is GUI_TextInputField field)
+		if (_currentPageInstance.Page is GUI_TextInputField field)
 		{
-			SaveText(_currentInstance.Button as GUI_TextFieldButton, field);
+			SaveText(_currentPageInstance.Button as GUI_TextFieldButton, field);
 		}
 		base.CreateModelRepresentation();
 	}
