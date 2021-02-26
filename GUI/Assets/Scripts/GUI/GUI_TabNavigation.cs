@@ -75,7 +75,7 @@ public class GUI_TabNavigation : MonoBehaviour
         {
             buttonInstance.GetButton().onClick.AddListener(CreateGame);
         }
-        else if (type == EType.WorldText)
+        else if (type == EType.PL1Structure)
         {
             buttonInstance.GetButton().onClick.AddListener(CreateModelRepresentation);
         }
@@ -87,7 +87,7 @@ public class GUI_TabNavigation : MonoBehaviour
         {
             CreateGame();
         }
-        else if (type == EType.WorldText)
+        else if (type == EType.PL1Structure)
         {
             CreateModelRepresentation();
         }
@@ -100,7 +100,7 @@ public class GUI_TabNavigation : MonoBehaviour
 
     public virtual void CreateModelRepresentation()
     {
-        ActivatePanel(GUI_TabNavigation.EType.WorldText);
+        ActivatePanel(GUI_TabNavigation.EType.PL1Structure);
     }
 
     private void ActivatePanel(APage panel)
@@ -143,7 +143,7 @@ public class GUI_TabNavigation : MonoBehaviour
     public enum EType
     {
         Sentences,
-        WorldText,
+        PL1Structure,
         Game
     }
 
