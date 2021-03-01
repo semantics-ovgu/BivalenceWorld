@@ -19,7 +19,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 	[SerializeField]
 	private GUI_TextInputField _field = default;
 
-	private Button _currentSelectedButton = default;
+	private GUI_TextFieldButton _currentSelectedButton = default;
 
 	protected override void OnAwake()
 	{
@@ -32,10 +32,22 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 				Page = _page
 		});
 		_textFieldButtonDefault.SetTexts(new List<string>());
-		_currentSelectedButton = _textFieldButtonDefault.GetButton();
+		SetCurrentSelectButton(_textFieldButtonDefault);
 		_textFieldButtonDefault.GetButton().onClick.AddListener(() => ButtonClickedListener(_textFieldButtonDefault));
 		ButtonClickedListener(_textFieldButtonDefault);
 		_createNewTextButton.onClick.AddListener(CreateNewTextButtonListener);
+	}
+
+	private void SetCurrentSelectButton(GUI_TextFieldButton newFieldButton)
+	{
+		if (_currentSelectedButton != null)
+		{
+			_currentSelectedButton.UnHover();
+		}
+
+		_currentSelectedButton = newFieldButton;
+		_currentSelectedButton.Hover();
+
 	}
 
 	public void CreateTextInstance(List<string> text)
@@ -49,7 +61,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 		_textPanelsInstances.Add(page);
 		instance.SetTexts(text);
-		_currentSelectedButton = instance.GetButton();
+		SetCurrentSelectButton(instance);
 		instance.GetButton().onClick.AddListener(() => ButtonClickedListener(instance));
 		instance.DestroyObjectEvent.AddEventListener(RemoveTextInstance);
 		ButtonClickedListener(instance);
@@ -90,6 +102,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 	private void SetCurrentInstanceText(GUI_TextFieldButton textfield)
 	{
+		SetCurrentSelectButton(textfield);
 		_currentPageInstance.Button = textfield;
 		if (_currentPageInstance.Page is GUI_TextInputField field)
 		{
@@ -109,18 +122,6 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 					field.AddNewSentence(text[i]);
 				}
 			}
-
-	
-
-
-			//for (int i = 0; i < field.InputField.Count; i++)
-			//{
-			//	field.InputField[i].RemoveText();
-			//	if (i < text.Count)
-			//	{
-			//		field.InputField[i].AddText(text[i]);
-			//	}
-			//}
 		}
 	}
 

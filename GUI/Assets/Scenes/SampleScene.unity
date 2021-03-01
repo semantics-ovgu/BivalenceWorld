@@ -57071,6 +57071,21 @@ PrefabInstance:
       propertyPath: m_textInfo.lineCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329602, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329602, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4956965484927329602, guid: cf75b03a056e29d489ca74c9e4df1af7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4956965484927329628, guid: cf75b03a056e29d489ca74c9e4df1af7,
         type: 3}
       propertyPath: m_LocalPosition.x

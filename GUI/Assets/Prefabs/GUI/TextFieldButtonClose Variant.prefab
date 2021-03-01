@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 1018487535880657351}
   _buttonName: {fileID: 1018487536293745468}
+  _hoverColor: {r: 0.8117647, g: 0.79607844, b: 0.56078434, a: 1}
   _closeButton: {fileID: 2177713273827133428}
 --- !u!1 &3557863587419134418
 GameObject:
