@@ -7,12 +7,8 @@ using Validator.Game;
 public class DragObject : MonoBehaviour
 {
     private Vector3 _mOffset;
-    private float _mZCoord;
-    private float _yCord = 0.0f;
     [SerializeField]
     private MeshRenderer _renderer = default;
-    [SerializeField]
-    private Material _selectedMaterial = default;
     private Material _normalMaterial = default;
     [SerializeField]
     private PredicateObj _predicate = default;
@@ -26,7 +22,7 @@ public class DragObject : MonoBehaviour
         _normalMaterial = _renderer.material;
     }
 
-    private void OnMouseDown()
+    public void OnMouseDownEvent()
     {
         if (GameManager.Instance.GUIGame != null && GameManager.Instance.GUIGame.IsGameRunning)
         {
@@ -57,26 +53,17 @@ public class DragObject : MonoBehaviour
             }
         }
 
-        var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
+        var asd = Physics.RaycastAll(GameManager.Instance.GetScreenToRay());
         _startPos = _rootObj.position;
         if (asd.Any())
         {
             _dragOffset = asd[0].point - _rootObj.position;
         }
-        _mZCoord = GameManager.Instance.GetCameraManager().GetCurrentCamera().WorldToScreenPoint(gameObject.transform.position).z;
     }
 
-    private Vector3 GetMouseAsWorldPoint()
+    public void OnMouseDragEvent()
     {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = _mZCoord;
-        return GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenToWorldPoint(mousePoint);
-    }
-
-
-    private void OnMouseDrag()
-    {
-        var asd = Physics.RaycastAll(GameManager.Instance.GetCameraManager().GetCurrentCamera().ScreenPointToRay(Input.mousePosition));
+        var asd = Physics.RaycastAll(GameManager.Instance.GetScreenToRay());
 
         if (asd.Length > 0)
         {
@@ -93,7 +80,7 @@ public class DragObject : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    public void OnMouseUpEvent()
     {
         SelectionManager selection = GameManager.Instance.GetSelectionManager();
 

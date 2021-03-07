@@ -31,6 +31,41 @@ public class ConstantButton : GUI_Button
         }
     }
 
+    public override void ButtonUnselect()
+    {
+        base.ButtonUnselect();
+        ValidateOverlay();
+    }
+
+    private void ValidateOverlay()
+    {
+        var board = GameManager.Instance.GetCurrentBoard();
+        if (_instance != null)
+        {
+            if (board.IsConstantUsed(_constant) && !_instance.GetConstantsList().Contains(_constant))
+            {
+                _button.interactable = false;
+                _activeOverlay.gameObject.SetActive(false);
+            }
+            else
+            {
+                _button.interactable = true;
+                if (_instance.GetConstantsList() != null && _instance.GetConstantsList().Contains(_constant))
+                {
+                    _activeOverlay.gameObject.SetActive(true);
+                }
+                else
+                {
+                    _activeOverlay.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            _activeOverlay.gameObject.SetActive(false);
+        }
+    }
+
     protected override void ButtonClickedListener()
     {
         if (_instance != null)
@@ -49,6 +84,8 @@ public class ConstantButton : GUI_Button
             {
                 _instance.AddConstant(_constant);
             }
+
+            ValidateOverlay();
         }
         else
         {
@@ -78,20 +115,15 @@ public class ConstantButton : GUI_Button
 
     private void SelectionClickedListener(SelectionManager.EventArgs arg0)
     {
-        var board = GameManager.Instance.GetCurrentBoard();
-        var element = arg0.CurrentSelectedElement.GetRootObj().GetComponent<IConstant>();
-        if (element != null)
+        if (arg0.CurrentSelectedElement != null)
         {
-            _instance = element;
+            var element = arg0.CurrentSelectedElement.GetRootObj().GetComponent<IConstant>();
+            if (element != null)
+            {
+                _instance = element;
+            }
         }
 
-        if (board.IsConstantUsed(_constant) && !element.GetConstantsList().Contains(_constant))
-        {
-            _button.interactable = false;
-        }
-        else
-        {
-            _button.interactable = true;
-        }
+        ValidateOverlay();
     }
 }

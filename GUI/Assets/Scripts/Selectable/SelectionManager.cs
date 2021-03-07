@@ -20,7 +20,7 @@ public class SelectionManager : MonoBehaviour, IDebug
 
     private void Start()
     {
-        _targetCamera = GameManager.Instance.GetMainCamera();
+        _targetCamera = GameManager.Instance.GetTextureCamera();
         GameManager.Instance.GetCameraManager().CameraChangedEvent.AddEventListener(CameraChangedListener);
         GameManager.Instance?.AddObjToDebugList(this);
     }
@@ -73,7 +73,7 @@ public class SelectionManager : MonoBehaviour, IDebug
 
     private void CalculateRayCast()
     {
-        RaycastHit[] elements = Physics.RaycastAll(_targetCamera.ScreenPointToRay(Input.mousePosition), 150f, _layerMask.value);
+        RaycastHit[] elements = Physics.RaycastAll(GameManager.Instance.GetScreenToRay(), 150f, _layerMask.value);
         if (elements != null && elements.Length > 0)
         {
             Transform selection = elements[0].transform;
@@ -124,6 +124,12 @@ public class SelectionManager : MonoBehaviour, IDebug
         _targetSelectable = targetInterface;
         targetInterface.StartHover();
         SetDebugConsole(targetInterface.GetDebugInformation());
+    }
+
+    public void SelectSelectable(ISelectable selectable)
+    {
+        _targetSelectable = selectable;
+        SelectObj();
     }
 
     private void ResetTmpInstance()

@@ -92,6 +92,7 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         if (obj != null)
         {
             TryCreatePredicate(predicate);
+            GameManager.Instance.GetSelectionManager().SelectSelectable(GetComponent<ISelectable>());
         }
         else
         {

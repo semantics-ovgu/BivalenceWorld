@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : ASingleton<GameManager>
 {
@@ -7,12 +8,21 @@ public class GameManager : ASingleton<GameManager>
     private FloatVar _debugFloatVar = default;
 
     [SerializeField]
+    private Camera _textureCamera = default;
+    [SerializeField]
     private Camera _mainCamera = default;
     [SerializeField]
     private SelectionManager _selectionManager = default;
     [SerializeField]
     private GUI_Game _guiGame = default;
     public GUI_Game GUIGame => _guiGame;
+
+    [SerializeField]
+    private RectTransform _scaleRectTransform = default;
+    [SerializeField]
+    private RectTransform _gameRectTransform = default;
+    [SerializeField]
+    private CanvasScaler _canvasScaler = default;
 
     [SerializeField]
     private GUI_TextInputField _textInputField = default;
@@ -77,6 +87,19 @@ public class GameManager : ASingleton<GameManager>
     public Camera GetMainCamera()
     {
         return _cameraManager.GetCurrentCamera();
+    }
+
+    public Camera GetTextureCamera()
+    {
+        return _cameraManager.GetCurrentCamera();
+    }
+
+    public Ray GetScreenToRay()
+    {
+        float xAspect = 1 / _scaleRectTransform.localScale.x;
+        float yAspect = _canvasScaler.referenceResolution.y / _mainCamera.pixelHeight;
+        var mousePos = new Vector3(Input.mousePosition.x * xAspect, Input.mousePosition.y * yAspect, Input.mousePosition.z);
+        return _textureCamera.ScreenPointToRay(mousePos);
     }
 
     public SelectionManager GetSelectionManager()

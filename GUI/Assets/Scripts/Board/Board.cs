@@ -116,7 +116,6 @@ public class Board : MonoBehaviour, IDebug
                     instance.SetDebugMode(GameManager.Instance.IsDebugMode(GetDebugID()));
                 }
 
-
                 if (x % 2 == 0 && z % 2 != 0)
                 {
                     instance.SetMaterial(_blackMaterial);
