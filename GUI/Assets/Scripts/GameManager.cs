@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.GUI.World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,10 @@ public class GameManager : ASingleton<GameManager>
     [SerializeField]
     private GUI_Game _guiGame = default;
     public GUI_Game GUIGame => _guiGame;
+
+    [SerializeField]
+    private GUI_Factory_TabButton _buttonPrefab = default;
+    public GUI_Factory_TabButton ButtonPrefabFactory => _buttonPrefab;
 
     [SerializeField]
     private RectTransform _scaleRectTransform = default;

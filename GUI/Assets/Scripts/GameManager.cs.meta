@@ -3,7 +3,20 @@ guid: 3edbf4712aa8e0d47a0cacab46df7970
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _debugFloatVar: {instanceID: 0}
+  - _textureCamera: {instanceID: 0}
+  - _mainCamera: {instanceID: 0}
+  - _selectionManager: {instanceID: 0}
+  - _guiGame: {instanceID: 0}
+  - _buttonPrefab: {fileID: 6797074127725507695, guid: 3a5ddfd9f6cb5e14d927f6eee9f7da9c,
+      type: 3}
+  - _scaleRectTransform: {instanceID: 0}
+  - _gameRectTransform: {instanceID: 0}
+  - _canvasScaler: {instanceID: 0}
+  - _textInputField: {instanceID: 0}
+  - _cameraManager: {instanceID: 0}
+  - _navigationText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
