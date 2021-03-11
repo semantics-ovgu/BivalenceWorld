@@ -97,19 +97,24 @@ public class GUI_SaveCurrentGame : GUI_Button
         {
             return;
         }
-        List<GUI_TextInputElement> list = manager.GetTextInputField().GetGuiTextElementsWithText();
-        var resultSentences = new List<string>();
-        foreach (GUI_TextInputElement item in list)
-        {
-            resultSentences.Add(item.GetInputText());
-        }
+
+        var currentButton = manager.NavigationText.GetCurrentSelectedButton();
+        //List<GUI_TextInputElement> list = manager.GetTextInputField().GetGuiTextElementsWithText();
+        //var resultSentences = new List<string>();
+        //foreach (GUI_TextInputElement item in list)
+        //{
+        //    resultSentences.Add(item.GetInputText());
+        //}
 
         //var jsonString = JsonConvert.SerializeObject(resultSentences);
-        string correctData = JsonConvert.SerializeObject(resultSentences, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        SaveDataSentences(correctData, SENTENCES);
+        string correctData = JsonConvert.SerializeObject(currentButton.GetText(), new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+        var path = SaveDataSentences(correctData, SENTENCES);
+        var rawName = Path.GetFileName(path);
+        var name = rawName.Split('.')[0];
+        currentButton.SetButtonName(name);
     }
 
-    private void SaveDataSentences(string fileContent, string sentences)
+    private string SaveDataSentences(string fileContent, string sentences)
     {
         ExtensionFilter[] filter = new ExtensionFilter[]
         {
@@ -123,6 +128,8 @@ public class GUI_SaveCurrentGame : GUI_Button
             File.WriteAllText(path, fileContent);
             _lastChoosenDirectory = Path.GetDirectoryName(path);
         }
+
+        return path;
     }
 
     private void SaveData(string data, string endString)

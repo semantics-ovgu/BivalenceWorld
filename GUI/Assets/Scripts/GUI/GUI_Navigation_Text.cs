@@ -21,16 +21,23 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
 	private GUI_TextFieldButton _currentSelectedButton = default;
 
+	public GUI_TextFieldButton GetCurrentSelectedButton()
+	{
+		return _currentSelectedButton;
+
+	}
+
+
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-
-
+		
 		_textPanelsInstances.Add(new Pair()
 		{
 				Button = _textFieldButtonDefault,
 				Page = _page
 		});
+
 		_textFieldButtonDefault.SetTexts(new List<string>());
 		SetCurrentSelectButton(_textFieldButtonDefault);
 		_textFieldButtonDefault.GetButton().onClick.AddListener(() => ButtonClickedListener(_textFieldButtonDefault));
@@ -38,19 +45,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 		_createNewTextButton.onClick.AddListener(CreateNewTextButtonListener);
 	}
 
-	private void SetCurrentSelectButton(GUI_TextFieldButton newFieldButton)
-	{
-		if (_currentSelectedButton != null)
-		{
-			_currentSelectedButton.UnHover();
-		}
-
-		_currentSelectedButton = newFieldButton;
-		_currentSelectedButton.Hover();
-
-	}
-
-	public void CreateTextInstance(List<string> text)
+	public void CreateTextInstance(string name, List<string> text)
 	{
 		GUI_TextFieldCloseButton instance = Instantiate(_textfieldButtonPrefab, _buttonAnchor);
 		var page = new Pair()
@@ -59,6 +54,7 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 				Page = _page
 		};
 
+		instance.SetButtonName(name);
 		_textPanelsInstances.Add(page);
 		instance.SetTexts(text);
 		SetCurrentSelectButton(instance);
@@ -67,19 +63,40 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 		ButtonClickedListener(instance);
 	}
 
-	private void RemoveTextInstance(GUI_TextFieldCloseButton arg0)
+	public void OverwriteCurrentText(string name, List<string> text)
 	{
-		var instance = _textPanelsInstances.Find(x => x.Button = arg0);
+		_currentSelectedButton.SetButtonName(name);
+		_currentSelectedButton.SetTexts(text);
+		SetCurrentInstanceText(_currentSelectedButton);
+	}
+
+	private void SetCurrentSelectButton(GUI_TextFieldButton newFieldButton)
+	{
+		if (_currentSelectedButton != null && newFieldButton != _currentSelectedButton)
+		{
+			_currentSelectedButton.UnHover();
+		}
+
+		_currentSelectedButton = newFieldButton;
+		_currentSelectedButton.Hover();
+	}
+
+	private void RemoveTextInstance(GUI_TextFieldButton arg0)
+	{
+		var instance = _textPanelsInstances.Find(x => x.Button == arg0);
 		if (instance != null)
 		{
 			_textPanelsInstances.Remove(instance);
 			Destroy(instance.Button.gameObject);
 		}
+
+		var fieldButton = _textPanelsInstances[0];
+		ButtonClickedListener(fieldButton.Button);
 	}
 
 	private void CreateNewTextButtonListener()
 	{
-		CreateTextInstance(new List<string>()
+		CreateTextInstance("Untitled Sentences",new List<string>()
 		{
 				""
 		});
@@ -106,9 +123,8 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 		_currentPageInstance.Button = textfield;
 		if (_currentPageInstance.Page is GUI_TextInputField field)
 		{
-	
 			List<string> text = textfield.GetText();
-			field.DeleteSentencesTexts();
+			CleanField(field);
 
 			if (text.Count > 0)
 			{
@@ -123,6 +139,11 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 				}
 			}
 		}
+	}
+
+	private void CleanField(GUI_TextInputField field)
+	{
+		field.DeleteSentencesTexts();
 	}
 
 	public override void CreateGame()

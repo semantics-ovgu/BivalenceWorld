@@ -118,11 +118,6 @@ public class GUI_TabNavigation : MonoBehaviour
         }
     }
 
-    public void DeleteText()
-    {
-
-    }
-
     #region Helper
 
     [System.Serializable]

@@ -92,9 +92,13 @@ public class GUI_LoadGame : GUI_Button
     {
         var jsonStringBack = Load(path);
         if (jsonStringBack == "")
-            return;
+        {
+	        return;
+        }
 
         var deserializedObj = JsonConvert.DeserializeObject<List<string>>(jsonStringBack);
+        var rawName = Path.GetFileName(path);
+        var name = rawName.Split('.')[0];
 
         if (deserializedObj != null)
         {
@@ -107,29 +111,27 @@ public class GUI_LoadGame : GUI_Button
             if (_openNewTabToggle.isOn)
             {
                 List<string> txt = new List<string>();
-                List<GUI_TextInputElement> list = manager.GetTextInputField().InputField;
-                for (var i = 0; i < list.Count; i++)
+                for (var i = 0; i < deserializedObj.Count; i++)
                 {
-                    var item = list[i];
-                    if (i < deserializedObj.Count)
-                    {
-                        txt.Add(deserializedObj[i]);
-                    }
+	                if (i < deserializedObj.Count)
+	                {
+		                txt.Add(deserializedObj[i]);
+	                }
                 }
-                manager.NavigationText.CreateTextInstance(txt);
+
+                manager.NavigationText.CreateTextInstance(name, txt);
             }
             else
             {
-                manager.GetTextInputField().CleanAllText();
-                List<GUI_TextInputElement> list = manager.GetTextInputField().InputField;
-                for (var i = 0; i < list.Count; i++)
+                List<string> txt = new List<string>();
+                for (var i = 0; i < deserializedObj.Count; i++)
                 {
-                    var item = list[i];
-                    if (i < deserializedObj.Count)
+	                if (i < deserializedObj.Count)
                     {
-                        list[i].AddText(deserializedObj[i]);
+	                    txt.Add(deserializedObj[i]);
                     }
                 }
+                manager.NavigationText.OverwriteCurrentText(name, txt);
             }
         }
     }

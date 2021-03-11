@@ -11,6 +11,9 @@ public class GUI_TabButton : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI _buttonName = default;
 
+	[SerializeField]
+	private Color _hoverColor = default;
+
 	public Button GetButton()
 	{
 		return _button;
@@ -19,5 +22,15 @@ public class GUI_TabButton : MonoBehaviour
 	public void SetButtonName(string name)
 	{
 		_buttonName.SetText(name);
+	}
+	public void UnHover()
+	{
+		GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+	}
+
+	public void Hover()
+	{
+		GetComponent<Image>().color = _hoverColor;
 	}
 }

@@ -61,7 +61,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -221,7 +220,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -292,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 5305070054601433778}
   _buttonName: {fileID: 5305070053223962308}
+  _hoverColor: {r: 0.68235296, g: 0.65882355, b: 0.22352941, a: 1}
 --- !u!1 &5305070054625267881
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +351,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

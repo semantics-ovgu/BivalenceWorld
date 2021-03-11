@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8492980969731021677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5223252774324870673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a65daa1607ca35438a1cb8fb9102a0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 5223252774324870679}
-  _buttonName: {fileID: 5223252772658063969}
-  _closeButton: {fileID: 1569907178395008672}
 --- !u!1 &2460586588012194338
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +61,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -233,7 +217,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -246,6 +229,22 @@ MonoBehaviour:
   m_canvasRenderer: {fileID: 8915620635749722998}
   m_TextComponent: {fileID: 8239847265429518247}
   m_materialReferenceIndex: 1
+--- !u!114 &8492980969731021677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223252774324870673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a65daa1607ca35438a1cb8fb9102a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 5223252774324870679}
+  _buttonName: {fileID: 5223252772658063969}
+  _hoverColor: {r: 0.6792453, g: 0.65861, b: 0.22107512, a: 1}
+  _closeButton: {fileID: 1569907178395008672}
 --- !u!1 &8274487030087983638
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +307,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
