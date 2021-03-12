@@ -41,6 +41,8 @@ public class PredicateButton : GUI_Button
     private void SelectionUnclickedListener(SelectionManager.EventArgs arg0)
     {
         _instance = null;
+
+        ValidateOverlay();
     }
 
     public override void ButtonUnselect()

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Boards;
 using Assets.Scripts.GUI.World;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,11 @@ public class GameManager : ASingleton<GameManager>
 {
     [SerializeField]
     private FloatVar _debugFloatVar = default;
+
+    private BoardHandler _boardHandler = null;
+
+    [SerializeField]
+    private BoardHandlerFactory _boardFactory = default;
 
     [SerializeField]
     private Camera _textureCamera = default;
@@ -52,8 +58,6 @@ public class GameManager : ASingleton<GameManager>
     public GenericEvent<GUI_GetModelPresentation> CreateNewInstanceFromModelPresentationEvent = new GenericEvent<GUI_GetModelPresentation>();
     public GenericEvent<string> ConstantChangedEvent = new GenericEvent<string>();
 
-    private Board _currentBoard = default;
-
     private List<IDebug> _debugList = new List<IDebug>();
     public FloatVar DebugFloatVar => _debugFloatVar;
 
@@ -70,9 +74,9 @@ public class GameManager : ASingleton<GameManager>
     private GUI_Navigation_Text _navigationText = default;
     public GUI_Navigation_Text NavigationText => _navigationText;
 
-
     private void Start()
     {
+        _boardHandler = _boardFactory.CreateBoardHandler();
         CheckDebugList(_debugFloatVar.CurrentValue);
     }
 
@@ -86,7 +90,7 @@ public class GameManager : ASingleton<GameManager>
 
     public Board GetCurrentBoard()
     {
-        return _currentBoard;
+        return _boardHandler.GetCurrentBoard();
     }
 
     public Camera GetMainCamera()
@@ -122,9 +126,19 @@ public class GameManager : ASingleton<GameManager>
         return id == _debugFloatVar.CurrentValue;
     }
 
-    public void RegisterBoard(Board board)
+    public Board RegisterBoard(Board prefabBoard)
     {
-        _currentBoard = board;
+        return _boardHandler.CreateNewBoard(prefabBoard);
+    }
+
+    public void SetCurrentActiveBoard(Board board)
+    {
+        _boardHandler.SetCurrentBoard(board);
+    }
+
+    public void RemoveBoard(Board board)
+    {
+        _boardHandler.RemoveBoard(board);
     }
 
     public void SetGame(GUI_Game game)

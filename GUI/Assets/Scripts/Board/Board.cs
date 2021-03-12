@@ -15,6 +15,10 @@ public class Board : MonoBehaviour, IDebug
     private int _heigh = 8;
 
     [SerializeField]
+    private Transform _camPos = default;
+    public Transform CamPos => _camPos;
+
+    [SerializeField]
     private Material _blackMaterial = default;
     [SerializeField]
     private Transform _anchor = default;
@@ -25,7 +29,6 @@ public class Board : MonoBehaviour, IDebug
     private void Awake()
     {
         GameManager.Instance?.AddObjToDebugList(this);
-        GameManager.Instance?.RegisterBoard(this);
         CreateMap();
     }
 

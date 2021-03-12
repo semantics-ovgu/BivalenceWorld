@@ -28,7 +28,7 @@ public class GUI_ValidateButton : GUI_Button, IDebug
 	protected override void ButtonClickedListener()
 	{
 		_validation.StartCalculator();
-	}
+    }
 
 	public void ValidateSentences(List<GUI_TextInputElement> textputElement, List<string> sentences)
 	{

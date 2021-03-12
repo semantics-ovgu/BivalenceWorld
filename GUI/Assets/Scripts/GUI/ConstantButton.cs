@@ -111,6 +111,8 @@ public class ConstantButton : GUI_Button
     private void SelectionUnclickedListener(SelectionManager.EventArgs arg0)
     {
         _instance = null;
+
+        ValidateOverlay();
     }
 
     private void SelectionClickedListener(SelectionManager.EventArgs arg0)

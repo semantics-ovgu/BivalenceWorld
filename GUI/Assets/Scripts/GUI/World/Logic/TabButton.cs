@@ -11,6 +11,8 @@ namespace Assets.Scripts.GUI.World
         void SetRoot(RectTransform root);
 
         void Destroy();
+
+        void Unselect();
     }
 
     public struct TabButtonContainer

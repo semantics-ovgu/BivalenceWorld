@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour, IDebug
 {
-    private Camera _targetCamera = default;
     private ISelectable _targetSelectable = default;
     private ISelectable _clickedElemente = default;
 
@@ -20,14 +19,7 @@ public class SelectionManager : MonoBehaviour, IDebug
 
     private void Start()
     {
-        _targetCamera = GameManager.Instance.GetTextureCamera();
-        GameManager.Instance.GetCameraManager().CameraChangedEvent.AddEventListener(CameraChangedListener);
         GameManager.Instance?.AddObjToDebugList(this);
-    }
-
-    private void CameraChangedListener(CameraRotation.CameraArgs cameraArgs)
-    {
-        _targetCamera = cameraArgs.Camera;
     }
 
     private void Update()
@@ -69,6 +61,11 @@ public class SelectionManager : MonoBehaviour, IDebug
             _clickedElemente.Deselectable();
             _clickedElemente = null;
         }
+    }
+
+    public void ResetSelection()
+    {
+        TryDeselectLastClickedObj();
     }
 
     private void CalculateRayCast()

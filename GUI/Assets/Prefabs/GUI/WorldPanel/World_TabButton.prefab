@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8117648, g: 0.7960785, b: 0.56078434, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -710,3 +710,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 4976620361002881043}
   _deleteButton: {fileID: 532579894600452079}
+  _selectionColor: {r: 0.8113208, g: 0.79707944, b: 0.56256676, a: 1}

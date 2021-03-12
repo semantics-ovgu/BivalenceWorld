@@ -15,6 +15,10 @@ namespace Assets.Scripts.GUI.World
         private Button _button = default;
         [SerializeField]
         private Button _deleteButton = default;
+        [SerializeField]
+        private Color _selectionColor = Color.yellow;
+        private Color _defaultColor = Color.white;
+
         private Panel _panel = default;
 
         public override TabButton Create(Panel panel)
@@ -43,6 +47,8 @@ namespace Assets.Scripts.GUI.World
                 Button = this
             };
 
+            _button.image.color = _selectionColor;
+
             callback.Invoke(eventArgs);
         }
 
@@ -59,6 +65,11 @@ namespace Assets.Scripts.GUI.World
         public void Destroy()
         {
             Destroy(gameObject);
+        }
+
+        public void Unselect()
+        {
+            _button.image.color = _defaultColor;
         }
     }
 }

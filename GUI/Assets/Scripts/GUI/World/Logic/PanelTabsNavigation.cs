@@ -95,6 +95,10 @@ namespace Assets.Scripts.GUI.World
                     _activePanel = _panels[0];
                 }
             }
+            else
+            {
+                _activePanel = null;
+            }
         }
     }
 
