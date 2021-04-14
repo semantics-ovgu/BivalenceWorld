@@ -65,12 +65,12 @@ namespace Validator
             return result;
         }
 
-        private List<Question.Selection> CreatePossibleSelection(Dictionary<string, string> dictVariables)
+        private List<Question.Selection> CreatePossibleSelection(bool guess, Dictionary<string, string> dictVariables)
         {
             var selection = new List<Question.Selection>();
             foreach (var argument in Arguments)
             {
-                selection.Add(new Question.Selection(argument, dictVariables));
+                selection.Add(new Question.Selection(guess, argument, dictVariables));
             }
 
             return selection;
@@ -109,7 +109,7 @@ namespace Validator
             }
             else
             {
-                var questionMessage = new Question(game, this, "Choose a formula that you believe to be false.", CreatePossibleSelection(dictVariables));
+                var questionMessage = new Question(game, this, "Choose a formula that you believe to be false.", CreatePossibleSelection(false, dictVariables));
                 var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:\n{ArgumentsToString(dictVariables)}\n[You will try to choose a false formula]", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis false?", allTrueInfo);
             }

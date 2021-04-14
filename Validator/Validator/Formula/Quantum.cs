@@ -127,12 +127,12 @@ namespace Validator
             return result;
         }
 
-        private List<Question.Selection> CreatePossibleSelection(Game.Game game, Dictionary<string, string> dictVariables)
+        private List<Question.Selection> CreatePossibleSelection(bool guess, Game.Game game, Dictionary<string, string> dictVariables)
         {
             var selection = new List<Question.Selection>();
             foreach (var worldObject in game.WorldObjects)
             {
-                selection.Add(new Question.Selection(Arguments[0], dictVariables, worldObject, _variable.Name));
+                selection.Add(new Question.Selection(guess, Arguments[0], dictVariables, worldObject, _variable.Name));
             }
 
             return selection;
@@ -163,7 +163,7 @@ namespace Validator
 
             if (game.Guess)
             {
-                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(game, dictVariables));
+                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(true, game, dictVariables));
                 var infoVariable = new InfoMessage(game, this, $"So you believe that some object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nYou will try to find an instance", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", infoVariable);
             }
@@ -185,7 +185,7 @@ namespace Validator
             }
             else
             {
-                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(game, dictVariables));
+                var questionMessage = new Question(game, this, $"Choose a block that satisfies:\n{Arguments[0].ReformatFormula(dictVariables)}", CreatePossibleSelection(false, game, dictVariables));
                 var infoVariable = new InfoMessage(game, this, $"So you believe that every object [{_variable.ReformatFormula(dictVariables)}] satisfies\n{Arguments[0].ReformatFormula(dictVariables)}\nYou will try to find an instance", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", infoVariable);
             }

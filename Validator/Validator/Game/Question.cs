@@ -44,6 +44,7 @@ namespace Validator.Game
 
         public class Selection
         {
+            private bool _guess = true;
             private WorldObject _worldObject;
             public WorldObject WorldObject => _worldObject;
             private Formula _formula;
@@ -54,15 +55,16 @@ namespace Validator.Game
             private string _variable = "";
             public string Message => _formula.ReformatFormula(_dictVariables);
 
-            public Selection(Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(formula, dictVariables)
+            public Selection(bool guess, Formula formula, Dictionary<string, string> dictVariables, WorldObject obj, string variable) : this(guess, formula, dictVariables)
             {
                 _worldObject = new WorldObject(obj);
                 _variable = variable;
                 _selectionType = SelectionTypes.WorldObject;
             }
 
-            public Selection(Formula formula, Dictionary<string, string> dictVariables)
+            public Selection(bool guess, Formula formula, Dictionary<string, string> dictVariables)
             {
+                _guess = guess;
                 _formula = formula;
                 _selectionType = SelectionTypes.Formula;
                 _dictVariables = new Dictionary<string, string>();
@@ -101,6 +103,8 @@ namespace Validator.Game
                 {
                     ChangeWorldObjects(game);
                 }
+
+                game.SetGuess(_guess);
 
                 return _formula.CreateNextMove(game, _dictVariables);
             }

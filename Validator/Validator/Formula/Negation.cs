@@ -50,16 +50,17 @@ namespace Validator
         {
             var result = Validate(game.World, dictVariables);
 
-            var clonedGame = game.Clone() as Game.Game;
-            clonedGame.SetGuess(!clonedGame.Guess);
 
             if (game.Guess)
             {
-                return new InfoMessage(clonedGame, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", _formula.CreateNextMove(clonedGame, dictVariables));
+
+                game.SetGuess(!game.Guess);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is true", _formula.CreateNextMove(game, dictVariables));
             }
             else
             {
-                return new InfoMessage(clonedGame, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", _formula.CreateNextMove(clonedGame, dictVariables));
+                game.SetGuess(!game.Guess);
+                return new InfoMessage(game, this, $"So you believe that \n{ReformatFormula(dictVariables)}\n is false", _formula.CreateNextMove(game, dictVariables));
             }
         }
     }
