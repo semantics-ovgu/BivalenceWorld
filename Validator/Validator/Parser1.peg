@@ -91,7 +91,7 @@ argument <List<Argument>> -memoize	= argument:argument argumentDelimiter secondA
 									/ singleArgument:singleArgument { new List<Argument> { singleArgument }}
 
 //Single Argument
-singleArgument <Argument> = function / constant / variable
+singleArgument <Argument> = function / variable / constant
 
 //Constant
 constant <Constant> = constant:constantstring { new Constant(constant,constant) }
@@ -99,7 +99,7 @@ constant <Constant> = constant:constantstring { new Constant(constant,constant) 
 //Variable
 variable <Variable> = variable:variableString { new Variable(variable.First(),variable.First()) }
 
-constantstring = "" ([a-t]i)+
+constantstring = "" ([a-z]i)+
 functionString = "" [a-z] ([a-z]i)*
 predicateString = "" [A-Z] ([a-z]i)*
 variableString = ([u-z]i)<1>

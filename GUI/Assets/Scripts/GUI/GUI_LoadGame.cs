@@ -157,7 +157,6 @@ public class GUI_LoadGame : GUI_Button
             _panelNavigation.AddAndShowPanel(_boardPanel.Create());
             _buttonPanel.GetActiveButton().SetName(Path.GetFileNameWithoutExtension(path));
             var board = GameManager.Instance.GetCurrentBoard();
-            board.SetSavePath(path);
 
             foreach (var item in worldObjs)
             {
@@ -187,6 +186,8 @@ public class GUI_LoadGame : GUI_Button
                     Debug.LogWarning("Can not find field with the coord: X: " + xRaw + ", Z: " + zRaw);
                 }
             }
+
+            board.SetSavePath(path);
         }
     }
 }

@@ -82,5 +82,13 @@ namespace Assets.Scripts.GUI.World
         {
             return this;
         }
+
+        public void Update()
+        {
+            foreach (var button in _tabButtons)
+            {
+                button.UpdateName();
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -40,6 +41,18 @@ public class Board : MonoBehaviour, IDebug
         GameManager.Instance?.AddObjToDebugList(this);
         _hasUnsavedChanges = true;
         CreateMap();
+    }
+
+    public string GetName()
+    {
+        if (string.IsNullOrEmpty(_savePath))
+        {
+            return "Unsaved World";
+        }
+        else
+        {
+            return Path.GetFileNameWithoutExtension(_savePath);
+        }
     }
 
     public void SetSavePath(string path)

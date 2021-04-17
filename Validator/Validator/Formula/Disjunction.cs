@@ -106,7 +106,7 @@ namespace Validator
             if (game.Guess)
             {
                 var questionMessage = new Question(game, this, "Choose a formula that you believe to be true.", CreatePossibleSelection(true, dictVariables));
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is true:\n{ArgumentsToString(dictVariables)}\n[You will try to choose a true formula]", questionMessage);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is true:\n{ArgumentsToString(dictVariables)}[You will try to choose a true formula]", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis true?", allTrueInfo);
             }
             else
@@ -120,7 +120,7 @@ namespace Validator
                 {
                     invalidMove = _validFormula.CreateNextMove(game, dictVariables);
                 }
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are false:\n{ArgumentsToString(dictVariables)}\n[Bivalence World will try to choose a true formula]", invalidMove);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are false:\n{ArgumentsToString(dictVariables)}[Bivalence World will try to choose a true formula]", invalidMove);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis false?", allTrueInfo);
             }
         }

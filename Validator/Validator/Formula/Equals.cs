@@ -22,7 +22,7 @@ namespace Validator
 
             if (!universeIdentifier.IsValid)
             {
-                return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.CanNotBeValidated, universeIdentifier.ErrorMessage);
+                return ResultSentence<EValidationResult>.CreateResult(false, EValidationResult.ConstantNotUsed, universeIdentifier.ErrorMessage);
             }
 
             string u1 = universeIdentifier.Value[0];

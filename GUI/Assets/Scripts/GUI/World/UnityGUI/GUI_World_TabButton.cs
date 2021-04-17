@@ -100,5 +100,10 @@ namespace Assets.Scripts.GUI.World
         {
             return _name.text;
         }
+
+        public void UpdateName()
+        {
+            _name.text = _panel.DefaultName();
+        }
     }
 }

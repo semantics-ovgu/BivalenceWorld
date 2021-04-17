@@ -14,6 +14,7 @@ namespace Assets.Scripts.GUI.World
     {
         [SerializeField]
         private RectTransform _content = default;
+        private IPanelName _panelName = null;
         [SerializeField]
         private string _defaultName = "Unknown";
 
@@ -22,9 +23,21 @@ namespace Assets.Scripts.GUI.World
             _content.gameObject.SetActive(true);
         }
 
+        private void Update()
+        {
+
+        }
+
         public string DefaultName()
         {
-            return _defaultName;
+            if (_panelName != null)
+            {
+                return _panelName.GetName();
+            }
+            else
+            {
+                return _defaultName;
+            }
         }
 
         public event Action<Panel> PanelDestroyedEvent;
@@ -61,6 +74,8 @@ namespace Assets.Scripts.GUI.World
             _content.position = Vector3.zero;
             _content.sizeDelta = Vector2.zero;
             _content.localScale = Vector3.one;
+
+            _panelName = _content.GetComponent<IPanelName>();
         }
 
         public bool IsVisible()

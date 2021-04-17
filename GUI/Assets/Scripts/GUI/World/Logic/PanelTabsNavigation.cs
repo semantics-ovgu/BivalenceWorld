@@ -107,6 +107,11 @@ namespace Assets.Scripts.GUI.World
             {
                 _activePanel = null;
             }
+
+            foreach (var panel in _panels)
+            {
+                _buttonPanel.Update();
+            }
         }
     }
 

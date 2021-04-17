@@ -104,13 +104,13 @@ namespace Validator
                 {
                     invalidMove = _invalidFormula.CreateNextMove(game, dictVariables);
                 }
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are true:\n{ArgumentsToString(dictVariables)}\n[Bivalence World will try to choose a false formula]", invalidMove);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that all of these formula are true:\n{ArgumentsToString(dictVariables)}[Bivalence World will try to choose a false formula]", invalidMove);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis true?", allTrueInfo);
             }
             else
             {
                 var questionMessage = new Question(game, this, "Choose a formula that you believe to be false.", CreatePossibleSelection(false, dictVariables));
-                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:\n{ArgumentsToString(dictVariables)}\n[You will try to choose a false formula]", questionMessage);
+                var allTrueInfo = new InfoMessage(game, this, $"So you believe that at least one of these formula is false:\n{ArgumentsToString(dictVariables)}[You will try to choose a false formula]", questionMessage);
                 return new InfoMessage(game, this, $"So you believe that\n{ReformatFormula(dictVariables)}\nis false?", allTrueInfo);
             }
         }
