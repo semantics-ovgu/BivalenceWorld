@@ -42,13 +42,16 @@ public class GUI_SaveCurrentGame : GUI_Button
     public bool SaveWorldObjs(Board saveBoard)
     {
         var board = saveBoard;
-        board = GameManager.Instance.GetCurrentBoard();
+        if (board == null)
+        {
+            board = GameManager.Instance.GetCurrentBoard();
+        }
 
         if (board != null)
         {
             List<Field> obj = board.GetFieldElements();
             List<WorldObject> worldObjs = new List<WorldObject>();
-            var defaultName = _buttonPanel.GetActiveButton().GetName();
+            var defaultName = board.GetName();
 
             foreach (Field item in obj)
             {
@@ -76,7 +79,7 @@ public class GUI_SaveCurrentGame : GUI_Button
 
             if (!string.IsNullOrEmpty(path))
             {
-                _buttonPanel.GetActiveButton().SetName(Path.GetFileNameWithoutExtension(path));
+                _buttonPanel.Update();
                 return true;
             }
         }
@@ -138,7 +141,7 @@ public class GUI_SaveCurrentGame : GUI_Button
         }
 
         var currentButton = button;
-        if(currentButton == null)
+        if (currentButton == null)
         {
             currentButton = manager.NavigationText.GetCurrentSelectedButton();
         }

@@ -121,10 +121,22 @@ public class GUI_Navigation_Text : GUI_TabNavigation
 
     private void RemoveTextInstance(GUI_TextFieldButton arg0)
     {
-        var messageBox = GameManager.Instance.CreateMessageBox();
-        messageBox.Init($"Do you want to save the changes you made in \"{arg0.GetButtonName()}\"?");
-        messageBox.OnSaveButtonClickedEvent.AddListener(() => MessageBoxSaveButtonClickedEventListener(arg0));
-        messageBox.OnDontSaveButtonClickedEvent.AddListener(() => MessageBoxDontSaveButtonClickedEventListener(arg0));
+        if (_currentSelectedButton == arg0)
+        {
+            SaveText(arg0, _field);
+        }
+
+        if (arg0.HasUnsavedChanges)
+        {
+            var messageBox = GameManager.Instance.CreateMessageBox();
+            messageBox.Init($"Do you want to save the changes you made in \"{arg0.GetButtonName()}\"?");
+            messageBox.OnSaveButtonClickedEvent.AddListener(() => MessageBoxSaveButtonClickedEventListener(arg0));
+            messageBox.OnDontSaveButtonClickedEvent.AddListener(() => MessageBoxDontSaveButtonClickedEventListener(arg0));
+        }
+        else
+        {
+            MessageBoxDontSaveButtonClickedEventListener(arg0);
+        }
     }
 
     private void CreateNewTextButtonListener()

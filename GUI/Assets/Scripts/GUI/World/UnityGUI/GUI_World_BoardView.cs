@@ -8,11 +8,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.GUI.World.UnityGUI
 {
-    public class GUI_World_BoardView : MonoBehaviour, IPanelDestroyRestriction
+    public class GUI_World_BoardView : MonoBehaviour, IPanelDestroyRestriction, IPanelName
     {
         [SerializeField]
         private Board _prefab = default;
         private Board _instanceBoard = null;
+
+        [SerializeField]
+        private string _defaultName = "";
 
         private void InstantiateBoard()
         {
@@ -45,7 +48,7 @@ namespace Assets.Scripts.GUI.World.UnityGUI
             if (_instanceBoard.HasUnsavedChanges)
             {
                 var message = GameManager.Instance.CreateMessageBox();
-                var name = Path.GetFileNameWithoutExtension(_instanceBoard.SavePath);
+                var name = GetName();
                 if (string.IsNullOrEmpty(name))
                 {
                     name = "Unsaved World";
@@ -72,11 +75,28 @@ namespace Assets.Scripts.GUI.World.UnityGUI
                 PanelViewDestroyedEvent?.Invoke();
             }
         }
+
+        public string GetName()
+        {
+            if (string.IsNullOrEmpty(_instanceBoard.SavePath))
+            {
+                return _defaultName;
+            }
+            else
+            {
+                return Path.GetFileNameWithoutExtension(_instanceBoard.SavePath);
+            }
+        }
     }
 
     public interface IPanelDestroyRestriction
     {
         event Action PanelViewDestroyedEvent;
         void Destroy();
+    }
+
+    public interface IPanelName
+    {
+        string GetName();
     }
 }

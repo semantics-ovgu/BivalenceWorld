@@ -50,10 +50,10 @@ namespace UnitTests
             WorldParameter parameter = new WorldParameter(worldObjects, sentences);
             BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
-            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.CanNotBeValidated);
-            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.CanNotBeValidated);
-            Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.CanNotBeValidated);
-            Assert.IsTrue(result.Result.Value[3].Value == EValidationResult.CanNotBeValidated);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.ConstantNotUsed);
+            Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.UnknownSymbol);
+            Assert.IsTrue(result.Result.Value[2].Value == EValidationResult.UnknownSymbol);
+            Assert.IsTrue(result.Result.Value[3].Value == EValidationResult.ContainsFreeVariable);
         }
 
         [TestMethod]
@@ -159,6 +159,57 @@ namespace UnitTests
             Assert.IsTrue(result.Result.Value[0].ErrorMessage.Length > 0);
             Assert.IsTrue(result.Result.Value[1].Value == EValidationResult.UnknownSymbol);
             Assert.IsTrue(result.Result.Value[1].ErrorMessage.Length > 0);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_ConstantInFunctionNotInterpreted()
+        {
+            List<string> sentences = new List<string>
+            {
+                    $"Larger(rm(b),rm(a))"
+            };
+            List<WorldObject> worldObjects = new List<WorldObject>()
+            {
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+            BivalenceWorld world = new BivalenceWorld();
+            var result = world.Check(parameter);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.ConstantNotUsed);
+            Assert.IsTrue(result.Result.Value[0].ErrorMessage.Length > 0);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_UknownSymbol_MaxConstantName()
+        {
+            List<string> sentences = new List<string>
+            {
+                    $"Larger(father(jill),father(max))"
+            };
+            List<WorldObject> worldObjects = new List<WorldObject>()
+            {
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+            BivalenceWorld world = new BivalenceWorld();
+            var result = world.Check(parameter);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.UnknownSymbol);
+            Assert.IsTrue(result.Result.Value[0].ErrorMessage.Length > 0);
+        }
+
+        [TestMethod]
+        public void TarskiWorld_ConstantInFunctionNotInterpreted_EqualsPredicate()
+        {
+            List<string> sentences = new List<string>
+            {
+                    $"a = d"
+            };
+            List<WorldObject> worldObjects = new List<WorldObject>()
+            {
+            };
+            WorldParameter parameter = new WorldParameter(worldObjects, sentences);
+            BivalenceWorld world = new BivalenceWorld();
+            var result = world.Check(parameter);
+            Assert.IsTrue(result.Result.Value[0].Value == EValidationResult.ConstantNotUsed);
+            Assert.IsTrue(result.Result.Value[0].ErrorMessage.Length > 0);
         }
     }
 }

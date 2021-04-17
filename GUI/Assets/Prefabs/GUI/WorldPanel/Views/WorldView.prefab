@@ -102,3 +102,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6134269575086106609, guid: af448508db78b3e478243bb3dded230a, type: 3}
+  _defaultName: Unsaved World

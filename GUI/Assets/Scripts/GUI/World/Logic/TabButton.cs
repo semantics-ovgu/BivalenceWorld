@@ -23,6 +23,8 @@ namespace Assets.Scripts.GUI.World
 
         void SetName(string label);
 
+        void UpdateName();
+
         string GetName();
     }
 

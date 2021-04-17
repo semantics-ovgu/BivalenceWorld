@@ -17,5 +17,7 @@ namespace Assets.Scripts.Boards
         void RemoveBoard(Board board);
 
         bool Is2DView();
+
+        List<Board> GetAllBoards();
     }
 }

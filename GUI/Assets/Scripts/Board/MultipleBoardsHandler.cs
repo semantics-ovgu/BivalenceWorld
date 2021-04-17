@@ -100,5 +100,10 @@ namespace Assets.Scripts.Boards
         {
             return this;
         }
+
+        public List<Board> GetAllBoards()
+        {
+            return _boards;
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Validator
             PL1Structure pl1Structure = pL1WorldStructure.GetPl1Structure();
             ConstDictionary constDict = pl1Structure.GetConsts();
             FunctionDictionary funcDict = pl1Structure.GetFunctions();
-            Result<List<string>> universeIdentifier = GetUniverseIdentifier(Arguments, pL1WorldStructure, dictVariables);
+            ResultSentence<List<string>> universeIdentifier = GetUniverseIdentifier(Arguments, pL1WorldStructure, dictVariables);
             ListDictionary listDict = funcDict.TryGetValue(Name);
 
             if (pL1WorldStructure is IWorldSignature worldSignature)
@@ -47,7 +47,7 @@ namespace Validator
 
             if (!universeIdentifier.IsValid)
             {
-                return ResultSentence<string>.CreateResult(false, universeIdentifier.Value.FirstOrDefault(), universeIdentifier.ErrorMessage);
+                return ResultSentence<string>.CreateResult(universeIdentifier.ValidationResult, false, universeIdentifier.Value.FirstOrDefault(), universeIdentifier.ErrorMessage);
             }
 
             string result = listDict.TryGetValue(universeIdentifier.Value);
