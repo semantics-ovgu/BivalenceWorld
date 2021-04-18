@@ -112,7 +112,7 @@ public class GUI_Game : APage
         {
             _currentSentence = sentence;
             startInstance.Init(_currentSentence, true);
-            _button.gameObject.SetActive(false);
+            //_button.gameObject.SetActive(false);
         }
         else
         {
