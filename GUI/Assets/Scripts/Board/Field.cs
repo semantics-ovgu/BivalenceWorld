@@ -199,9 +199,11 @@ public class Field : MonoBehaviour, IPredicate, IConstant
         else if (_predicateInstance != null && _predicateInstance.GetInitialPredicate() != predicate)
         {
             List<string> constants = _predicateInstance.GetConstant();
+            Predicate sizePredicate = _predicateInstance.GetPredicates().FirstOrDefault();
             DestroyPredicateObj();
             CreatePredicate(predicate);
             AddConstantToNewPredicate(constants);
+            _predicateInstance.AddModifier(sizePredicate);
         }
         else
         {

@@ -21,6 +21,13 @@ public class GUI_GameElement_Information : GUI_AGameElement
         _button.onClick.AddListener(ButtonClickedListener);
     }
 
+    public override void EnableBackButton()
+    {
+        base.EnableBackButton();
+
+        _button.interactable = true;
+    }
+
     private void ButtonClickedListener()
     {
         OnFinishedMoveEvent(null);

@@ -38,6 +38,7 @@ public class PredicateObj : MonoBehaviour
     public void Init(Predicate predicate)
     {
         _initialPredicate = predicate;
+        _predicateList = new List<Predicate>();
         _predicateList.Add(_sizePredicate);
     }
 
@@ -102,7 +103,7 @@ public class PredicateObj : MonoBehaviour
         else if (_worldCanvasInstance == null && (GetConstant().Any() || GetTemporaryConstants().Any()))
         {
             _worldCanvasInstance = Instantiate(_worldCanvasPrefab, this.transform.position, Quaternion.identity, this.transform);
-            if(GameManager.Instance.GetCameraManager().GetCurrentCamMode() == CameraRotation.CameraMode.Cam2D)
+            if (GameManager.Instance.GetCameraManager().GetCurrentCamMode() == CameraRotation.CameraMode.Cam2D)
             {
                 _worldCanvasInstance.transform.localPosition = new Vector3(-1f, 4.5f, 0f);
             }
@@ -147,28 +148,31 @@ public class PredicateObj : MonoBehaviour
     //refactor can only have one predicate
     public void AddModifier(Predicate predicate)
     {
-        Debug.Log("add modifier" + predicate.PredicateIdentifier);
-        var bhvr = predicate.Prefab.GetComponent<PredicateBhvr>();
-        if (bhvr != null)
+        if (predicate != null)
         {
-            _predicateList = new List<Predicate>();
-            _predicateList.Add(predicate);
-            bhvr.Create(this, _visual);
-            //if (!_predicateList.Contains(predicate))
-            //{
-            //    Debug.Log("not same");
-            //    bhvr.Create(this);
-            //    _predicateList.Add(predicate);
-            //}
-            //else
-            //{
-            //    Debug.Log("Remnove because same");
-            //    RemoveModifier(predicate);
-            //}
-        }
-        else
-        {
-            Debug.LogWarning("Wrong Mapping should be PredicateBhvr");
+            Debug.Log("add modifier" + predicate.PredicateIdentifier);
+            var bhvr = predicate.Prefab.GetComponent<PredicateBhvr>();
+            if (bhvr != null)
+            {
+                _predicateList = new List<Predicate>();
+                _predicateList.Add(predicate);
+                bhvr.Create(this, _visual);
+                //if (!_predicateList.Contains(predicate))
+                //{
+                //    Debug.Log("not same");
+                //    bhvr.Create(this);
+                //    _predicateList.Add(predicate);
+                //}
+                //else
+                //{
+                //    Debug.Log("Remnove because same");
+                //    RemoveModifier(predicate);
+                //}
+            }
+            else
+            {
+                Debug.LogWarning("Wrong Mapping should be PredicateBhvr");
+            }
         }
     }
 

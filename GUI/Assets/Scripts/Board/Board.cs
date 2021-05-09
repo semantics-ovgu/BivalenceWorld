@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using UnityEngine;
 
 public class Board : MonoBehaviour, IDebug
@@ -68,17 +69,15 @@ public class Board : MonoBehaviour, IDebug
 
     public Field GetFieldFromCoord(int x, int z)
     {
-        Field field = null;
-
         foreach (var item in _obj)
         {
             if (item.GetX() == x && item.GetZ() == z)
             {
-                field = item;
+                return item;
             }
         }
 
-        return field;
+        return null;
     }
 
     public IConstant GetBoardWithTargetConstant(string constant)
@@ -99,6 +98,65 @@ public class Board : MonoBehaviour, IDebug
     {
         DestroyMap();
         InternCreateMap();
+    }
+
+    public void RotateMap(bool clockwise = true)
+    {
+        List<PredicateContainer> predicates = new List<PredicateContainer>();
+        foreach (var obj in _obj)
+        {
+            if (obj.HasPredicateInstance())
+            {
+                var container = new PredicateContainer
+                {
+                    Predicate = obj.GetPredicateInstance(),
+                    X = obj.GetX(),
+                    Y = obj.GetZ()
+                };
+
+                if (clockwise)
+                {
+                    container.RotateClockwise(_width, _heigh);
+                }
+                else
+                {
+                    container.RotateCounterClockwise(_width, _heigh);
+                }
+                predicates.Add(container);
+
+                obj.ResetPredicate();
+            }
+        }
+
+        foreach (var obj in predicates)
+        {
+            var field = GetFieldFromCoord(obj.X, obj.Y);
+            field.AddPredicateObj(obj.Predicate);
+            obj.Predicate.transform.position = new Vector3(field.transform.position.x, 0, field.transform.position.z);
+            GameManager.Instance.GetSelectionManager().ResetSelection();
+
+        }
+    }
+
+    private class PredicateContainer
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public PredicateObj Predicate { get; set; }
+
+        public void RotateClockwise(int width, int height)
+        {
+            (int x, int y) origin = (X, Y);
+            X = origin.y;
+            Y = height - origin.x - 1;
+        }
+
+        public void RotateCounterClockwise(int width, int height)
+        {
+            (int x, int y) origin = (X, Y);
+            X = width - origin.y - 1;
+            Y = origin.x;
+        }
     }
 
     public void DestroyMap()

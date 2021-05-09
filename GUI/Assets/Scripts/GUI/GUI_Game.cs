@@ -21,6 +21,8 @@ public class GUI_Game : APage
     [SerializeField]
     private GUI_GameElement_Start _startPrefab = default;
 
+    private bool _startValue = false;
+
 
     [SerializeField]
     private Transform _anchor = default;
@@ -120,6 +122,27 @@ public class GUI_Game : APage
         }
     }
 
+    private void RestartGame()
+    {
+        _world = new BivalenceWorld();
+        List<WorldObject> worldObjects = Validation.CalculateWorldObjects();
+
+        WorldParameter parameter = new WorldParameter(worldObjects, new List<string>{
+                _currentSentence
+        });
+
+        _world.Check(parameter);
+
+        _game = new Game(_currentSentence, _world, _startValue);
+
+        for (int i = 1; i < _history.Count; i++)
+        {
+            var gameElement = _history[i].GetComponent<GUI_AGameElement>();
+            var move = _game.Play();
+            gameElement.ResetStep(move);
+        }
+    }
+
     private void ClearTemporaryConstants()
     {
         foreach (var field in GameManager.Instance.GetCurrentBoard().GetFieldElements())
@@ -132,6 +155,7 @@ public class GUI_Game : APage
     private void StartGame(bool startValue)
     {
         _game = new Game(_currentSentence, _world, startValue);
+        _startValue = startValue;
         NewMove(null);
     }
 
@@ -172,5 +196,28 @@ public class GUI_Game : APage
         moveInstance.Init(move);
         moveInstance.FinishedMoveEvent.AddEventListener(NewMove);
         _history.Add(moveInstance.gameObject);
+
+        moveInstance.OnBackButtonClickedEvent.AddEventListener(BackButtonClickedEventListener);
+    }
+
+    private void BackButtonClickedEventListener(GUI_AGameElement element)
+    {
+        var obj = _history.Remove(element.gameObject);
+        if (obj)
+        {
+            Destroy(element.gameObject);
+        }
+
+        var lastElement = GetLastGUIGameElement();
+
+        if (lastElement != null)
+        {
+            RestartGame();
+            lastElement.EnableBackButton();
+        }
+        else
+        {
+            ButtonClickedListener();
+        }
     }
 }

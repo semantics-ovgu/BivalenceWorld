@@ -24,6 +24,8 @@ public class GUI_GameElement_Question : GUI_AGameElement
     private ToggleGroup _group = default;
     private List<Toggle> _toggleObjs = new List<Toggle>();
 
+    private int _choosenIndex = 0;
+
     public override void Init(AMove move)
     {
         base.Init(move);
@@ -69,6 +71,23 @@ public class GUI_GameElement_Question : GUI_AGameElement
         }
     }
 
+    public override void EnableBackButton()
+    {
+        base.EnableBackButton();
+
+
+        _button.interactable = true;
+    }
+
+    public override void ResetStep(AMove move)
+    {
+        if (move is Question question)
+        {
+            _question = question;
+            question.SetAnswers(question.PossibleAnswers[_choosenIndex]);
+        }
+    }
+
     private void ContinueButtonClickedListener()
     {
         if (_toggleObjs.Any())
@@ -79,6 +98,8 @@ public class GUI_GameElement_Question : GUI_AGameElement
                 if (item.isOn)
                 {
                     _question.SetAnswers(_question.PossibleAnswers[i]);
+                    _choosenIndex = i;
+                    break;
                 }
             }
         }
@@ -89,5 +110,4 @@ public class GUI_GameElement_Question : GUI_AGameElement
             _button.interactable = false;
         }
     }
-
 }
