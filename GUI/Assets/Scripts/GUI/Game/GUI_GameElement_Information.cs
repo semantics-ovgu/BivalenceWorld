@@ -25,16 +25,21 @@ public class GUI_GameElement_Information : GUI_AGameElement
     {
         OnFinishedMoveEvent(null);
         _button.interactable = false;
-        var game = GameManager.Instance.GUIGame.Game;
-
-        foreach (var obj in game.TemporaryWorldObjects)
+        var guiGame = GameManager.Instance.GUIGame;
+        if (guiGame)
         {
-            var position = obj.TryGetPosition().Value;
-            var field = GameManager.Instance.GetCurrentBoard().GetFieldFromCoord(position.X, position.Y);
-            if (!field.GetConstantsList().Any())
-            {
-                field.AddTemporaryConstant(obj.Consts.First());
-            }
+	        var game = guiGame.Game;
+
+	        foreach (var obj in game.TemporaryWorldObjects)
+	        {
+		        var position = obj.TryGetPosition().Value;
+		        var field = GameManager.Instance.GetCurrentBoard().GetFieldFromCoord(position.X, position.Y);
+		        if (!field.GetConstantsList().Any())
+		        {
+			        field.AddTemporaryConstant(obj.Consts.First());
+		        }
+	        }
         }
+
     }
 }
