@@ -7,11 +7,16 @@ public class SentenceButton : ASentenceButton
     [SerializeField]
     private string _sentence = "";
 
-
     protected override void ButtonClickedListener()
     {
-        SpaceBeforeText();
+	    var currentLeftPage = GameManager.Instance.GetRightNavigationTab().GetCurrentPageInstance();
 
+        if (currentLeftPage != null && currentLeftPage.GetType() == GUI_TabNavigation.EType.PL1Structure)
+        {
+	        return;
+        }
+
+        SpaceBeforeText();
         var inputTextField = GameManager.Instance.GetTextInputField().CurrentTextInputElement?.InputField;
 
         if (inputTextField != null)

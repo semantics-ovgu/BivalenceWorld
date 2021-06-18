@@ -2541,6 +2541,7 @@ MonoBehaviour:
     type: 3}
   _scaleRectTransform: {fileID: 1932118436}
   _canvasScaler: {fileID: 1932118434}
+  _rightNavigationTab: {fileID: 1581487392}
   _textInputField: {fileID: 671850254}
   _modelPResentation: []
   _cameraManager: {fileID: 914231958}

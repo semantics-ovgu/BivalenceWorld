@@ -46,24 +46,15 @@ public class GameManager : ASingleton<GameManager>
     private CanvasScaler _canvasScaler = default;
 
     [SerializeField]
+    private GUI_TabNavigation _rightNavigationTab;
+
+    public GUI_TabNavigation GetRightNavigationTab() => _rightNavigationTab;
+
+    [SerializeField]
     private GUI_TextInputField _textInputField = default;
     [SerializeField]
     private List<GUI_GetModelPresentation> _modelPResentation = default;
     public List<GUI_GetModelPresentation> GetModelPresentation() => _modelPResentation;
-
-    public void SetModelPresentation(GUI_GetModelPresentation guiGetModelPresentation)
-    {
-        _modelPResentation.Add(guiGetModelPresentation);
-        CreateNewInstanceFromModelPresentationEvent.InvokeEvent(guiGetModelPresentation);
-    }
-
-    public void RemoveModelPresentation(GUI_GetModelPresentation instance)
-    {
-        if (_modelPResentation.Contains(instance))
-        {
-            _modelPResentation.Remove(instance);
-        }
-    }
 
     public GenericEvent<GUI_GetModelPresentation> CreateNewInstanceFromModelPresentationEvent = new GenericEvent<GUI_GetModelPresentation>();
     public GenericEvent<string> ConstantChangedEvent = new GenericEvent<string>();
@@ -86,7 +77,21 @@ public class GameManager : ASingleton<GameManager>
 
     private void Start()
     {
-        CheckDebugList(_debugFloatVar.CurrentValue);
+	    CheckDebugList(_debugFloatVar.CurrentValue);
+    }
+
+    public void SetModelPresentation(GUI_GetModelPresentation guiGetModelPresentation)
+    {
+        _modelPResentation.Add(guiGetModelPresentation);
+        CreateNewInstanceFromModelPresentationEvent.InvokeEvent(guiGetModelPresentation);
+    }
+
+    public void RemoveModelPresentation(GUI_GetModelPresentation instance)
+    {
+        if (_modelPResentation.Contains(instance))
+        {
+            _modelPResentation.Remove(instance);
+        }
     }
 
     public void AddObjToDebugList(IDebug component)

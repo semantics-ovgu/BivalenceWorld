@@ -16,6 +16,18 @@ public class GUI_TabNavigation : MonoBehaviour
     protected Transform _pageAnchor = default;
 
     protected Pair _currentPageInstance = default;
+
+    public APage GetCurrentPageInstance()
+    {
+	    if (_currentPageInstance != null)
+	    {
+		    return _currentPageInstance.Page;
+	    }
+	    else
+	    {
+		    return null;
+	    }
+    }
     protected List<Pair> _textPanelsInstances = new List<Pair>();
 
     private void Awake()
