@@ -499,6 +499,8 @@ MonoBehaviour:
   _singleValidateButton: {fileID: 7594514671683549673}
   _validateImage: {fileID: 5934010478022883003}
   _inputFields: {fileID: 8549055715030138912}
+  _transformFromText:
+  - {fileID: 7926571112930596017}
 --- !u!1 &2372871987910071637
 GameObject:
   m_ObjectHideFlags: 0

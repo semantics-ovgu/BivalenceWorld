@@ -38,7 +38,6 @@ public class GUI_TextInputElement : MonoBehaviour
         GameManager.Instance.GetValidation().StartCalculator(inputFields, _sentences);
     }
 
-
     public void AddText(string txt)
     {
         int carePos = _inputFields.caretPosition;
@@ -76,9 +75,8 @@ public class GUI_TextInputElement : MonoBehaviour
 
     private void SetInputFieldText(string txt, int caretPosition)
     {
-
-        _inputFields.text = txt;
-        SetCaretPosition(caretPosition);
+	    _inputFields.text = txt;
+		 SetCaretPosition(caretPosition);
     }
 
     private void SetCaretPosition(int caretPos)
