@@ -392,6 +392,11 @@ PrefabInstance:
       propertyPath: m_textInfo.materialCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5305070054601433778, guid: 7a38389f06f5e5541ad775084df6c94a,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5305070054601433779, guid: 7a38389f06f5e5541ad775084df6c94a,
         type: 3}
       propertyPath: m_LocalPosition.x
