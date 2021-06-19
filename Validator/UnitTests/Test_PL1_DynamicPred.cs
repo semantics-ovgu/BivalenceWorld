@@ -48,9 +48,9 @@ namespace UnitTests
 
             List<List<string>> preds = _predDictionary[BivalenceWorldDataFields.LARGER];
 
-            Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u1"));
-            Assert.IsTrue(preds.Any(x => x[0] == "u0" && x[1] == "u2"));
-            Assert.IsTrue(preds.Any(x => x[0] == "u1" && x[1] == "u2"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u0" && x[1] == "u1"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u0" && x[1] == "u2"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u1" && x[1] == "u2"));
         }
 
         [TestMethod]
@@ -60,9 +60,9 @@ namespace UnitTests
 
             List<List<string>> preds = _predDictionary[BivalenceWorldDataFields.SMALLER];
 
-            Assert.IsTrue(preds.Any(x => x[0] == "u1" && x[1] == "u0"));
-            Assert.IsTrue(preds.Any(x => x[0] == "u2" && x[1] == "u0"));
-            Assert.IsTrue(preds.Any(x => x[0] == "u2" && x[1] == "u1"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u1" && x[1] == "u0"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u2" && x[1] == "u0"));
+            Assert.IsTrue(preds.Any(x => x.Count > 1 && x[0] == "u2" && x[1] == "u1"));
         }
     }
 }

@@ -7,6 +7,13 @@ public class Validation
 {
 
     private bool _isDebugMode = false;
+    private BivalenceWorld _world = null;
+
+
+    public Validation()
+    {
+        _world = new BivalenceWorld();
+    }
 
     public void DebugModeChanged(bool isDebug)
     {
@@ -87,9 +94,7 @@ public class Validation
 
     private void CheckValidationResult(List<WorldObject> worldObjs, List<string> resultSentences, List<GUI_TextInputElement> list)
     {
-        BivalenceWorld world = new BivalenceWorld();
-
-        WorldResult<EValidationResult> result = world.Check(new WorldParameter(worldObjs, resultSentences));
+        WorldResult<EValidationResult> result = _world.Check(new WorldParameter(worldObjs, resultSentences));
 
         for (int i = 0; i < result.Result.Value.Count; i++)
         {
@@ -98,21 +103,20 @@ public class Validation
 
         }
 
-        SetPresentationLayout(world);
+        SetPresentationLayout(_world);
 
     }
 
     public void SetPresentationLayout(bool hardResetGame = false)
     {
-        BivalenceWorld world = new BivalenceWorld();
-        WorldResult<EValidationResult> result = world.Check(new WorldParameter(CalculateWorldObjects(), new List<string>()));
+        WorldResult<EValidationResult> result = _world.Check(new WorldParameter(CalculateWorldObjects(), new List<string>()));
         if (hardResetGame)
         {
-            SetPresentationLayout(world, false);
+            SetPresentationLayout(_world, false);
         }
         else
         {
-            SetPresentationLayout(world, GameManager.Instance.GUIGame != null);
+            SetPresentationLayout(_world, GameManager.Instance.GUIGame != null);
         }
     }
 

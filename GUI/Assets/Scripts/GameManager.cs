@@ -77,13 +77,14 @@ public class GameManager : ASingleton<GameManager>
 
     private void Start()
     {
-	    CheckDebugList(_debugFloatVar.CurrentValue);
+        CheckDebugList(_debugFloatVar.CurrentValue);
     }
 
     public void SetModelPresentation(GUI_GetModelPresentation guiGetModelPresentation)
     {
         _modelPResentation.Add(guiGetModelPresentation);
         CreateNewInstanceFromModelPresentationEvent.InvokeEvent(guiGetModelPresentation);
+        GetValidation().SetPresentationLayout();
     }
 
     public void RemoveModelPresentation(GUI_GetModelPresentation instance)

@@ -6,11 +6,9 @@ namespace Validator
 {
     public struct WorldObject
     {
-
         private List<string> _consts;
         private List<string> _predicates;
         private List<object> _tags;
-
 
         public WorldObject(List<string> consts, List<string> predicates, List<object> tags)
         {

@@ -26,10 +26,11 @@ namespace Validator
 
         public PredicateDictionary GetPredicates() => _modelDataStructure.Predicates;
 
-        public void Clear()
+        public void Clear(WorldParameter parameter)
         {
             _modelDataStructure.Clear();
             _universe.Clear();
+            _genericIndex = 0;
         }
 
         public string GetModelRepresentation(List<string> sentences, bool showGenericIdentifier = false)
@@ -57,40 +58,51 @@ namespace Validator
                 if (sentences.Any(s => s.Contains(predicateValuePair.Key)))
                 {
                     builder.Append($"{predicateValuePair.Key.PadRight(padding)} |-> ");
-                    for (var i = 0; i < predicateValuePair.Value.Count; i++)
-                    {
-                        var predicateValue = predicateValuePair.Value[i];
-                        if (i != 0)
-                        {
-                            //builder.AppendFormat($"{{0,{padding + 4}}}", " ");
-                        }
-                        else
-                        {
-                            builder.Append("{");
-                        }
+                    var valueList = predicateValuePair.Value.Where(x => x.Any()).ToList();
+                    var amountParameters = valueList.Count;
 
-                        if (i < predicateValuePair.Value.Count - 1)
+                    if (amountParameters > 0)
+                    {
+
+                        for (var i = 0; i < amountParameters; i++)
                         {
-                            if (predicateValue.Count > 1)
+                            var predicateValue = valueList[i].Where(x => !string.IsNullOrEmpty(x)).ToList();
+                            if (i != 0)
                             {
-                                builder.Append($"({string.Join(",", predicateValue)}),");
+                                //builder.AppendFormat($"{{0,{padding + 4}}}", " ");
                             }
                             else
                             {
-                                builder.Append($"{string.Join(",", predicateValue)},");
+                                builder.Append("{");
                             }
-                        }
-                        else
-                        {
-                            if (predicateValue.Count > 1)
+
+                            if (i < amountParameters - 1)
                             {
-                                builder.Append($"({string.Join(",", predicateValue)})}}");
+                                if (predicateValue.Count > 1)
+                                {
+                                    builder.Append($"({string.Join(",", predicateValue)}),");
+                                }
+                                else
+                                {
+                                    builder.Append($"{string.Join(",", predicateValue)},");
+                                }
                             }
                             else
                             {
-                                builder.Append($"{string.Join(",", predicateValue)}}}");
+                                if (predicateValue.Count > 1)
+                                {
+                                    builder.Append($"({string.Join(",", predicateValue)})}}");
+                                }
+                                else
+                                {
+                                    builder.Append($"{string.Join(",", predicateValue)}}}");
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        builder.Append("{}");
                     }
 
                     builder.AppendLine();
