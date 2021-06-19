@@ -24,12 +24,18 @@ namespace Validator
         public WorldResult<EValidationResult> Check(WorldParameter parameter)
         {
             _worldParameter = parameter;
-            _pl1Structure.Clear();
+            _pl1Structure.Clear(parameter);
 
             WorldResult<EValidationResult> worldResult =
                     new WorldResult<EValidationResult>(Result<List<Result<EValidationResult>>>.CreateResult(true, new List<Result<EValidationResult>>()));
             try
             {
+                //--Initialize every predicate in the signature--//
+                foreach (var pre in _signature.Predicates)
+                {
+                    _pl1Structure.AddPredicate(pre.Item1, new List<string>());
+                }
+
                 //--Initialize consts and static predicates--//
                 foreach (var data in parameter.Data)
                 {
