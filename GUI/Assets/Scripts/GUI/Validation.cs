@@ -84,7 +84,7 @@ public class Validation
                     List<object> coord = new List<object>();
                     coord.Add(item.GetX());
                     coord.Add(item.GetZ());
-                    worldObjs.Add(new WorldObject(constant, worldPredicates, coord));
+                    worldObjs.Add(new WorldObject(constant, worldPredicates, coord,  item.GetPredicateInstance().GetInstanceID()));
                 }
             }
         }

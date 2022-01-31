@@ -8,7 +8,6 @@ namespace Validator
     public class PL1Structure
     {
         public const string GENERIC_IDENTIFIER = "n";
-        private int _genericIndex = 0;
         private PL1DataStructure _modelDataStructure;
 
         private List<string> _universe = new List<string>();
@@ -30,7 +29,6 @@ namespace Validator
         {
             _modelDataStructure.Clear();
             _universe.Clear();
-            _genericIndex = 0;
         }
 
         public string GetModelRepresentation(List<string> sentences, bool showGenericIdentifier = false)
@@ -40,11 +38,11 @@ namespace Validator
 
             builder.AppendLine("---Universe---");
             builder.Append("Universe |-> {");
-            builder.Append(string.Join(",", _universe));
+            builder.Append(string.Join(",", _universe.OrderBy(x => x)));
             builder.AppendLine("}");
 
             builder.AppendLine("---Constants---");
-            foreach (var constValue in GetConsts())
+            foreach (var constValue in GetConsts().ToList().OrderBy(x => x.Key))
             {
                 if (showGenericIdentifier || !constValue.Key.StartsWith(GENERIC_IDENTIFIER))
                 {
@@ -53,7 +51,7 @@ namespace Validator
             }
 
             builder.AppendLine("---Predicates---");
-            foreach (var predicateValuePair in GetPredicates())
+            foreach (var predicateValuePair in GetPredicates().ToList())
             {
                 if (sentences.Any(s => s.Contains(predicateValuePair.Key)))
                 {
@@ -66,7 +64,7 @@ namespace Validator
 
                         for (var i = 0; i < amountParameters; i++)
                         {
-                            var predicateValue = valueList[i].Where(x => !string.IsNullOrEmpty(x)).ToList();
+                            var predicateValue = valueList[i].Where(x => !string.IsNullOrEmpty(x)).OrderBy(x => x).ToList();
                             if (i != 0)
                             {
                                 //builder.AppendFormat($"{{0,{padding + 4}}}", " ");
@@ -210,13 +208,36 @@ namespace Validator
         internal string AddConst()
         {
             ConstDictionary consts = _modelDataStructure.Consts;
-            string key = GENERIC_IDENTIFIER + _genericIndex;
-            _genericIndex++;
-            string uni = _universeIdentifier + consts.CurrIndex++;
+            string key = GENERIC_IDENTIFIER + consts.GenericIndex;
+            string uni = _universeIdentifier + consts.CurrIndex;
             consts.Add(key, uni);
             _universe.Add(uni);
-
             return key;
+        }
+
+        internal void AddGenericKey(WorldObject obj)
+        {
+            ConstDictionary consts = _modelDataStructure.Consts;
+            string key = GENERIC_IDENTIFIER + consts.GenericIndex;
+            obj.Consts.Add(key);
+        }
+
+        internal void AddConstAndUniverseKey(string key, string universeKey)
+        {
+            ConstDictionary consts = _modelDataStructure.Consts;
+
+            if (!consts.ContainsKey(key))
+            {
+                consts.Add(key, universeKey);
+                _universe.Add(universeKey);
+
+                if (key.StartsWith("n"))
+                {
+                    consts.AddIndex(key);
+                }
+
+                consts.AddIndex(universeKey);
+            }
         }
 
         internal void AddConst(string key, string keySameUniverseIdentifier = null)
@@ -225,11 +246,10 @@ namespace Validator
 
             if (!consts.ContainsKey(key))
             {
-                if (keySameUniverseIdentifier == null)
+                if (keySameUniverseIdentifier == null || !consts.ContainsKey(keySameUniverseIdentifier))
                 {
                     string uni = _universeIdentifier + consts.CurrIndex;
                     consts.Add(key, uni);
-                    consts.CurrIndex++;
                     _universe.Add(uni);
                 }
                 else
@@ -243,7 +263,7 @@ namespace Validator
         {
             ConstDictionary consts = _modelDataStructure.Consts;
             consts.Remove(key);
-            _genericIndex--;
+            consts.RemoveIndex(key);
         }
 
 
@@ -298,7 +318,80 @@ namespace Validator
             return key;
         }
 
-        public int CurrIndex = 0;
+        public int CurrIndex
+        {
+            get
+            {
+                for (int i = 0; i < int.MaxValue; i++)
+                {
+                    if (!_availableIndexes.Contains(i))
+                    {
+                        _availableIndexes.Add(i);
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        public int GenericIndex
+        {
+            get
+            {
+                for (int i = 0; i < int.MaxValue; i++)
+                {
+                    if (!_availableGenericIndexes.Contains(i))
+                    {
+                        _availableGenericIndexes.Add(i);
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        public void ClearIndexes()
+        {
+            _availableIndexes.Clear();
+            _availableGenericIndexes.Clear();
+        }
+
+        private HashSet<int> _availableIndexes = new HashSet<int>();
+        private HashSet<int> _availableGenericIndexes = new HashSet<int>();
+
+        public void AddIndex(string key)
+        {
+            var index = key.Substring(1);
+            var indexKey = key[0];
+            var indexValue = int.Parse(index);
+
+            if (indexKey == 'u')
+            {
+                _availableIndexes.Add(indexValue);
+            }
+            else if (indexKey == 'n')
+            {
+                _availableGenericIndexes.Add(indexValue);
+            }
+        }
+
+        public void RemoveIndex(string key)
+        {
+            var index = key.Substring(1);
+            var indexKey = key[0];
+            var indexValue = int.Parse(index);
+
+            if (indexKey == 'u')
+            {
+                _availableIndexes.Remove(indexKey);
+            }
+            else
+            {
+                _availableGenericIndexes.Remove(indexValue);
+            }
+        }
     }
 
     public class PredicateDictionary : Dictionary<string, List<List<string>>>

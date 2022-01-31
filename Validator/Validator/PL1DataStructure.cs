@@ -24,7 +24,7 @@
             _const.Clear();
             _predicates.Clear();
             _functions.Clear();
-            _const.CurrIndex = 0;
+            _const.ClearIndexes();
         }
     }
 }

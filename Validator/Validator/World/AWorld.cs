@@ -21,10 +21,53 @@ namespace Validator
             _funcValidation = CreateFunctionDictionary();
         }
 
+        private List<WorldObject> CalculateSameObjects(List<WorldObject> newWorld)
+        {
+            var result = new List<WorldObject>();
+
+            if (_worldParameter.Data != null)
+            {
+                foreach (var obj in _worldParameter.Data)
+                {
+                    foreach (var newObj in newWorld)
+                    {
+                        if (obj.Id == newObj.Id && (obj.Id != -1 || newObj.Id != -1))
+                        {
+                            newObj.UniverseKey = obj.UniverseKey;
+                            result.Add(newObj);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private void ReplaceSameWorldObjects(List<WorldObject> newWorldObjects)
+        {
+            var sameObjects = CalculateSameObjects(newWorldObjects);
+
+            foreach (var obj in sameObjects)
+            {
+                if (!obj.Consts.Any() || string.IsNullOrEmpty(obj.Consts.FirstOrDefault()))
+                {
+                    _pl1Structure.AddGenericKey(obj);
+                }
+                foreach (var objConst in obj.Consts)
+                {
+                    _pl1Structure.AddConstAndUniverseKey(objConst, obj.UniverseKey);
+                }
+            }
+        }
+
         public WorldResult<EValidationResult> Check(WorldParameter parameter)
         {
-            _worldParameter = parameter;
             _pl1Structure.Clear(parameter);
+
+            ReplaceSameWorldObjects(parameter.Data);
+            var sameObjets = CalculateSameObjects(parameter.Data);
+
+            _worldParameter = parameter;
 
             WorldResult<EValidationResult> worldResult =
                     new WorldResult<EValidationResult>(Result<List<Result<EValidationResult>>>.CreateResult(true, new List<Result<EValidationResult>>()));
@@ -39,41 +82,50 @@ namespace Validator
                 //--Initialize consts and static predicates--//
                 foreach (var data in parameter.Data)
                 {
-                    string keyUniverseIdentifier = _pl1Structure.AddConst();
-                    bool removeKeyUniverse = true;
+                    if (sameObjets.All(w => w.Id != data.Id))
+                    {
+                        string keyUniverseIdentifier = _pl1Structure.AddConst();
+                        bool removeKeyUniverse = true;
+
+                        data.UniverseKey = _pl1Structure.GetConsts()[keyUniverseIdentifier];
+
+                        if (data.Consts.Any() && !string.IsNullOrEmpty(data.Consts.FirstOrDefault()))
+                        {
+                            foreach (var con in data.Consts)
+                            {
+                                _pl1Structure.AddConst(con, keyUniverseIdentifier);
+                            }
+                        }
+                        else
+                        {
+                            if (!data.Consts.Any())
+                            {
+                                data.Consts.Add(keyUniverseIdentifier);
+                            }
+                            else
+                            {
+                                data.Consts[0] = keyUniverseIdentifier;
+                            }
+
+                            _pl1Structure.AddConst(keyUniverseIdentifier, keyUniverseIdentifier);
+                            removeKeyUniverse = false;
+                        }
+
+                        if (removeKeyUniverse)
+                        {
+                            _pl1Structure.RemoveConst(keyUniverseIdentifier);
+                        }
+                    }
+
                     foreach (var pred in data.Predicates)
                     {
                         if (_signature.Predicates.Any(s => s.Item1 == pred))
                         {
-                            if (data.Consts.Any() && !string.IsNullOrEmpty(data.Consts.FirstOrDefault()))
+                            foreach (var con in data.Consts)
                             {
-                                foreach (var con in data.Consts)
-                                {
-                                    _pl1Structure.AddConst(con, keyUniverseIdentifier);
-                                    _pl1Structure.AddPredicate(pred, new List<string> { con });
-                                }
-                            }
-                            else
-                            {
-                                if (!data.Consts.Any())
-                                {
-                                    data.Consts.Add(keyUniverseIdentifier);
-                                }
-                                else
-                                {
-                                    data.Consts[0] = keyUniverseIdentifier;
-                                }
-
-                                _pl1Structure.AddConst(keyUniverseIdentifier, keyUniverseIdentifier);
-                                _pl1Structure.AddPredicate(pred, new List<string> { keyUniverseIdentifier });
-                                removeKeyUniverse = false;
+                                _pl1Structure.AddPredicate(pred, new List<string> { con });
                             }
                         }
-                    }
-
-                    if (removeKeyUniverse)
-                    {
-                        _pl1Structure.RemoveConst(keyUniverseIdentifier);
                     }
                 }
 

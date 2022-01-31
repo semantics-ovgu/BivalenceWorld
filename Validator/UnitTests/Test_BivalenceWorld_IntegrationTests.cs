@@ -120,17 +120,29 @@ namespace UnitTests
             List<WorldObject> worldObjects = new List<WorldObject>
             {
                     new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
-                            new List<object> {3, 3}),
+                            new List<object> {3, 3}, 1),
                     new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
-                            new List<object> {5, 3}),
+                            new List<object> {2, 3}, 2),
                     new WorldObject(new List<string> {"c"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
-                            new List<object> {4, 3}),
-                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM}, new List<object> {3, 5})
+                            new List<object> {4, 3}, 3),
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM}, new List<object> {3, 5}, 4)
+            };
+            List<WorldObject> worldObjects2 = new List<WorldObject>
+            {
+                    new WorldObject(new List<string> {"a"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
+                            new List<object> {3, 3}, 4),
+                    new WorldObject(new List<string> {"b"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
+                            new List<object> {2, 3}, 1),
+                    new WorldObject(new List<string> {"c"}, new List<string> {BivalenceWorldDataFields.CUBE, BivalenceWorldDataFields.LARGE},
+                            new List<object> {4, 3}, 3),
+                    new WorldObject(new List<string>(), new List<string> {BivalenceWorldDataFields.TET, BivalenceWorldDataFields.MEDIUM}, new List<object> {3, 5}, 2)
             };
             WorldParameter parameter = new WorldParameter(worldObjects, new List<string>());
+            WorldParameter parameter2 = new WorldParameter(worldObjects2, new List<string>());
             BivalenceWorld world = new BivalenceWorld();
             var result = world.Check(parameter);
-            var representation = world.GetPl1Structure().GetModelRepresentation(new List<string> { "Tet(a)" });
+            result = world.Check(parameter2);
+            var representation = world.GetPl1Structure().GetModelRepresentation(new List<string> { "Large(a) and Medium(b)" });
         }
 
         private List<WorldObject> CreateWorld()

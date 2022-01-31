@@ -4,18 +4,22 @@ using System.Linq;
 
 namespace Validator
 {
-    public struct WorldObject
+    public class WorldObject
     {
         private List<string> _consts;
         private List<string> _predicates;
         private List<object> _tags;
+        private long _id;
+        private string _universeKey;
 
-        public WorldObject(List<string> consts, List<string> predicates, List<object> tags)
+        public WorldObject(List<string> consts, List<string> predicates, List<object> tags, long id = -1)
         {
             _consts = new List<string>();
             _consts.AddRange(consts.Select(s => s));
             _predicates = predicates;
             _tags = tags;
+            _id = id;
+            _universeKey = "";
         }
 
         public WorldObject(WorldObject other)
@@ -23,12 +27,21 @@ namespace Validator
             _consts = new List<string>();
             _predicates = new List<string>();
             _tags = new List<object>();
+            _id = other._id;
+            _universeKey = other._universeKey;
 
             _consts.AddRange(other.Consts);
             _predicates.AddRange(other._predicates);
             _tags.AddRange(other._tags);
         }
 
+        public long Id => _id;
+
+        public string UniverseKey
+        {
+            get => _universeKey;
+            set => _universeKey = value;
+        }
 
         public List<string> Consts
         {
